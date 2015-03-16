@@ -1,0 +1,58 @@
+var compteur = 0;
+<?php
+
+foreach($this->events as $event) : 
+  if(array_key_exists('item_idItem',$event)) : 
+    $date_end = "";
+    $date = new Zend_Date($event["date_begin"]);
+    $datetime_deb = $date->get(Zend_Date::ISO_8601);
+    
+    $tmp_date = explode(" ",$event['date_end']);
+    $date_end = $tmp_date[0]." 23:59:59";
+    
+    $date = new Zend_Date($date_end);
+    $datetime_fin = $date->get(Zend_Date::ISO_8601);      
+    $datetime_deb = explode("+",$datetime_deb);
+    $datetime_deb = $datetime_deb[0].".000+".$datetime_deb[1];
+    
+    $datetime_fin = explode("+",$datetime_fin);
+    $datetime_fin = $datetime_fin[0].".000+".$datetime_fin[1];
+?>
+var calendarService = new google.gdata.calendar.CalendarService('GoogleInc-jsguide-1.0');
+var feedUri = 'http://www.google.com/calendar/feeds/default/private/full';
+var searchText = "<?php echo $event["title"] ?>";
+
+var query = new google.gdata.calendar.CalendarEventQuery(feedUri);
+query.setFullTextQuery(searchText);
+var callback = function(root) {
+  var eventEntries = root.feed.getEntries();
+  if (eventEntries.length > 0) {
+    var toto ="";
+  } else {
+    Tootlist.dialog.info("Tootlist : Synchronisation Google Agenda","Ajout de <?php echo $event['title']?>");
+    var calendarService2 = new google.gdata.calendar.CalendarService('GoogleInc-jsguide-1.0');
+    var feedUri2 = 'http://www.google.com/calendar/feeds/default/private/full';
+    var entry2 = new google.gdata.calendar.CalendarEventEntry();
+    entry2.setTitle(google.gdata.Text.create("<?php echo $event['title']?>"));
+    var when2 = new google.gdata.When();
+    var startTime2 = google.gdata.DateTime.fromIso8601("<?php echo $datetime_deb ?>");
+    var endTime2 = google.gdata.DateTime.fromIso8601("<?php echo $datetime_fin ?>");
+    when2.setStartTime(startTime2);
+    when2.setEndTime(endTime2);
+    entry2.addTime(when2);
+    var callback2 = function(result) {}
+    var handleError2 = function(error) {}
+    calendarService2.insertEntry(feedUri2, entry2, callback2, handleError2, google.gdata.calendar.CalendarEventEntry);
+    compteur ++;
+  }
+}
+var handleError = function(error) {}
+calendarService.getEventsFeed(query, callback, handleError);
+
+<?php 
+  endif;
+endforeach; ?>
+  
+
+
+

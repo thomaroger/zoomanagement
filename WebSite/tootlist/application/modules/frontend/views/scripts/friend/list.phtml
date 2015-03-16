@@ -1,0 +1,94 @@
+<?php if($this->type == "search") : ?>
+<h2 class="search_title modifiable"> <?=$this->translate("Recherche pour")?> <?php echo $this->query ; ?> : </h2>
+
+<?php
+foreach($this->tab_searches as $k => $tab_search) :
+?>   
+  <div class="user_tootlist">
+  <?php if($tab_search['photo'] !="") : ?>
+    <div class="avatar"><img src="<?php echo $tab_search['photo']?>" title="<?php echo $tab_search['name']," ",$tab_search['firstname']?>"/></div>
+  <?php endif; ?>
+    <div class="information">
+      <p class="modifiable"><?php echo strtoupper($tab_search['name'])," ",ucfirst($tab_search['firstname'])?></p>
+      <p class="modifiable login">
+        <a href="/view/<?php echo $tab_search['login']?>" title="voir le profil de <?php echo $tab_search['login']?>"><?php echo $tab_search['login']?></a>
+      </p>
+      <?php 
+      $list_user = new Model_DbTable_User(); 
+      if ($list_user->hasFriend($k)==0) :?>
+        <p class="modifiable" id="p_<?php echo $k; ?>"><a href="javascript:void(0)" onclick="Tootlist.friend.action(0,<?php echo $k; ?>,this);"><?=$this->translate("Ajouter comme ami")?></a></p>
+      <?php elseif ($list_user->hasFriend($k)==1) : ?>
+        <p class="modifiable" id="p_<?php echo $k; ?>"><?=$this->translate("Vous etes amis.")?></p>
+      <?php else : ?>
+        <p class="modifiable" id="p_<?php echo $k; ?>"><?=$this->translate("Une demande d'ami est d&eacute;j&agrave; en cours.")?></p>
+      <?php endif; ?>
+    </div>
+    <div class="clear">&nbsp;</div>
+  </div>    
+<?php 
+  endforeach;
+  elseif($this->type == "gmail") :  
+    $login = $this->contacts[0];
+  	$mail = $this->contacts[1];
+    ?>
+ <p class="search_title modifiable"> <?=$this->translate("Contacts inscrit sur")?> Tootlist : </p>    
+<?php  	
+  	foreach($this->tabs_searches as $k => $v ):
+  	 $list_user = new Model_DbTable_User(); 
+  	 $rows = $list_user->fetchAll($list_user->select()->where('email = ?', $k)); 
+  	 if(count($rows) != 0) :
+  	   $profil_user =  new Model_DbTable_User();
+  	   $current_user = $profil_user->getUser();
+  	   if($current_user->idUser == $rows[0]['idUser'] ) continue;
+  	   $profiles_associed = $profil_user->getProfile($rows[0]['idUser']);
+  	   $photo ="";
+  	   if($profiles_associed):
+    	   foreach($profiles_associed as $profile_associed):
+           if($profile_associed["property"]=="photo"):
+             $photo = $profile_associed["value"];
+           endif;  
+         endforeach;
+       endif;
+  	 ?>
+  <div class="user_tootlist">
+  <?php if($photo !="") : ?>
+    <div class="avatar"><img src="<?php echo $photo?>" title="<?php echo $v?>"/></div>
+  <?php endif; ?>
+      <div class="information">
+        <p class="modifiable"><?php echo $v?></p>
+        <p class="modifiable login">
+          <a href="/view/<?php echo $rows[0]['login']?>" title="voir le profil de <?php echo $rows[0]['login'];?>"> <?php echo  $rows[0]['login'];?></a>
+        </p>
+        <?php 
+          $list_user = new Model_DbTable_User(); 
+          if ($list_user->hasFriend($rows[0]['idUser'])==0) :?>
+        <p class="modifiable" id="p_<?php echo $k; ?>"><a href="javascript:void(0)" onclick="Tootlist.friend.action(0,<?php echo $rows[0]['idUser']; ?>,this)"><?=$this->translate("Ajouter comme ami")?></a></p>
+         <?php elseif ($list_user->hasFriend($rows[0]['idUser'])==1) : ?>
+        <p class="modifiable" id="p_<?php echo $k; ?>"><?=$this->translate("Vous etes amis")?>.</p>
+      <?php else : ?>
+        <p class="modifiable" id="p_<?php echo $k; ?>"><?=$this->translate("Une demande d'ami est d&eacute;j&agrave; en cours.")?></p>
+      <?php endif; ?>
+      </div>
+      <div class="clear">&nbsp;</div>
+  </div>
+  <?php endif;
+  	endforeach;
+  	?>
+  	<p class="search_title modifiable" style="margin-top:30px;"> <?=$this->translate("Contacts non inscrit sur")?> Tootlist : </p>    
+<?php  	
+  	foreach($this->tabs_searches as $k => $v ):
+  	 $list_user = new Model_DbTable_User(); 
+  	 $rows = $list_user->fetchAll($list_user->select()->where('email = ?', $k)); 
+  	 if(count($rows) == 0) :
+  	 ?>
+  <div class="user_tootlist">
+      <div class="information">
+        <p class="modifiable"><?php echo $v ?></p>
+        <p class="modifiable login"><?php echo $k?></p>
+        <p class="modifiable" id="p_<?php echo $k; ?>"><a href="javascript:void(0)" onclick="Tootlist.friend.action(1,'<?php echo $k; ?>',this)"><?=$this->translate("Envoyer une invitation")?></a></p>
+      </div>
+      <div class="clear">&nbsp;</div>
+  </div>
+  <?php endif;
+  	endforeach;
+ endif; ?>

@@ -1,0 +1,34 @@
+<div class="formulaire" style="margin-top:50px">
+  <form action="<?php echo $this->escape($this->element->getAction());?>" method="<?php echo $this->escape($this->element->getMethod()); ?>" name="signin" id="form_signin" class="modifiable">
+   <h1 class="modifiable" style="text-align:center"><span><?php echo $this->translate('Connexion au backoffice'); ?></span></h1>
+   <div class="content_form">
+      <?php foreach($this->element as $element): ?>
+        <div class="ligne">
+    		  <?php if($element->getDescription() !=''): ?>
+    		    <span class="tips" alt="<?php echo $this->translate($element->getLabel()); ?>::<?php echo $element->getDescription();?>"><?php echo $this->formLabel($element->getName(),$this->translate($element->getLabel())) ?></span>
+    		  <?php else: ?>
+    		    <?php echo $this->formLabel($element->getName(),$this->translate($element->getLabel())) ?>
+    		  <?php endif; ?>
+    		  <?php echo $this->{$element->helper}(
+                             $element->getName(),
+                             $element->getValue(),
+                             $element->getAttribs(),
+                             (method_exists($element,'getMultiOptions')) ? $element->getMultiOptions() : '') ?>
+          <?php if(count($element->getMessages())>0): ?>
+            <div class="error_signin red">
+              <?php echo $this->formErrors($element->getMessages()) ?>
+    		    </div>
+    		  <?php endif; ?>  
+          <div class="clear">&nbsp;</div>
+    		</div>
+    	  <?php endforeach; ?>
+    	  <div class="ligne">
+    	    <p><input type="submit" class="submit" value="Sign in" class="modifiable" /></p>
+    	  </div>
+    	  <div class="clear">&nbsp;</div>
+    	  <div class="ligne">
+    	  </div>
+    </form>
+  </div>
+  <div class="clear">&nbsp;</div>
+</div>

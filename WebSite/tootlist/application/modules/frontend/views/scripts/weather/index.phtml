@@ -1,0 +1,21 @@
+
+<div class="formulaire_content">
+  <h1 class="modifiable" id="title_formulaire">
+    <p class="title_span" style="float:left;"><?=$this->translate("Tootlist M&eacute;t&eacute;o");?></p>
+  </h1>
+  <h1 class="modifiable titleTabs" id="title_formulaire_content">
+    <span target="tab1" style="text-decoration:underline;"><?=$this->translate("Mes villes")?></span>
+    <span target="tab2"><?=$this->translate("Nouvelle ville")?></span>
+  </h1>
+    <div id="content_messagerie">
+      <div id="tab1">
+        <div class="modifiable" id="listMovie" style="margin:0 auto 20px;padding:10px;">
+          <?php echo $this->action('list','weather'); ?>
+        </div>
+      </div>
+      <div id="tab2">
+        <?php echo $this->action('add','weather'); ?>
+      </div>
+    </div>
+    <div class="clear">&nbsp;</div>
+</div>

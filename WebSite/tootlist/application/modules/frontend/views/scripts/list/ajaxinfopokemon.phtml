@@ -1,0 +1,21 @@
+
+<?php
+
+if($this->language == 'en')
+ echo $this->pokemon[0]['name_en'];
+else
+ echo $this->pokemon[0]['name_fr'];
+
+echo "<p>".$this->translate('attaque')." : ".$this->pokemon[0]['stat_at']."</p>";
+
+echo "<p>".$this->translate('d&eacute;fense').": ".$this->pokemon[0]['stat_de']."</p>";
+
+echo "<p>".$this->translate('attaque sp&eacute;ciale')." : ".$this->pokemon[0]['stat_sa']."</p>";
+
+echo "<p>".$this->translate('d&eacute;fense sp&eacute;ciale')." : ".$this->pokemon[0]['stat_sd']."</p>";
+
+echo "<p>".$this->translate('vitesse')."vitesse : ".$this->pokemon[0]['stat_sp']."</p>";
+
+echo "<p>".$this->translate('vie')." : ".$this->pokemon[0]['stat_hp']."</p>";
+
+?>

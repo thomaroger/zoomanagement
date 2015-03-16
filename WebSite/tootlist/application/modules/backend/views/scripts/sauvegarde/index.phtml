@@ -1,0 +1,24 @@
+<div id="table" style="width : 710px; margin:0 auto;">
+  <ul style="text-align:center;padding:5px 5px;font-weight:bold;text-transform:uppercase">
+    <li style="width : 20px;float:left;">Id</li>
+    <li style="width : 195px;float:left;">Title</li>
+    <li style="width : 300px;float:left;">Path</li>
+    <li style="width : 150px;float:left;">Name</li>
+    <li style="width : 25px;float:left;">&nbsp;</li>
+    <div class="clear">&nbsp;</div>
+  </ul>
+  <?php $compteur = 0 ?>
+  <?php foreach($this->sauvegardes as $k => $sauv) : ?>
+  <ul style="text-align:center; padding:5px 5px;background-color:<?php echo $compteur%2==0 ?'#9A9A9A':'#FFFFFF';?>;">
+    <li style="width : 20px;float:left;"><?php echo $sauv["idSauvegarde"]; ?></li>
+    <li style="width : 195px;float:left;"> <?php echo $sauv["title"]; ?></li>
+    <li style="width : 300px;float:left;"> <?php echo $sauv["path"]; ?></li>
+    <li style="width : 150px;float:left;"> <?php echo $sauv["name"]; ?></li>
+    <li style="width : 25px;float:left;"> &nbsp;</li>
+    <div class="clear">&nbsp;</div>
+  </ul>
+  <?php $compteur ++ ; ?>
+  <?php endforeach; ?> 
+  <br />
+  <a href="/backend/sauvegarde/create">Ajouter une sauvegarde</a>
+</div>

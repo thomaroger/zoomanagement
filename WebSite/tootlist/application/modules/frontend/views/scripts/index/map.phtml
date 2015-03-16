@@ -1,0 +1,15 @@
+<div id="modale" class="modifiable">
+<form action="#" onsubmit="Tootlist.GoogleMap.showAddress(this.address.value); return false">
+  <p class="modifiable ligne">
+    <input type="text" id="adresse_googleMap" name="address" value="<?php echo $this->adresse ?>" class="text" />
+    <input type="submit" class="modifiable submit" value="Register" />
+  </p>
+  <div id="map_canvas" style="width: 600px; height: 400px"></div>
+</form>
+
+<script>
+  Tootlist.GoogleMap.initialize();
+  Tootlist.GoogleMap.showAddress($('adresse_googleMap').get('value'));
+  Tootlist.skin.reload();
+</script>
+</div>

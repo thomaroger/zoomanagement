@@ -1,0 +1,69 @@
+<?php 
+$inst_user = new Model_DbTable_User();
+$inst_item = new Model_DbTable_Item();
+$meta = new Model_DbTable_Metadata();
+$inst_message = new Model_DbTable_Message();
+$destinataire = ""; 
+?>
+
+<div class="formulaire_content">
+    <h1 class="modifiable" id="title_formulaire_content">
+      <p class="title_span" style="float:left;">Tootlist <?=$this->translate("Messagerie")?></p>
+    </h1>
+    <div class="modifiable" id="listMovie">
+        <div class="list_movie" style="margin:0 auto 20px;padding:10px;">
+          <h2 class="modifiable">
+            <?php echo $this->list->title ?>
+          </h2>
+          <?php foreach(explode(',',$this->items[0]['recipients_id']) as $receipt) : ?>
+            <?php if($receipt > 0) : ?>
+             <?php $tmp_user = $inst_user->getName($receipt); ?>
+             <?php $current_user = $inst_user->find($receipt)->current(); ?>
+             <?php  $destinataire .=" ".$current_user->login." (".strtoupper($tmp_user["name"])." ".ucfirst($tmp_user["firstname"]).")".","; ?>
+            <?php endif; ?>
+          <?php endforeach; ?>
+          <p class="modifiable" style="margin : 20px 0;"> <?=$this->translate("Destinataires")?> : <br /> 
+            <span style="font-style:italic;font-size:10px;margin-left : 30px;"><?php echo trim($destinataire,','); ?></span>
+          </p>
+          <p style="text-align:right;margin:10px 0;" class="modifiable"><a href="/message/addmessage?&width=600&height=500&id=<?php echo $this->list->idList ?>" class="smoothbox"><?=$this->translate("Ajouter une nouveau message")?></a></p>
+          <?php foreach($this->items as $item) : ?> 
+          
+          <div class="discussion" id="list_<?php echo $item["item_idItem"]?>" style="margin:0 auto;padding: 10px 0 20px;">
+          <?php $discussion = $inst_user->getName($item["sender_id"]); ?>
+          <?php $current_user = $inst_user->find($item["sender_id"])->current(); ?>             
+            <?php if($discussion["photo"] !="") : ?>
+              <div class="avatar" style="background-color:white;float:left;height:75px;margin-right:20px;padding:2px;width:75px;">
+                <img src="<?php echo $discussion["photo"]?>" alt="<?php echo $discussion["login"]?>"  style="width:75px;height:75px;"  title="<?php echo $discussion["login"]?> ">
+              </div>
+            <?php else: ?>
+            <div class="avatar" style="float:left;height:75px;margin-right:20px;padding:2px;width:75px;">&nbsp;</div>
+            <?php endif; ?>
+            <div class="user_list" style="float:left;width:250px;height:75px;"> 
+              <p class="modifiable" style="line-height:50px;height:50px;">
+                <a href="view/<?php echo $discussion["login"]?>">
+                  <?php echo $current_user->login." (".strtoupper($discussion["name"])." ".ucfirst($discussion["firstname"]).")";?>
+                </a>
+              </p>
+              <?php $updated_at= new Zend_Date($meta->getMeta($inst_item->Model_id,$item["item_idItem"])->created_at);  ?>
+              <p style="font-size: 10px;line-height:25pxheight:25px;font-style:italic;">
+                <?php echo $updated_at->get(Zend_Date::DATE_FULL).', '.$updated_at->get(Zend_Date::TIME_SHORT)?>
+              </p>
+            </div>
+            <div style="float:left;width:350px;">
+              <p class="modifiable" style="height:auto;"><?php echo $item["description"]?></p>  
+            </div>
+            <div class="clear">&nbsp;</div>
+          </div>
+          <?php 
+           $current_message = $inst_message->find($item["item_idItem"])->current();
+           $current_message->state = str_replace($inst_user->getUser()->idUser.',', '',$current_message->state);
+           $current_message->save();
+          ?>
+          <?php endforeach; ?>
+          <p style="text-align:right;margin:10px 0;" class="modifiable"><a href="/message/addmessage?&width=600&height=500&id=<?php echo $this->list->idList ?>" class="smoothbox">Ajouter une nouveau message</a></p>          
+        </div>
+        <div class="clear">&nbsp;</div>
+    <div class="clear">&nbsp;</div>
+  </div>
+</div>
+

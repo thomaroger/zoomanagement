@@ -1,0 +1,55 @@
+  <input type="hidden" value="<?=count($this->itemList)?>" id="countItemList" />
+  <?php 
+  $i=1;
+  foreach($this->itemList as $item):?>
+  <div class="divItemDetail">
+    <p>
+      <strong><i> <?=$this->translate('Item')?> : <?=$i?></i></strong> 
+      <span class="spanItemDetail" >
+        <?php if(count($this->itemList)>1):?>
+         <?php if(!$item["pokemon_idPokemon"]):?>
+                <a href="javascript:void(0)"  onclick="Tootlist.item.delItem(<?=$item['item_idItem']?>,'<?=$item["title"]?>')"> <?=$this->translate('supprimer')?></a>
+        -
+        <?php else:
+          $pok = new Model_DbTable_Pokemon();
+    $monPok = $pok->find($item["pokemon_idPokemon"])->current();   
+        ?>
+                  <a href="javascript:void(0)"  onclick="Tootlist.item.delItem(<?=$item['item_idItem']?>,'<?=utf8_encode($monPok->name_fr)?>')"> <?=$this->translate('supprimer')?></a>      
+        <?php endif;?>
+        <?php endif;?>
+       <?php if(!$item["pokemon_idPokemon"]):?>
+        <a href="javascript:void(0)" onClick="Tootlist.item.updateItem(<?=$item['item_idItem']?>)">  <?=$this->translate('modifier')?></a>
+        <?php endif;?>
+      </span>
+    </p>
+     <?php if(!$item["pokemon_idPokemon"]):?>
+    <p> <?=$this->translate('Titre')?> : <?=$item["title"]?></p>
+    <p>Description : <?=$item["description"]?></p>
+    <?php else:  ?>
+    <p><?=$this->translate("nom")?> : <?=utf8_encode($monPok->name_fr)?></p>
+
+    <p></p>
+    <?php endif;?>
+  </div>
+  <div class="clear">&nbsp;</div>
+  <div id="divUpdateItem_<?=$item['item_idItem']?>">
+  
+  </div>
+  <?php 
+  $i++;
+  endforeach;?>
+  <?php if(!$item["pokemon_idPokemon"]):?>
+  <p>
+    <input type="button" id="buttonAddItem" onclick="Tootlist.createItem.addItemUpdateList(0)" value=" <?=$this->translate('ajouter un objet')?>" class="modifiable" >
+  <p>
+<?php endif;?>
+  <div id="selectItemDynamique" style="display:none">
+    <select id="selectModel" onchange="Tootlist.createItem.addItemUpdateList(1)">
+      <?php foreach($this->allModel as $model):?>
+        <option value="<?=$model["idModel"]?>"><?=$model["libelle_fr"]?></option>
+      <?php endforeach;?>
+    
+    </select>
+  </div>
+  <div id="before"></div>
+  

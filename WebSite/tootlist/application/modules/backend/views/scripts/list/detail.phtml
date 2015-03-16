@@ -1,0 +1,69 @@
+<div style="width: 500px;margin:0 auto;">
+  <h2>Liste : <?php echo $this->current_list->title; echo "  (".$this->current_list->idList.")"; ?></h2>
+  
+  <?php if( $this->current_list->description !="") : ?>
+  <p>
+    <span style="margin-left :30px;"> Description : </span><br />
+    <?php echo $this->current_list->description; ?>
+  </p>
+  <?php endif; ?>
+  
+  <?php if( $this->current_list->tag !="") : ?>
+  <p>
+    <span style="margin-left :30px;"> Mots cl&eacute;s : </span><br />
+    <?php echo $this->current_list->tag; ?>
+  </p>
+  <?php endif ?>
+  
+  <p>
+    <span style="margin-left :30px;"> Categorie  :  
+      <?php $current_category = $this->inst_category->find($this->current_list->categorie_idcategories)->current();
+      echo $current_category->title_fr;  ?> </span>
+  </p>
+  
+  <p>
+    <span style="margin-left :30px;"> a ete duplique <?php echo $this->current_list->nb_duplication; ?> fois </span>
+  </p>
+  
+  <?php if( $this->current_list->list_idList > 0 ) : ?>
+  <p>
+    <span style="margin-left :30px;"> Liste parente  : 
+    <?php
+      $list_parent = $this->inst_list->find($this->current_list->list_idList)->current();
+      echo $list_parent->title;
+     ?>  (<?php echo $this->current_list->list_idList; ?>)</span>
+  </p>
+  <?php endif; ?>
+  
+  <p>
+    <span style="margin-left :30px;"> Nombre de vues  :  <?php echo $this->current_list->nb_view;  ?> </span>
+  </p>
+  
+  <p>
+    <span style="margin-left :30px;"> Statut  :  <?php echo $this->current_list->status?"Visible":"Non Visible";  ?> </span>
+  </p>
+  
+  <p>
+    <span style="margin-left :30px;"> Permission  :  <?php echo Model_DbTable_List::$type[$this->current_list->permission];  ?> </span>
+  </p>
+ 
+  <p>
+    <span style="margin-left :30px;"> Type de liste  :  <?php echo $this->inst_list->getTypes($this->current_list);  ?> </span>
+  </p>
+  
+  <h2>Items de la liste <?php echo $this->current_list->title; echo "  (".$this->current_list->idList.")"; ?></h2>
+ 
+ 
+  <?php $compteur = 0; ?>
+  <?php foreach($this->items as $item) : ?>
+    <ul class="item" style="background-color:<?php echo $compteur%2==0 ?'#9A9A9A':'#FFFFFF';?>;">
+    <?php foreach($item as $k=>$v): ?>
+      <li><?php echo $k, " : ", $v; ?></li>
+    <?php endforeach; ?>
+    </ul>
+    <?php $compteur ++ ; ?>
+  <?php endforeach; ?>
+</div>
+
+
+

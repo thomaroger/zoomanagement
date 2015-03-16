@@ -1,0 +1,36 @@
+<div class="formulaire_content">
+    <h1 class="modifiable" id="title_formulaire_content">
+      <p class="title_span" style="float:left;">Tootlist <?=$this->translate("Images")?></p>
+    </h1>
+    <div class="modifiable" id="listMovie">
+      <?php foreach($this->pictures as $picture) : ?>
+         <?php if($picture["item_idItem"]!=""): ?>
+        <div class="modifiable picture_block" id="picture_<?php echo $picture["item_idItem"]?>" style="margin:0 auto 20px;padding:10px;" >
+            <h2 class="modifiable"><?php echo $picture["title"] ?></h2>
+            <p style="min-height:20px; padding:10px;"> <?php echo $picture["description"] ?></p> 
+            <div style="margin : 0px auto;">
+              <a href="/picture/picture?&width=1000&height=600&picture=<?php echo $picture["item_idItem"] ?>" class="smoothbox">
+                <img src="<?php echo $picture["url"]?>"  style="text-align:center;max-width:735px;"  id="<?php echo str_replace(" ",'',$picture["title"]); ?>" big="<?php echo $picture["url"]?>" />
+              </a>
+            </div>
+        </div>
+        <?php endif; ?>
+      <?php endforeach; ?>    
+    <div class="clear">&nbsp;</div>
+    <p style="float:left;margin-left:10px;">
+      <a href="javascript:void(0)" onclick="Tootlist.picture.play()" id="picture_play" ><?=$this->translate("Lire")?></a>
+      <a href="javascript:void(0)" onclick="Tootlist.picture.pause()" id="picture_pause" style="display:none;" ><?=$this->translate("Pause")?></a>
+    </p>
+    <p style="float:right;margin-right:10px;">
+      <a href="javascript:void(0)" onclick="Tootlist.picture.slide_previous();" ><?=$this->translate("Pr&eacute;c&eacute;dent")?></a>
+      <a href="javascript:void(0)" onclick="Tootlist.picture.slide_next();" ><?=$this->translate("Suivant")?></a>
+    </p>
+    <div class="clear">&nbsp;</div>
+    <div style="height:15px;">&nbsp;</div>
+  </div>
+</div>
+
+
+<script>
+  Tootlist.picture.init();
+</script>

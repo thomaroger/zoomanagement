@@ -1,0 +1,31 @@
+Thomas : 
+  [done] Gestion de la vue d'un profil 
+  [done] Correction de bugs lors de l'envoi de message
+  [done] Gestion des villes pour la meteo
+  [current] Gestion des mots interdits
+  
+Yohann : 
+  [done] création d'autre type de liste par le backoffice
+  [done] gestion d'une liste youtube
+  [done] formulaire edition item
+  [current] gestion d'une liste deezer
+  [current] gestion d'une liste dailymotion
+  [current] faire les redirections adéquates si user pas connecté
+  [current] sécurisé le formulaire de création d'autre type (backoffice)
+
+Nicolas : 
+  [done] skin
+  [done] correction de bug
+  [done] recherche
+  [done] connexion avec le WebService
+  [done] récupération des données utilisateur avec WS
+  [done] récupération des listes avec le WS
+  [current] envoie du xml pour mettre à jour la SGBD
+  [current] test ping application lourde/Web Service
+  
+Christophe :  
+ [done] faire le xml user à partir des données de la base
+ [done] ajout des champs manquants dans le XML
+ [done] faire le xml des listes à partir des données de la base
+ [current] mise à jour de la base par rapport au XML récupérer de l'appli lourde
+   

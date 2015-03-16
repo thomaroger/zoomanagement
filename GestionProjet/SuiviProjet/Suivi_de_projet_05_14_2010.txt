@@ -1,0 +1,28 @@
+Thomas : 
+  [done] Back-office : Gestion du dictionnaire
+  [done] Back-office : Gestion des sauvegardes
+  [done] Front-office : Gestion des exports XML des listes
+  [done] manuel utilisateur BO
+  [done] manuel utilisateur FO
+	[done] manuel qualite
+	[done] correction de bug
+  
+Yohann : 
+  [done] Back-office : Liste des model
+  [done] Back-office : Liste des publicités
+  [done] manuel utilisateur BO
+  [done] manuel utilisateur FO
+  [done] Front-office : internationalisation
+  [done] Front-office : création liste de POKEMON 
+  [current] Front-office : vue d'une liste de pokémon
+  [current] Front-office : edition liste pokémon
+  
+
+
+Nicolas : 
+	[current] gestion des accents web service
+	[done] manuel utilisation héol 
+  
+Christophe :  
+ [current] mise a jour de la base par rapport au XML recuperer de l'appli lourde
+   

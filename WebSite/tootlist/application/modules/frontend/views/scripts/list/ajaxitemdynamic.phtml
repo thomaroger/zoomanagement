@@ -1,0 +1,44 @@
+<?php if($this->label):?>
+
+  <p><?=$this->label?> <?=$this->nbItem?></p>
+
+  <?php
+  $id = "record[]";
+else:
+  $id = "record[".$this->id."][]";
+endif;
+
+      foreach($this->form2 as $element): ?>
+    	
+    		<div class="ligne">
+    		  <?php if($element->getDescription() !=''): ?>
+    		    <span class="tips label" alt="<?php echo $this->translate($element->getLabel()); ?>::<?php echo $element->getDescription();?>"><?php echo $this->formLabel($element->getName(),$this->translate($element->getLabel())) ?></span>
+    		  <?php else: ?>
+    		    <?php if($element->getLabel() != 'id' ) : ?>
+    		    <span class="label"><?php echo $this->formLabel($element->getName(),$this->translate($element->getLabel())) ?></span>
+    		    <?php endif ; ?>
+    		  <?php endif; 
+    		  
+    		  
+    		  ?>
+    				
+          <?php if(count($element->getMessages())>0): ?>
+    	     <div class="error_signup red">
+    	       <?php echo $this->formErrors($element->getMessages()) ?>
+    	     </div>
+    	    <?php endif; ?>
+    	    <?php echo $this->{$element->helper}(
+                             $id,
+                             $element->getValue(),
+                             $element->getAttribs(),
+                             (method_exists($element,'getMultiOptions')) ? $element->getMultiOptions() : ''
+          ) ?>
+    		  <div class="clear">&nbsp;</div>
+    		</div>
+    	  <?php 
+    	  endforeach; 
+    	  
+    
+
+
+?>

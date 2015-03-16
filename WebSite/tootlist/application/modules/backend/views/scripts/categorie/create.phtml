@@ -1,0 +1,32 @@
+<form action="" method="post" id="form">
+  
+  <p>
+    <label id="lblnameType">Nom de la cat&eacute;gorie (fr):</label>
+    <input type="text" value="" name="name_fr" id="nameType"/>
+  </p>
+  
+  <p>
+    <label id="lblnameTypeEn">Nom de la cat&eacute;gorie (en)</label>
+    <input type="text" value="" name="name_en" id="nameTypeEn"/>
+  </p>
+  
+
+  <p>
+    <label> Tags</label>
+    <input type="text" name="tags" style="width:130px"/>
+  </p>
+  
+  <p>si c'est une sous cat&eacute;gorie :
+    <select name="cat">
+      <option></option>
+      <?php foreach($this->cat as $c):?>
+          <option value="<?=$c["idcategories"]?>"><?=$c["title_fr"]?></option>
+      <?php endforeach;?>
+    </select>
+  
+  </p>
+  
+  
+
+  <input type="submit" value="valider"/>
+</form>

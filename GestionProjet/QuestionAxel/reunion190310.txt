@@ -1,0 +1,27 @@
+Qu'est ce qu'un OS ?
+Comment est gérer la lecture d'un CD sous windows avec Windows Media Player ?
+
+
+JAVA
+
+Qu'est ce qu'un package ?
+Quelle est la difference entre implements et extends ?
+Pourquoi Protected et pas Private ?
+Quelle est la différence entre l'héritage et l'encapsulation ?
+Différence entre ArrayList et Array ?
+Pourquoi faire un tableau de String ?
+Arguements dans un constructeur ?
+A quoi sert les accesseurs ?
+Différences entre Tomcat et Glassfish ?
+
+PHP
+
+Différence entre un foreach et un for ?
+Arguements dans un constructeur ?
+
+
+Bdd
+
+A quoi sert distinct ?
+A quoi sert limit ?
+Jointure (Join Left) ?

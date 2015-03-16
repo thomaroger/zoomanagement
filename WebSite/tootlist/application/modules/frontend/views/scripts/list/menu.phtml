@@ -1,0 +1,31 @@
+<div class="modifiable" >
+  <h2 class="modifiable"><?=$this->translate("Listes Populaires")?></h2>
+  <ul>
+    <?php foreach($this->viewList as $list) : ?>
+      <li><a href="/list/view/id/<?php echo $list['idList']; ?>"><?php echo $list['title']; ?></a></li>
+    <?php endforeach; ?> 
+  </ul>
+</div>
+
+<div class="modifiable"> 
+  <h2 class="modifiable"><?=$this->translate("Mod&egrave;les Populaires")?></h2>
+  <ul>
+    <?php foreach($this->duplicationList as $list) : ?>
+      <li><a href="/list/view/id/<?php echo $list['idList']; ?>"><?php echo $list['title']; ?></a></li>
+    <?php endforeach; ?>  
+   </ul>
+</div>
+
+<div class="modifiable"> 
+  <h2 class="modifiable"><?=$this->translate("Listes R&eacute;centes")?></h2>
+  <ul>
+    <?php foreach($this->recentList as $list) : ?>
+      <?php 
+        $meta = new Model_DbTable_Metadata();
+        $inst_list = new Model_DbTable_List();
+        $updated_at= new Zend_Date($meta->getMeta($inst_list->Model_id,$list['idList'])->created_at); 
+      ?>
+      <li><a href="/list/view/id/<?php echo $list['idList']; ?>"><?php echo $list['title']; ?></a><br /><?php echo $updated_at->get(Zend_Date::DATE_FULL).', '.$updated_at->get(Zend_Date::TIME_SHORT)?></li>
+    <?php endforeach; ?>
+   </ul>
+</div>

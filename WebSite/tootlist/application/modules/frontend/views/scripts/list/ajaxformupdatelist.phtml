@@ -1,0 +1,92 @@
+ <form action="/list/updatelist" method="post" name="create_form" id="formUpdateList"  >
+  <input type="hidden" name="typeList" value="<?=$this->typeList?>"/>
+  <input type="hidden" name="idList" value="<?=$this->infoList->idList?>"/>
+  <input type="hidden" name="formList" value="1"/>
+    <div class="clear">&nbsp;</div>
+    <div class="content_form" class="modifiable" >
+    		<div class="ligne">
+    		    <p>
+    		      <label> <?=$this->translate('Titre')?> : </label>
+    		     <p> <input type="text" name="title" id="name" value="<?=$this->infoList->title?>" class="text textUpdateList" /></p>
+    		    </p>
+        		<div class="clear">&nbsp;</div>
+    		</div>
+    		<div class="ligne">
+    		  
+    		      <label>Description : </label>
+    		      <textarea name="description" id="descriptionUpdate" class="text_wysiwyg textUpdateList" ><?=$this->infoList->description?></textarea>
+    		  
+        		<div class="clear">&nbsp;</div>
+    		</div>
+              
+         <div class="ligne">
+    		    
+    		      <label>Type : </label><?=$this->typeList?>
+    		      <input type="hidden" value="<?=$this->typeList?>" name="model"/>
+            
+    		   
+        		<div class="clear">&nbsp;</div>
+    		</div>
+    		   
+
+    		<div class="ligne">
+    		    
+    		      <label> <?=$this->translate('Categorie')?> : </label>
+    		      <p>
+    		      <select name="categorie" id="categorie" class="textUpdateList">
+    		        <option value=''></option>
+                <?php
+                  foreach($this->cat2 as $cat):
+                      if($this->lang="en")
+                      $title =  $cat["title_en"];
+                    else
+                      $title = $cat["title_fr"];
+                      
+                  if(($this->infoList->categorie_idcategories == $cat["idcategories"]) ||
+                   ($this->cat["categorie_idcategories"]==$cat["idcategories"] || $this->cat["idcategories"] == $cat["idcategories"]))
+                      echo '<option selected="selected" value="'.$cat["idcategories"].'">'.$title.'</option>';
+                  else
+                     echo '<option value="'.$cat["idcategories"].'">'.$title.'</option>';                  
+                  endforeach;
+                ?>
+              </select>
+    		   </p>
+        		<div class="clear">&nbsp;</div>
+    		</div>
+    		
+    		<div class="ligne" id="divSubCategorie">
+    		    <?php if($this->cat3):?>
+    		      <label> <?=$this->translate('Sous categorie')?> : </label>
+    		      <p>
+    		      <select name="subCategorie"  class="textUpdateList" >
+    		        <option value=''></option>
+                <?php
+                  foreach($this->cat3 as $cat):
+                      if($this->lang="en")
+                      $title =  $cat["title_en"];
+                    else
+                      $title = $cat["title_fr"];
+                      
+                  if($this->cat["idcategories"] == $cat["idcategories"])
+                      echo '<option selected="selected" value="'.$cat["idcategories"].'">'.$title.'</option>';
+                  else
+                     echo '<option value="'.$cat["idcategories"].'">'.$title.'</option>';                  
+                  endforeach;
+                ?>
+              </select>
+    		   </p>
+        		<div class="clear">&nbsp;</div>
+        		<?php endif;?>
+    		</div>    		
+    		<div class="ligne">
+    		    <span alt="">
+    		      <label>Tags : </label>
+    		      <p><input type="text" name="tags" class="text textUpdateList" value="<?=$this->infoList->tag?>"/></p>
+    		    </span>
+        		<div class="clear">&nbsp;</div>
+    		</div>
+      <p><input type="submit" onClick="Tootlist.mooEditable.submitFormulaire()" class="modifiable submit" value="<?php echo $this->translate('Register'); ?>" class="modifiable"/></p>
+        <div class="clear">&nbsp;</div>
+        	  <p class="champsobligatoire">* :  <?=$this->translate('Champs obligatoire')?></p>
+    </div>
+  </form>

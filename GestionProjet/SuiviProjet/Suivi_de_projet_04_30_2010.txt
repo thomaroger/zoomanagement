@@ -1,0 +1,18 @@
+Thomas : 
+  [done] Gestion des mots interdits
+  [done] Correction de bugs
+  [done] Gestion de la publicite
+  [current] Gestion du moteur de recherche
+  
+Yohann : 
+  [current] gestion d'une liste deezer
+  [current] gestion d'une liste dailymotion
+  [current] faire les redirections adéquates si user pas connecté
+  [current] sécurisé le formulaire de création d'autre type (backoffice)
+
+Nicolas : 
+  [current] recuperation des listes avec le WS
+  
+Christophe :  
+ [current] mise à jour de la base par rapport au XML récupérer de l'appli lourde
+   

@@ -1,0 +1,33 @@
+<?php 
+  if(count($this->notifications) > 0) : 
+    foreach($this->notifications as $notification) : 
+      $inst_notification = new Model_DbTable_Notification();
+      $current_notification = $inst_notification->find($notification["item_idItem"])->current();  
+      if($current_notification->lu !=1):
+        if($current_notification->click == 1) : ?>
+          if(!$('notification_<?php echo $current_notification->item_idItem?>')) {
+            Tootlist.notimoo.show("<?php echo $current_notification->title?>","<?php echo $current_notification->description?>",true);
+          }
+          <?php else : 
+        $current_notification->lu=1;
+        $current_notification->save();
+        ?> 
+        <?php if($current_notification->title == "Nouveau message instantan&eacute; !"):?>
+          if(!$('notification_<?php echo $current_notification->item_idItem?>')) {
+            Tootlist.notimoo.show("<?php echo $current_notification->title?>","<?php echo $current_notification->description?>",false);
+          }
+
+        <?php else: ?>
+          if(!$('notification_<?php echo $current_notification->item_idItem?>')) {
+            Tootlist.notimoo.show("<?php echo $current_notification->title?>","<?php echo $current_notification->description?>",true);
+          }
+        <?php 
+          endif;
+        endif;
+      endif;
+    ?>
+  
+    <?php
+    endforeach;
+  endif;   
+?>

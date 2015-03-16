@@ -1,0 +1,13 @@
+Questions TOOTLIST
+
+
+1. Possibilité de faire que du lot3
+2. Avoir plus de précision concernant le "simili repository"
+3. Application : JAVA ?
+4. Application : Il ne devra pas s'appuyer sur un serveur, mais peut aller chercher les données sur celui-ci ?
+5. Liste des documentss: Gestion des droits ou accès au document ?
+6. WebService (Accès a la base)
+7. Pour les prestations d'envoie de SMS, c'est nous qui payons ?
+8. Liste dynamique en fonction des différents types
+	L'application saura pour un mp3 de le faire lire dans un player,
+	ou il devrait faire en fonction du type de la liste

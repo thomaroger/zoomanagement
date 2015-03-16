@@ -1,0 +1,200 @@
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/javascript/GoogleCalendar.js"></script>
+
+<div class="formulaire_content">
+    <h1 class="modifiable" id="title_formulaire_content">
+      <p class="title_span" style="float:left;">Tootlist <?=$this->translate("Agenda")?></p>
+      <p class="title_span" style="float:left;cursor:pointer;display:none;" onclick="GoogleT.Calendar.logIn()" id="login"><?=$this->translate("Google Agenda")?></p>
+      <p class="title_span" style="float:left;cursor:pointer;display:none;" onclick="GoogleT.Calendar.synchronisation()" id="synchronisation_google"><?=$this->translate("Synchronisation Google Agenda")?></p>
+      <p class="title_span" style="float:left;cursor:pointer;display:none;" onclick="GoogleT.Calendar.logOut()" id="logout"><?=$this->translate("Deconnexion")?></p>
+    </h1>
+    <div class="modifiable" id="listAgenda">
+  
+<?php
+
+if ($this->week == 0) :  
+$month = $this->month;
+$year = $this->year;
+
+$date=mktime("0","0","0",$month,1,$year);
+$nb_day_week_begin = date("N",$date);
+$nb_day = date("t",mktime("0","0","0",$month,1,$year));
+$nb_day_week_end = date("N",mktime("0","0","0",$month,$nb_day,$year));
+$week = 0;
+$mois = 0;
+
+if($month == 1){
+  $last_year = $year-1;
+  $last_month = 12;
+}else{
+  $last_year = $year;
+  $last_month = $month-1;
+}
+$nb_day_last = date("t",mktime("0","0","0",($last_month),1,$last_year));
+
+if($month == 12){
+  $next_year = $year+1;
+  $next_month = 01;
+}else{
+  $next_year = $year;
+  $next_month = $month+1;
+}
+?>
+
+<div class="navigation modifiable" style="width : 750px;">
+  <p class="modifiable" style="float:left;width:100px;height:30px;line-height:30px;"><a href="javascript:void(0)" onclick="Tootlist.calendrier.view(<?php echo $last_year; ?>,<?php echo $last_month;?>,'year');" title="Mois precendent"><?=$this->translate("Precedent")?></a></p>
+  <p class="modifiable" style="float:right;width:100px;text-align:right;height:30px;line-height:30px;"><a href="javascript:void(0)" onclick="Tootlist.calendrier.view(<?php echo $next_year ?>,<?php echo $next_month;?>,'year');" title="Mois suivant"><?=$this->translate("Suivant")?></a></p>
+  <p class="modifiable" style="text-align:center;height:30px;line-height:30px;"> <?php echo date("F Y",$date); ?></p>
+</div>
+<div class="clear">&nbsp;</div>
+<div class="days modifiable" style="width:95px;height:20px;border :solid 1px black;margin : 5px;float:left;"><p class="modifiable" style="text-align:center;line-height:20px;"><?=$this->translate("Lundi")?></p></div>
+<div class="days modifiable" style="width:95px;height:20px;border :solid 1px black;margin : 5px;float:left;"><p class="modifiable" style="text-align:center;line-height:20px;"><?=$this->translate("Mardi")?></p></div>
+<div class="days modifiable" style="width:95px;height:20px;border :solid 1px black;margin : 5px;float:left;"><p class="modifiable" style="text-align:center;line-height:20px;"><?=$this->translate("Mercredi")?></p></div>
+<div class="days modifiable" style="width:95px;height:20px;border :solid 1px black;margin : 5px;float:left;"><p class="modifiable" style="text-align:center;line-height:20px;"><?=$this->translate("Jeudi")?></p></div>
+<div class="days modifiable" style="width:95px;height:20px;border :solid 1px black;margin : 5px;float:left;"><p class="modifiable" style="text-align:center;line-height:20px;"><?=$this->translate("Vendredi")?></p></div>
+<div class="days modifiable" style="width:95px;height:20px;border :solid 1px black;margin : 5px;float:left;"><p class="modifiable" style="text-align:center;line-height:20px;"><?=$this->translate("Samedi")?></p></div>
+<div class="days modifiable" style="width:95px;height:20px;border :solid 1px black;margin : 5px;float:left;"><p class="modifiable" style="text-align:center;line-height:20px;"><?=$this->translate("Dimanche")?></p></div>
+
+
+<?php for($day = 1; $day < $nb_day_week_begin ; $day++) : ?>
+  <div class="days modifiable" style="width:95px;min-height:95px;border :solid 1px black;margin:5px;float:left;position:relative;opacity:0.3;">
+    <p class="modifiable" style="position:absolute;bottom:5px;right:5px;">
+    <?php 
+    //echo ($nb_day_last - $nb_day_week_begin+$day+1)."/".($last_month)."/".$last_year; 
+    echo ($nb_day_last - $nb_day_week_begin+$day+1);
+    ?>
+    </p>
+  </div>
+  <?php $week ++; ?>
+<?php endfor; ?>
+
+<?php for($day = 1 ; $day <=  $nb_day ; $day++) : ?>
+  <?php if($week%7 ==0) : ?>
+    <div class="clear">&nbsp;</div>
+    <h2 class="modifiable" style="width : 737px;margin : 0 0 0 5px;border:solid 1px black;"> 
+      <a href="javascript:void(0)" onclick="Tootlist.calendrier.view(<?php echo $year; ?>,<?php echo $month;?>,'week',<?php echo date("W",mktime("0","0","0",$month,$day,$year));?> );" ><?=$this->translate("Semaine")?> <?php echo date("W",mktime("0","0","0",$month,$day,$year));?></a>
+    </h2>
+    <div class="clear">&nbsp;</div>
+  <?php endif; ?>
+  <div class="days modifiable" style="width:95px;min-height:95px;border :solid 1px black;margin:5px;float:left;position:relative;">
+   <p class="modifiable" style="position:absolute;bottom:5px;right:5px;">
+    <?php 
+    // echo $day."/".$month."/".$year; 
+    if(strlen($day)==1) $day ="0".$day;
+    if(strlen($month)==1) $month ="0".$month;
+    echo $day;
+    ?>
+    </p>
+    <ul class="modifiable">
+    <?php 
+      foreach($this->events as $event) : 
+        ?>
+          <?php if($year."-".$month."-".$day >= substr($event['date_begin'],0,10) && $year."-".$month."-".$day <= substr($event['date_end'],0,10)): ?>
+            <?php $description =""; 
+              $description .="Debut  : ".$event['date_begin']."<br />";
+              $description .="Fin  : ".$event['date_begin']."<br />";
+              $description .="Description  : ".$event['description']."<br />";
+              $description .="Localisation  : ".$event['location']."<br />";
+            ?>
+             <h2 class="modifiable" style="margin :10px 2px;-moz-border-radius:5px;-webkit-border-radius :5px;"> 
+            <li class="modifiable"  style=";"> <span class="tips" style="font-size:10px;min-height:15px;line-height:15px;" alt="<?php echo $event['title']; ?> :: <?php echo $description ?>"><?php echo $event['title']; ?>
+            </span>
+            <div class="clear">&nbsp;</div>
+            <?php if($event['location'] !=""): ?>
+              <a href="/index/map?&width=600&height=500&adresse=<?php echo $event['title']; ?>, <?php echo ($event['location']); ?>" class="smoothbox tips" style="border:solid 0px black;" alt="Voir la localisation de l'&eacute;v&eacute;nement :: En cliquant sur ce lien, vous pourrez voir ou se trouve la localisation de l'&eacute;v&eacute;nement sur Google Map"><img src="/image/icone/001_20.png" style="height:15px; width:15px;border:solid 0px black;"></a>
+            <?php endif; ?>
+            <a href="/agenda/recall?&width=600&height=500&id=<?php echo $event['item_idItem']; ?>" class="smoothbox tips" style="border:solid 0px black;" alt="Ajouter un rappel :: Vous pouvez ajouter un ou plusieurs rappels. En effet vous pouvez choisir un rappel par mail ou par notifications, une &eacute;chelle de temps (seconde, minute, heure, jour, mois) et un temps."><img src="/image/icone/001_01.png" style="height:15px; width:15px;border:solid 0px black;"></a>
+            </li>
+            </h2>
+          <?php endif;?>
+        <?php
+      endforeach;
+    ?>
+    </ul>
+    <span style="display:block;height: 15px;">&nbsp;</span>
+  </div>
+  <?php $week ++; ?>
+<?php endfor; ?>
+
+
+<?php 
+$jour = 1;
+for($day = $nb_day_week_end; $day < 7 ; $day++) : ?>
+  <div class="days modifiable" style="width:95px;min-height:95px;border :solid 1px black;margin:5px;float:left;position:relative;opacity:0.3;">
+    <p class="modifiable" style="position:absolute;bottom:5px;right:5px;">
+    <?php 
+    echo $jour;
+    ?>
+    </p>
+  </div>
+  <?php 
+  $jour ++;
+  $week ++; ?>
+<?php endfor; ?>
+
+<?php else: 
+
+$month = $this->month;
+$year = $this->year;
+
+$date=mktime("0","0","0",$month,1,$year);
+$nb_day_week_begin = date("N",$date);
+$nb_day = date("t",mktime("0","0","0",$month,1,$year));
+$nb_day_week_end = date("N",mktime("0","0","0",$month,$nb_day,$year));
+?>
+
+<div class="navigation modifiable">
+  <a href="javascript:void(0)" onclick="Tootlist.calendrier.view(<?php echo $year; ?>,<?php echo $month;?>,'month');" title="Vue mois"><?=$this->translate("Retour")?></a>
+</div>
+
+<div class="days modifiable" style="width:95px;height:20px;border :solid 1px black;margin : 5px;float:left;"><p class="modifiable" style="text-align:center;line-height:20px;"><?=$this->translate("Lundi")?></p></div>
+<div class="days modifiable" style="width:95px;height:20px;border :solid 1px black;margin : 5px;float:left;"><p class="modifiable" style="text-align:center;line-height:20px;"><?=$this->translate("Mardi")?></p></div>
+<div class="days modifiable" style="width:95px;height:20px;border :solid 1px black;margin : 5px;float:left;"><p class="modifiable" style="text-align:center;line-height:20px;"><?=$this->translate("Mercredi")?></p></div>
+<div class="days modifiable" style="width:95px;height:20px;border :solid 1px black;margin : 5px;float:left;"><p class="modifiable" style="text-align:center;line-height:20px;"><?=$this->translate("Jeudi")?></p></div>
+<div class="days modifiable" style="width:95px;height:20px;border :solid 1px black;margin : 5px;float:left;"><p class="modifiable" style="text-align:center;line-height:20px;"><?=$this->translate("Vendredi")?></p></div>
+<div class="days modifiable" style="width:95px;height:20px;border :solid 1px black;margin : 5px;float:left;"><p class="modifiable" style="text-align:center;line-height:20px;"><?=$this->translate("Samedi")?></p></div>
+<div class="days modifiable" style="width:95px;height:20px;border :solid 1px black;margin : 5px;float:left;"><p class="modifiable" style="text-align:center;line-height:20px;"><?=$this->translate("Dimanche")?></p></div>
+
+<?php for($day = 2; $day <= 8; $day++) : ?>
+  <div class="days modifiable" style="width:95px;height:600px;border :solid 1px black;margin:5px;float:left;position:relative;">
+   <p class="modifiable">
+   <p class="modifiable" style="position:absolute;bottom:5px;right:5px;">
+    <?php echo date("d",mktime(0,0,0,1,($this->week * 7 - date("N", time())) + $day - 4,$year)); ?>
+    </p>
+    <ul class="modifiable">
+    <?php 
+      foreach($this->events as $event) : 
+        ?>
+          <?php if(date("Y-m-d",mktime(0,0,0,1,($this->week * 7 - date("N", time())) + $day,$year)) >= substr($event['date_begin'],0,10) && date("Y-m-d",mktime(0,0,0,1,($this->week * 7 - date("N", time())) + $day,$year)) <= substr($event['date_end'],0,10)): ?>
+            <?php $description =""; 
+              $description .="Debut  : ".$event['date_begin']."<br />";
+              $description .="Fin  : ".$event['date_begin']."<br />";
+              $description .="Description  : ".$event['description']."<br />";
+              $description .="Localisation  : ".$event['location']."<br />";
+            ?>
+            <h2 class="modifiable" style="margin :10px 2px;-moz-border-radius:5px;-webkit-border-radius :5px;"> 
+            <li class="modifiable" style="font-size:10px;min-height:15px;line-height:15px;"> <span class="tips" alt="<?php echo $event['title']; ?> :: <?php echo $description ?>"><?php echo $event['title']; ?>
+            </span>
+            <div class="clear">&nbsp;</div>
+            <?php if($event['location'] !=""): ?>
+              <a href="/index/map?&width=600&height=500&adresse=<?php echo $event['title']; ?>, <?php echo $event['location']; ?>" class="smoothbox tips" style="border:solid 0px black;" alt="Voir la localisation de l'&eacute;v&eacute;nement :: En cliquant sur ce lien, vous pourrez voir ou se trouve la localisation de l'&eacute;v&eacute;nement sur Google Map" ><img src="/image/icone/001_20.png" style="height:15px; width:15px;border:solid 0px black;"></a>
+            <?php endif; ?>
+              <a href="/agenda/recall?&width=600&height=500&id=<?php echo $event['item_idItem']; ?>" class="smoothbox tips" style="border:solid 0px black;" alt="Ajouter un rappel :: Vous pouvez ajouter un ou plusieurs rappels. En effet vous pouvez choisir un rappel par mail ou par notifications, une &eacute;chelle de temps (seconde, minute, heure, jour, mois) et un temps." ><img src="/image/icone/001_01.png" style="height:15px; width:15px;border:solid 0px black;"></a>
+            <div class="clear">&nbsp;</div>
+            </li>
+            </h2>
+          <?php endif;?>
+        <?php
+      endforeach;
+    ?>
+    </ul>
+    <span style="display:block;height: 15px;">&nbsp;</span>
+  </div>
+<?php endfor; ?>
+<?php echo $this->action('skin','user'); ?>
+<?php endif; ?>
+  
+    <div class="clear">&nbsp;</div>
+  </div>
+</div>
+

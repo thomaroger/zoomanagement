@@ -1,0 +1,28 @@
+
+
+<div class="content_form modifiable">
+ <h2 class="modifiable"> <?=$this->translate("Permission de la liste")?>  </h2>
+  
+ <p class="modifiable">
+  <?=$this->translate("Vous pouvez modifier votre liste pour la 
+  rendre acc&eacute;ssible &agrave; tout le monde o&ugrave; &agrave; vos amis");?>
+  </p>
+<form class="modifiable" action="/list/mylist" method="post"> 
+  <input type="hidden" name="idList" value="<?=$this->idList?>"/>
+  <p class="modifiable">
+   <?=$this->translate("Permission");?> :
+    <select name="permission">
+     <option <?php if($this->listPerm->permission == 1) echo "selected='selected'"?> value="1"><?=$this->translate("priv&eacute;e")?></option>
+     <option  <?php if($this->listPerm->permission == 2) echo "selected='selected'"?> value="2"><?=$this->translate("Prot&eacute;g&eacute;");?></option>
+     <option  <?php if($this->listPerm->permission == 0) echo "selected='selected'"?> value="0">
+         <?=$this->translate("Publique");?>
+    </option>
+    </select>
+  </p>
+  <input type="submit" value="<?=$this->translate("valider")?>"/>
+  </form>
+</div>
+
+<script>
+  Tootlist.skin.reload();
+</script>

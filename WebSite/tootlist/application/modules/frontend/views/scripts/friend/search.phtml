@@ -1,0 +1,83 @@
+<div class="formulaire_content">
+  <h1 id="title_formulaire_content" class="titleTabs modifiable"><span target="tab1" style="text-decoration:underline;"><?php echo $this->translate('Amis'); ?></span><span target="tab2"><?php echo $this->translate('Gmail'); ?></span><span target="tab3"><?php echo $this->translate('Hotmail'); ?></span> <span target="tab4"><?php echo $this->translate('Yahoo'); ?></span> </h1>
+  <div id="tab1">
+    <form class="modifiable"  onSubmit="$('listUserContent').set('html','');Tootlist.friend.search($('input_search').get('value'),'search');return false;">
+        <div class="content_form">
+          <div id="form">
+              <div class="ligne">
+              <input type="hidden" value="search" id="type_search" name="type">  
+                <span class="tips label" alt="Rechercher un ami :: Cette recherche s'effectuera sur le profil, vous pouvez donc chercher une personne en fonction de sa ville, de son prŽnom, de son point de vue politique, ..."> Rechercher un ami  :</span>
+                <input type="text" class="text" id="input_search" name="search" onfocus="Tootlist.friend.init();">  
+              </div>
+              <p><input type="submit" class="submit modifiable" value="<?php echo $this->translate('Register'); ?>" /></p>
+              <div class="clear">&nbsp;</div>
+          </div>
+        </div>
+    </form>
+    <div class="clear">&nbsp;</div>
+  </div>
+  <div id="tab2">
+    <form class="modifiable"  onSubmit="$('listUserContent').set('html','');Tootlist.friend.gmail($('email_gmail').get('value'),$('password_gmail').get('value'),'gmail');return false;">
+        <div class="content_form">
+          <div id="form">
+              <div class="ligne">
+                <input type="hidden" value="gmail" id="type_gmail" name="type">  
+                <span class="tips label" alt="Recherche par Gmail::Vous pouvez rechercher des contacts par le biais de Gmail. Vos identifiants ne sont pas stock&eacute;s"> Email  :</span>
+                <input type="text" class="text" value="@gmail.com" id="email_gmail" name="email_gmail">  
+              </div>
+              <div class="ligne">
+                <span class="label"> <?=$this->translate("Mot de passe")?>  :</span>
+                <input type="text" class="text passwordShark" value="" id="password_gmail" name="password_gmail">  
+              </div>
+              <p><input type="submit" class="submit modifiable" value="<?php echo $this->translate('Register'); ?>" /></p>
+              <div class="clear">&nbsp;</div>
+          </div>
+        </div>
+    </form>
+    <div class="clear">&nbsp;</div>
+  </div>
+  <div id="tab3">
+    <form class="modifiable">
+      <div class="content_form">
+        <div id="form">
+              <div class="ligne">
+                <input type="hidden" value="hotmail" id="type_hotmail" name="type">  
+                <span class="tips label" alt="title::content"> Email  :</span>
+                <input type="text" class="text" value="" id="email" name="email">  
+              </div>
+              <div class="ligne">
+                <span class="tips label" alt="title::content"> <?=$this->translate("Mot de passe")?>  :</span>
+                <input type="text" class="text passwordShark" value="" id="password" name="password">  
+              </div>
+              <p><input type="submit" class="submit modifiable" value="<?php echo $this->translate('Register'); ?>" /></p>
+              <div class="clear">&nbsp;</div>
+          </div>
+          <div id="listUserHotmail">
+        <?php 
+           
+        ?>
+        </div>
+      </div>
+  </form>
+  <div class="clear">&nbsp;</div>
+  </div>
+  <div id="tab4">
+    <form class="modifiable">
+      <div class="content_form">
+          Yahoo
+      </div>
+  </form>
+  <div class="clear">&nbsp;</div>
+  </div>
+</div>
+
+
+  <div class="formulaire_content" id="listAjaxUser" style="display:none;">
+    <h1 id="title_formulaire_content" class="modifiable"><span><?=$this->translate("Liste des utilisateurs")?></span></h1>
+    <div class="modifiable" id="listUser">
+      <div id="listUserContent" class="modifiable">
+      </div>
+    <div class="clear">&nbsp;</div>
+    </div>
+  </div>
+</div>

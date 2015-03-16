@@ -1,0 +1,160 @@
+<?php 
+  $inst_user= new Model_DbTable_User(); 
+  $infos = $inst_user->getName($this->view_user->idUser);
+?>
+
+<div class="formulaire_content">
+    <h1 class="modifiable" id="title_formulaire_content">
+      <p class="title_span" style="float:left;"><?=$this->translate("Profil")?> : <?php echo $this->view_user->login; ?></p>
+    </h1>
+    <div class="modifiable" id="listMovie">
+      <div class="list_movie" style="margin:0 auto 20px;padding:10px;"> 
+        <?php if($this->bool_connecte) : ?>
+          <p class="modifiable" style="float:right; margin : 10px 0px;" id="p_<?=$this->view_user->idUser?>"> 
+            <?php if($inst_user->hasFriend($this->view_user->idUser) == 0 && !($this->view_user->idUser==$this->current_user->idUser)): ?>
+              <a class="modifiable" onclick="Tootlist.friend.action(0,<?=$this->view_user->idUser?>,this);"><?=$this->translate("Ajouter comme ami")?></a> - 
+            <?php endif; ?>
+            <a class="modifiable smoothbox" href="/message/addmessageprofil?&width=600&height=500&id=<?php echo $this->view_user->idUser?>"><?=$this->translate("Envoyer un message")?></a>
+          </p>
+        <?php endif; ?>
+        
+        <div class="clear">&nbsp;</div>
+        <h2 class="modifiable"> <?=$this->translate("Informations personnelles")?> </h2>
+            <div id="header_profil" style="width:600px;margin:10px auto;">
+              <div id="header_profil" style="width:400px;margin:10px auto;">
+                <?php if($infos["photo"]!=""): ?>
+                  <div class="avatar" style="background-color:white;float:left;height:75px;padding:2px;width:75px;margin-right:30px;">
+                    <img style="width:75px;height:75px;" src="<?php echo $infos["photo"]?>" alt="<?php echo $this->view_user->login?> " title="<?php echo $this->view_user->login?> ">
+                  </div>
+                <?php endif; ?>
+                <div class="user_list" style="float:left;width:70%;height:75px;"> 
+                  <?php if( strtoupper($infos["name"])." ".ucfirst($infos["firstname"]) != ""): ?>
+                    <p class="modifiable" style="display:block;font-weight:bold;font-size:30px;">
+                    <?php echo strtoupper($infos["name"])." ".ucfirst($infos["firstname"]); ?>
+                    </p>  
+                  <?php endif; ?>
+                  <p class="modifiable" style="display:block;font-style:italic;font-size: 20px;">
+                    <?php echo $this->view_user->login;?>
+                  </p>
+                </div>
+                <div class="clear">&nbsp;</div>
+            
+            <ul class="sortable" id="info_list_user">
+            <?php             
+              if(count($this->profile[0]) > 0):             
+                foreach($this->profile as $k=>$v):
+                  if($v["value"] !="" && $v["property"]!="name" && $v["property"]!="firstname" && $v["property"]!="photo" && $v["property"]!="priority" && $v["property"]!="form_dynamique") :
+                    ?>
+                    <li class="modifiable" style="margin:10px;">
+                      <span style="margin-left : 40px; display:block;"><?php echo $v["property"];?> : </span>
+                      <?php if($v["property"]=="country_member") : ?>
+                        <span style="margin : 10px auto; display:block; border :solid 1px white; padding: 10px; width: 100%; -webkit-border-radius :5px;-moz-border-radius :5px; ">
+                          <?php 
+                            $locale = new Zend_Locale($lang);
+                            $countries = ($locale->getTranslationList('Territory', 'fr', 2));
+                            asort($countries, SORT_LOCALE_STRING);  
+                            echo $countries[$v["value"]];?>
+                        </span> 
+                      <?php elseif($v["property"]=="city"): ?>
+                        <span style="margin : 10px auto; display:block; border :solid 1px white; padding: 10px; width: 100%; -webkit-border-radius :5px;-moz-border-radius :5px; ">
+                          <?php echo $v["value"];?>
+                           <a href="/index/map?&width=600&height=500&adresse= <?php echo $v["value"]; ?>" class="smoothbox tips" style="border:solid 0px black;" alt="Voir la localisation de l'utilisateur :: En cliquant sur ce lien, vous pourrez voir ou se trouvef la ville de l'utilisateur sur Google Map"><img src="/image/icone/001_20.png" style="height:15px; width:15px;border:solid 0px black;"></a>
+                        </span> 
+                      <?php else: ?>
+                        <span style="margin : 10px auto; display:block; border :solid 1px white; padding: 10px; width: 100%; -webkit-border-radius :5px;-moz-border-radius :5px; ">
+                          <?php echo $v["value"];?>
+                        </span> 
+                      <?php endif;?>
+                    </li>
+                    <?php 
+                  endif;
+                endforeach;
+              endif; 
+            ?>
+            </ul>
+              <div class="clear">&nbsp;</div>
+              </div>
+          </div>  
+        <h2 class="modifiable"> <?=$this->translate("Ses listes")?> </h2>
+          <div id="header_list"  class="modifiable" style="width:400px;margin:10px auto;">
+          <ul class="sortable" id="info_list">
+              <?php if(count($this->lists)  > 0) : ?>
+              <?php foreach($this->lists as $list) : ?> 
+                <?php if($list->status == Model_DbTable_List::PUBLIQUE || ($list->status == Model_DbTable_List::PROTEGE && $inst_user->hasFriend($this->view_user->idUser))) : ?>
+                <li style="margin : 10px auto; display:block; border :solid 1px white; padding: 10px; width:400px; -webkit-border-radius :5px;-moz-border-radius :5px; ">
+                  <a class="tips modifiable" alt="<?php echo $list->title ?> :: <?php echo strip_tags($list->description) ?>" href="/list/view/id/<?php echo $list->idList ?>"><?php echo $list->title ?></a>
+                  <?php if(!$inst_user->isHome($list->idList)) :  ?>
+                     - 
+                    <a style="cursor:pointer" class="home modifiable  tips"  href="javascript:void(0)" onclick="Tootlist.list.addHome(<?=$list->idList?>,'<?=addslashes(utf8_encode($list->title))?>')"
+                    alt="Ajouter &agrave; ma page :: Cette action permet de rajouter la liste sur votre page d'accueil">
+                    <img src="/image/icone/add_48.png" style="height:15px;width:15px;border:none"/>
+                    </a>
+                  <?php endif; ?>
+                  -
+                  <a style="cursor:pointer" class="tips"  href="javascript:void(0)" onclick="Tootlist.list.duplicate(<?=$list->idList?>,'<?=addslashes(utf8_encode($list->title))?>')"
+                  alt="Duplication de liste :: Cette action permet de dupliquer une liste">
+                  <img src="/image/icone/icone-9335-96.png" style="height:15px;width:15px;border:none"/>
+                  </a>
+                </li>
+                <?php endif; ?>
+              <?php endforeach; ?>
+            <?php endif; ?>
+            </ul>
+            </div>
+        <h2 class="modifiable"> <?=$this->translate("Ses amis");?> </h2>
+             <div id="header_friend" class="modifiable" style="width:400px;margin:10px auto;">
+              <ul class="sortable modifiable" id="info_list">
+                 <?php if(count($this->friends)  > 0) : ?>
+                  <?php foreach($this->friends as $friend) : ?>
+                    <li class="modifiable" style="margin : 10px auto; display:block; border :solid 1px white; padding: 10px; width:400px; -webkit-border-radius :5px;-moz-border-radius :5px; ">
+                       <a class="modifiable" href="/view/<?php echo $friend->login ?>"><?php echo $friend->login ?></a>
+                       <?php 
+                        if($friend->idUser != $this->current_user->idUser) :
+                          if($inst_user->hasFriend($friend->idUser) == 1) : 
+                              echo " - Vous etes amis";
+                          elseif($inst_user->hasFriend($friend->idUser) == 0) : 
+                              ?>
+                              - <span id="p_<?=$friend->idUser?>" style="display:inline">
+                                <a class="modifiable tips" onclick="Tootlist.friend.action(0,<?=$friend->idUser?>,this);" href="javascript:void(0)"  alt="Ajouter comme ami :: Cette action permet de rajouter <?php echo $friend->login ?> comme amis "><img src="/image/icone/add_48.png" style="height:15px;width:15px;border:none"/></a>
+                              </span> 
+                            <?php
+                          endif;   
+                        endif;
+                       ?>
+                    </li>
+                  <?php endforeach; ?>
+                <?php endif; ?>
+              </ul>
+            </div>
+        <h2 class="modifiable"><?=$this->translate("Les listes des ses amis");?> </h2>
+           <div id="header_list_friend" class="modifiable" style="width:400px;margin:10px auto;">
+              <ul class="sortable modifiable" id="info_list">
+            <?php if(count($this->friends)  > 0) : ?>
+              <?php foreach($this->friends as $friend) : ?>
+                <?php foreach($inst_user->getLists($friend->idUser) as $list): ?>
+                  <?php if($list->status == Model_DbTable_List::PUBLIQUE || ($list->status == Model_DbTable_List::PROTEGE && $inst_user->hasFriend($friend->idUser))) : ?>
+                        <li style="margin : 10px auto; display:block; border :solid 1px white; padding: 10px; width:400px; -webkit-border-radius :5px;-moz-border-radius :5px; ">
+                    <a class="tips modifiable" alt="<?php echo $list->title ?> :: <?php echo strip_tags($list->description) ?>" href="/list/view/id/<?php echo $list->idList ?>"><?php echo $list->title ?></a>
+                    <?php if(!$inst_user->isHome($list->idList)) :  ?>
+                       - 
+                      <a style="cursor:pointer" class="home modifiable  tips"  href="javascript:void(0)" onclick="Tootlist.list.addHome(<?=$list->idList?>,'<?=addslashes(utf8_encode($list->title))?>')"
+                      alt="Ajouter &agrave; ma page :: Cette action permet de rajouter la liste sur votre page d'accueil">
+                      <img src="/image/icone/add_48.png" style="height:15px;width:15px;border:none"/>
+                      </a>
+                    <?php endif; ?>
+                    -
+                    <a style="cursor:pointer" class="tips"  href="javascript:void(0)" onclick="Tootlist.list.duplicate(<?=$list->idList?>,'<?=addslashes(utf8_encode($list->title))?>')"
+                    alt="Duplication de liste :: Cette action permet de dupliquer une liste">
+                    <img src="/image/icone/icone-9335-96.png" style="height:15px;width:15px;border:none"/>
+                    </a>
+                  </li>
+                  <?php endif;?>
+                <?php endforeach; ?>
+              <?php endforeach ?>
+            <?php endif; ?>
+            </ul>
+        </div>          
+      </div>
+    <div class="clear">&nbsp;</div>
+  </div>
+</div>

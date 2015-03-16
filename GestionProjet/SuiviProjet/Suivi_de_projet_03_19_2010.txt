@@ -1,0 +1,27 @@
+Thomas : 
+  [done] Gestion des amis
+	[done] Identification des listes sur la homePage
+  [done] Ajout d'une liste sur la home page
+  [done] Affichage des items avec le respect de la position
+  [done] A la vue d'une liste, on ajoute +1 a nb_view de la liste
+  [done] Filtre sur les listes sur le menu gauche
+  [current] Gestion du calendrier
+  [current] Gestion de Google Calendar
+
+Yohann : 
+  [done] crŽation liste dynamique
+  [done] trie "mes listes"
+  [current] Suppression des listes
+  [current] Modification des listes
+
+Nicolas : 
+  [DONE] création liste en xml a partir de l'application
+  [DONE] création d'item en xml a partir de l'application
+  [DONE] suppression d'item en xml a partir de l'application
+  [DONE] suppresion liste en xml a partir de l'application
+  [current] Modification des listes et des items
+  [current] Merge avec les webServices
+
+Christophe :  
+  [current] Parsing XML
+  [current] UnParsing XML

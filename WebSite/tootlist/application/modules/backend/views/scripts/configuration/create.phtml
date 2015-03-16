@@ -1,0 +1,41 @@
+<h2>Configuration : <?php echo $this->current_config->idConfiguration; ?></h2>
+<form action="/backend/configuration/edit" method="post"> 
+  <div class="ligne">
+    <label for="idConfiguration"></label> <br />
+    <input type="hidden" name="record[idConfiguration]" id="idConfiguration" value="<?php echo $this->current_config->idConfiguration?>"/>
+  </div>
+  
+  <div class="ligne">
+    <label for="help">Aide : </label> <br />
+    <textarea name="record[help]" id="help"  style="width : 575px; height: 400px;"><?php echo $this->current_config->help?></textarea>
+  </div>
+  
+  <div class="ligne">
+    <label for="language">Language : </label> <br />
+    <input type="text" name="record[language]" id="language" value="<?php echo $this->current_config->language?>"/>
+  </div>
+  
+  <div class="ligne">
+    <label for="forbidden_word">Mots interdit (Separe par des virgules) :</label> <br />
+    <textarea name="record[forbidden_word]" id="forbidden_word" style="width : 575px; height: 100px;" ><?php echo $this->current_config->forbidden_word?></textarea>
+  </div>
+  
+  <div class="ligne">
+    <label for="profile"> Profil (Format XML) : </label> <br />
+    <textarea name="record[profile]" id="profile"  style="width : 575px; height: 400px;"><?php echo $this->current_config->profile?></textarea>
+  </div>
+  
+  <div class="ligne">
+    <label for="quota_list_user"> Quota liste utilisateur : </label> <br />
+    <input type="text" name="record[quota_list_user]" id="quota_list_user" value="<?php echo $this->current_config->quota_list_user?>" />
+  </div>
+  
+  <div class="ligne">
+    <label for="quota_list_user_parent"> Quota bonus liste bonus parrainage : </label> <br />
+    <input type="text" name="record[quota_list_user_parent]" id="quota_list_user_parent" value="<?php echo $this->current_config->quota_list_user_parent?>" />
+  </div>
+  
+  <div class="ligne">
+    <input type="submit" value="Enregister" /> 
+  </div>
+</form>

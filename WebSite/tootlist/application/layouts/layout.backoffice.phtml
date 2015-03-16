@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- Javascript -->
+<?php echo $this->headScript(); ?>
+<script type="text/javascript" src="/javascript/mootools-core.js"></script>
+<script type="text/javascript" src="/javascript/mootools-more.js"></script>
+<script type="text/javascript" src="/javascript/calendar.js"></script>
+<script type="text/javascript" src="/javascript/backoffice.js"></script>
+<script type="text/javascript" src="/javascript/notimoo.js"></script>
+<script type="text/javascript" src="/javascript/smoothbox.js"></script>
+<script type="text/javascript" src="/javascript/quickie.js"></script>
+<script type="text/javascript" src="/javascript/mooEditable.js"></script>
+<script type="text/javascript" src="/javascript/passShark.js"></script>
+<script type="text/javascript" src="/javascript/alertBox.js"></script>
+<script type="text/javascript" src="/javascript/mooRainbow.js"></script>
+<script type="text/javascript" src="/javascript/zoomer.js"></script>
+<script type="text/javascript" src="/javascript/pulsate.js"></script>
+<script type="text/javascript" src="/javascript/mootable.js"></script>
+<script type="text/javascript" src="/javascript/script.js"></script>
+
+
+<!-- CSS -->
+<?php echo $this->headLink(); ?>
+<!-- CSS -->
+<link rel="stylesheet" href="/style/design.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/style/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="/style/calendar.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/style/error.css" type="text/css" media="print" />
+<link rel="stylesheet" href="/style/formulaire.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/style/alertBox.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/style/notimoo.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/style/smoothbox.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/style/mooEditable.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/style/mooRainbow.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/style/mootable.css" type="text/css" media="screen" />
+
+
+<!-- Titre -->
+<?php echo $this->headTitle(); ?>
+
+</head>
+<?php 
+  if($this->current_user->privilege == 1)
+     $style = "style='background-color:#9A94FF'";
+   else
+    $style ="";
+?>
+    
+<body <?=$style?>>
+  <div id="site" >
+  
+   <div id="contenaire">
+   
+    <div id="main">
+    <?php if($this->current_user) : ?>
+      <div id="left">
+        <ul id="modifiable">
+        <li><a href="/" style="color:black">Acc&egrave;s &agrave; Tootlist</a></li>
+        
+        <?php if($this->current_user->privilege == Model_DbTable_User::administrateur) : ?>
+          <li><a href="javascript:void(0)" onclick="Tootlist.Ajax.updateBO('/backend/dictonnary/',null,'center');"  style="color:black">Dictionnaires</a></li>
+        <?php endif; ?>
+        
+        <li><a href="javascript:void(0)" onclick="Tootlist.Ajax.updateBO('/backend/categorie/',null,'center');"  style="color:black">Cat&eacute;gories</a></li>
+        <?php if($this->current_user->privilege == Model_DbTable_User::administrateur) : ?>
+        <li><a href="javascript:void(0)" onclick="Tootlist.Ajax.updateBO('/backend/configuration/',null,'center');" style="color:black">Configurations</a></li>
+        <?php endif; ?>
+        
+        <li><a href="javascript:void(0)" onclick="Tootlist.Ajax.updateBO('/backend/list/view',null,'center');" style="color:black">Listes</a></li>
+        
+        <li><a href="javascript:void(0)" onclick="Tootlist.Ajax.updateBO('/backend/log/view',null,'center');"  style="color:black">Logs</a></li>
+        
+        <?php if($this->current_user->privilege == Model_DbTable_User::administrateur) : ?>
+        <li><a href="/backend/mail/list" style="color:black"  target="_blank" >Mails</a></li>
+        <?php endif; ?>
+        
+        <?php if($this->current_user->privilege == Model_DbTable_User::administrateur) : ?>
+        <li><a href="javascript:void(0)" onclick="Tootlist.Ajax.updateBO('/backend/list/type',null,'center');" style="color:black">Type de liste</a></li>
+        <?php endif; ?>
+        
+        <?php if($this->current_user->privilege == Model_DbTable_User::administrateur) : ?>
+        <li><a href="javascript:void(0)" onclick="Tootlist.Ajax.updateBO('/backend/publicity',null,'center');" style="color:black">Publicités</a></li>
+        <?php endif; ?>
+        
+        <?php if($this->current_user->privilege == Model_DbTable_User::administrateur) : ?>
+        <li><a href="javascript:void(0)" onclick="Tootlist.Ajax.updateBO('/backend/sauvegarde/',null,'center');" style="color:black">Sauvegardes</a></li>
+        <?php endif; ?>
+        
+        <li><a href="javascript:void(0)" onclick="Tootlist.Ajax.updateBO('/backend/user/view',null,'center');" style="color:black">Utilisateurs</a></li>
+        <li><a href="/backend/index/unsign" style="color:black">D&eacute;connexion</a></li>
+      </ul>
+      </div>
+  <?php endif;?>
+      
+      <div id="center">
+  			<?php echo $this->layout()->content;?>
+      </div>
+      
+      <div id="right">
+          <div class="publicity modifiable" id="publicity_div" style="position:relative; height : 250px;">
+   	    <img id="publicity_img" src="/image/pokemon/25.png" alt="ok" suiv="0"  style="margin-left :-5px;"/> 
+  		    <p style="color:black;margin-top:185px;"  class="tips" alt="Tootlist Publicite :: Vous pouvez cr&eacute;er sur Tootlist des listes de pokemons">Publicite : Pokemon</p>   
+  		    <div class="clear">&nbsp;</div>
+  		  </div>
+      </div>
+
+    </div>
+    
+   </div>
+
+  </div>
+  
+</body>
+</html>
+

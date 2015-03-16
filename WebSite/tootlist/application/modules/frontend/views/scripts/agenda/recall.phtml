@@ -1,0 +1,50 @@
+<div id="modale"  class="modifiable">
+  <h1 id="modale-h1" class="modifiable"><span>Ev&eacute;venement : <?php echo $this->event->title; ?></span></h1>
+  <div class="subsection">
+  <h2 class="modifiable"><span>Listes des rappels</span></h2>
+  <div class="modifiable" id="recall_view">
+  </div>
+  <div class="clear">&nbsp;</div>
+  </div>
+    
+  <div class="subsection formulaire_content">
+  <?php $inst_recall = new Model_DbTable_Recall();?> 
+  <h2 class="modifiable"><span><?=$this->translate("Ajouter un rappel")?></span></h2>
+    <form class="modifiable" onsubmit="Tootlist.calendrier.addRecall(this);return false;">
+      <div class="content_form">
+        <div class="ligne">
+        <input type="hidden"  name="recall[Event_idEvent]" value="<?php echo $this->event->item_idItem; ?>" id="recall_Event_idEvent" />
+          <label for=""><?=$this->translate("Type de rappel")?> :  </label>
+          <select name="recall[type]" id="recall_type">
+            <?php foreach (Model_DbTable_Recall::$type as $k => $v) : ?>
+              <option value="<?php echo $k; ?>"><?php echo $v?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+        
+        <div class="ligne">
+          <label for=""><?=$this->translate("Echelle de temps")?> :  </label>
+          <select name="recall[timescale]" id="recall_timescale">
+          <?php foreach (Model_DbTable_Recall::$scale as $k => $v) : ?>
+              <option value="<?php echo $k; ?>"><?php echo $v?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+        
+        <div class="ligne">
+          <label for=""><?=$this->translate("Echelle de temps")?> :  </label>
+          <input type="text" class="text"  name="recall[number]" id="recall_number" />
+        </div>
+        
+        <div class="ligne">
+          <input type="submit" class="modifiable submit" value="Ajouter" />
+        </div>
+      </div>  
+    </form>
+  </div>
+</div>
+
+<script>
+  Tootlist.skin.reload();
+  Tootlist.Ajax.update('/agenda/viewrecall',{'idEvent' : <?php echo $this->event->item_idItem; ?>},'recall_view',0);
+</script>

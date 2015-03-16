@@ -1,0 +1,101 @@
+
+<div class="formulaire_content">
+  <h1 id="title_formulaire_content" class="titleTabs modifiable"><span target="tab1"  style="text-decoration:underline;"><?php echo $this->translate('Profil'); ?></span> <span target="tab2"><?php echo $this->translate('Personnalisation_Page'); ?></span> </h1>
+  <div id="tab1">
+  <form onSubmit="Tootlist.mooEditable.submitFormulaire();" action="<?php echo $this->escape($this->element->getAction());?>" method="<?php echo $this->escape($this->element->getMethod()); ?>" name="signup" id="form_formDyn" class="modifiable">
+      <div class="content_form">
+    	  <?php foreach($this->element as $element): ?>
+    		<div class="ligne">
+    		  <?php if($element->getDescription() !=''): ?>
+    		    <span class="tips label" alt="<?php echo $this->translate($element->getLabel()); ?>::<?php echo $element->getDescription();?>"><?php echo $this->formLabel($element->getName(),$this->translate($element->getLabel())) ?></span>
+    		  <?php else: ?>
+    		    <?php if($element->getLabel() != 'id' ) : ?>
+    		    <span class="label"><?php echo $this->formLabel($element->getName(),$this->translate($element->getLabel())) ?></span>
+    		    <?php endif ; ?>
+    		  <?php endif; ?>
+    				
+          <?php if($element->getName() == "recaptcha"): ?>
+          <?php echo $element->render();?>
+          <?php else:?>
+          <?php echo $this->{$element->helper}(
+                             $element->getName(),
+                             $element->getValue(),
+                             $element->getAttribs(),
+                             (method_exists($element,'getMultiOptions')) ? $element->getMultiOptions() : ''
+          ) ?>
+          <?php endif;?>
+          <?php if(count($element->getMessages())>0): ?>
+    	     <div class="error_signup red">
+    	       <?php echo $this->formErrors($element->getMessages()) ?>
+    	     </div>
+    	    <?php endif; ?>
+    		  <div class="clear">&nbsp;</div>
+    		</div>
+    	  <?php endforeach; ?>
+      <p><input type="submit" class="submit modifiable" value="<?php echo $this->translate('Register'); ?>" onclick="Tootlist.mooEditable.submitFormulaire();"/></p>
+        <div class="clear">&nbsp;</div>
+          <p class="champsobligatoire">* : Champs obligatoire</p>
+    </div>
+  </form>
+  <div class="clear">&nbsp;</div>
+  </div>
+  <div id="tab2">
+    <?php
+    $user = new Model_DbTable_User();
+      if($itemStructure = $user->getSkins()){
+        $skins = unserialize($itemStructure[0]["value"]);
+      }
+    ?>
+    <form name="signup" id="form_skin" class="modifiable" method="POST" action="/user/skins">
+      <div class="content_form">
+          <div class="ligne">
+             <span class="label">Background-Color : Body</span>
+             <input name="background-color_body" id="demoRainBowInput" type="text" size="13" name="demoRainBowInput" class="pick" target="body" value="<?php echo $skins["background-color_body"] ?>"/>
+          </div>
+          <div class="ligne">
+             <span class="label">Background-Color : H1</span>
+             <input name="background-color_h1" id="demoRainBowInput" type="text" size="13" name="demoRainBowInput" class="pick" target="h1" value="<?php echo $skins["background-color_h1"] ?>"/>
+          </div>
+           <div class="ligne">
+             <span class="label">Background-Color : H2</span>
+             <input name="background-color_h2" id="demoRainBowInput" type="text" size="13" name="demoRainBowInput" class="pick" target="h2" value="<?php echo $skins["background-color_h2"] ?>"/>
+          </div>
+          <div class="ligne">
+             <span class="label">Background-Color : Div</span>
+             <input id="demoRainBowInput" name="background-color_div" type="text" size="13" name="demoRainBowInput" class="pick" target="div" value="<?php echo $skins["background-color_div"] ?>"/>
+          </div>
+          <div class="ligne">
+             <span class="label">Background-Color : Form</span>
+             <input id="demoRainBowInput" type="text" size="13" name="background-color_form" name="demoRainBowInput" class="pick" target="form" value="<?php echo $skins["background-color_form"] ?>"/>
+          </div>
+          <div class="ligne">
+             <span class="label">Background-Color : Input</span>
+             <input id="demoRainBowInput" type="text" size="13" name="background-color_input" name="background-color_input" class="pick" target="input" value="<?php echo $skins["background-color_input"] ?>"/>
+          </div>
+          <div class="ligne">
+             <span class="label">Color : H1</span>
+             <input id="demoRainBowInputC" type="text" size="13" name="color_h1" class="pick" target="h1" name="color_h1" value="<?php echo $skins["color_h1"] ?>"/>
+          </div>
+           <div class="ligne">
+             <span class="label">Color : H2</span>
+             <input id="demoRainBowInputC" type="text" size="13" name="color_h2" class="pick" target="h2" name="color_h2" value="<?php echo $skins["color_h2"] ?>"/>
+          </div>
+          <div class="ligne">
+             <span class="label">Color : Div</span>
+             <input id="demoRainBowInputC" type="text" size="13" name="color_div" class="pick" target="div" name="color_div" value="<?php echo $skins["color_div"] ?>"/>
+          </div>
+          <div class="ligne">
+             <span class="label">Color : Form</span>
+             <input id="demoRainBowInputC" type="text" size="13" name="color_form" class="pick" target="form" name="color_form" value="<?php echo $skins["color_form"] ?>"/>
+          </div>
+          <div class="ligne">
+             <span class="label">Color : Input</span>
+             <input id="demoRainBowInputC" type="text" size="13" name="color_input" class="pick" target="input" name="color_input" value="<?php echo $skins["color_input"] ?>"/>
+          </div>
+          <p><input type="submit" class="submit modifiable" value="<?php echo $this->translate('Register')?>" /></p>
+        </div>
+      <div class="clear">&nbsp;</div>
+      </form>
+      <div class="clear">&nbsp;</div>
+  </div>
+</div>

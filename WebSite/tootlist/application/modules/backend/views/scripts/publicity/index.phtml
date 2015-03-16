@@ -1,0 +1,47 @@
+<div id="table" style="width : 710px; margin:0 auto;">
+  <ul style="text-align:center;padding:5px 5px;font-weight:bold;text-transform:uppercase">
+    <li style="width : 100px;float:left;">Statut</li>
+    <li style="width : 100px;float:left">Titre</li>
+    <li style="width : 100px;float:left;">Debut</li>
+    <li style="width : 100px;float:left;">Fin</li>
+    <li style="width : 150px;float:left;">contact</li>
+    <li style="width : 50px;float:left;">num.</li>
+    <li style="width : 100px;float:left;">Actions</li>
+    <div class="clear">&nbsp;</div>
+  </ul>
+  <?php $compteur = 0 ?>
+  <?php foreach($this->pub as $k => $pub) : ?>
+  <ul style="text-align:center; padding:5px 5px;background-color:<?php echo $compteur%2==0 ?'#9A9A9A':'#FFFFFF';?>;">
+    <li style="width : 100px;float:left;"><?php echo $pub["status"]==1?'Visible':'Non visible'; ?></li>
+    <li style="width : 100px;float:left;"><a href="<?=$pub["link"]?>" target="_blank"><?php echo $pub["title"]; ?></a></li>
+    <li style="width : 100px;float:left;">
+      <?php echo date("d/m/Y",strtotime($pub["date_deb"])) ?>
+    </li>
+    <li style="width : 100px;float:left;">
+      <?php echo date("d/m/Y",strtotime($pub["date_end"])) ?>
+    </li>
+    <li style="width : 150px;float:left;">
+      <?php if($pub["name_contact"]!=""):?>
+      <a href="mailt:<?=$pub["name_contact"]?>"><?=$pub["name_contact"]?></a>
+      <?php else:?>
+       &nbsp;
+      <?php endif;?>
+    </li>
+  
+      <li style="width : 50px;float:left;">
+      <?php echo $pub["position"] ?>
+    </li>
+      
+    <li style="width : 100px;float:left;">
+      <?php echo $pub["status"]==1?'<a onclick="Tootlist.publicity.display(0,'.$pub["idPublicite"].',\''.addslashes($pub["title"]).'\')" class="delete" style="cursor: pointer;"><img style="height: 15px; width: 15px; border: medium none;" src="/image/icone/cross_10.png"></a>':'<a onclick="Tootlist.publicity.display(1,'.$pub["idPublicite"].',\''.addslashes($pub["title"]).'\')" class="activer" style="cursor: pointer;"><img style="height: 15px; width: 15px; border: medium none;" src="/image/icone/accepted_48.png"></a>';
+      
+      
+       ?> 
+    </li>
+    <div class="clear">&nbsp;</div>
+  </ul>
+  <?php $compteur ++ ; ?>
+  <?php endforeach; ?> 
+  
+  <a href="/backend/publicity/create/">cr&eacute;er une publicit&eacute;</a>
+</div>

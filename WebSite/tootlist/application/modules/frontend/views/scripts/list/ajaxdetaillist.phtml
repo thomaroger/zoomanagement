@@ -1,0 +1,33 @@
+
+   <p class="modifiable" id="linkUpdateList" >
+      <a href="javascript:void(0)" id="linkUpdate" onclick="Tootlist.list.displayFormUpdate(<?=$this->infoList->idList?>)"> 
+         <?=$this->translate('modifier')?>
+      </a>
+   </p>
+  <div id="infoGenerale" class="modifiable">
+    <p>  <?=$this->translate('titre')?> : <?=$this->infoList->title?></p>
+    <p>  <?=$this->translate('description')?> : <?=$this->infoList->description?></p>
+    <p>  <?=$this->translate('keywords')?> : <?=$this->infoList->tag?></p>
+    <p> 
+       <?=$this->translate('categorie')?> : 
+      
+      <?php 
+      
+       if($this->cat["subfr"]):
+        if($this->lang == "fr")
+         echo $this->cat["title_fr"]." > ".$this->cat["subfr"];
+        else
+         echo $this->cat["title_en"]." > ".$this->cat["suben"];
+       else:
+        if($this->lang == "fr")
+         echo $this->cat["title_fr"];
+        else
+         echo $this->cat["title_en"];
+       endif;
+       
+       ?>
+      
+    
+    </p>
+  </div> 
+  <div class="clear">&nbsp;</div> 

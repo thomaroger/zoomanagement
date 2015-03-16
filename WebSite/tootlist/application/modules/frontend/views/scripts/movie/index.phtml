@@ -1,0 +1,40 @@
+
+<div class="formulaire_content">
+    <h1 class="modifiable" id="title_formulaire_content">
+      <p class="title_span" style="float:left;">Tootlist <?=$this->translate("Vid&eacute;o")?></p>
+    </h1>
+    <div class="modifiable" id="listMovie">
+      <?php  foreach ($this->movies as $movie ) : ?>
+        <?php if($movie["item_idItem"]!=""): ?>
+        <div class="list_movie" style="margin:0 auto 20px;padding:10px;">
+          <h2 class="modifiable">
+            <a href="javascript:void(0)" onclick="Tootlist.Movie.play('quickie_<?php echo $movie["item_idItem"] ?>')">
+            <?php echo $movie["title"] ?> 
+            </a>
+          </h2>
+          <p style="min-height:20px; padding:10px;"> 
+            <?php echo $movie["description"] ?>  
+          </p>  
+           
+       <div class="modifiable quickie" id="quickie_<?php echo $movie["item_idItem"] ?>" style="width:640px;margin:0 auto;">
+          <object width="640" height="370" type="video/quicktime" data="<?php echo $movie["url"] ?>">
+        	<param name="src" value="<?php echo $movie["url"] ?>" />
+        	<param name="showlogo" value="false" />
+        	<param name="autoplay" value="false" />
+          	<object width="640" height="384" type="application/x-shockwave-flash"
+          		data="/flash/video.swf?file=<?php echo $movie["url"] ?>">
+          		<param name="movie" value="/flash/video.swf?file=<?php echo $movie["url"] ?>" />
+          	</object>
+        	</object>
+         </div>
+        </div>
+        <div class="clear">&nbsp;</div>
+        <?php endif; ?>
+      <?php endforeach; ?>
+    <div class="clear">&nbsp;</div>
+  </div>
+</div>
+
+
+
+

@@ -1,0 +1,27 @@
+Thomas : 
+  [done] Gestion du calendrier
+  [current] Gestion du rappel d'evenements
+  [current] Synchronisation avec Google Calendar
+
+Yohann : 
+ [en cours] Modification d'une liste
+
+Nicolas : 
+	[done] Mettre à jour la BDD
+	[done] renommer le xml (liste-login.xml)
+	[done] modifier liste.xml (ajout de contenu entre les balises et ajout champ status)
+	[done] Modifier liste.dtd
+	[done] Créer user.dtd
+	[done] Supprimer boutton profil ainsi que la forme
+	[done] Créer interface recherche
+	[done] Modifier ajout de la liste avec champ status
+	[done] Retour sur la forme accueil si l'on ferme une forme sur laquelle on venait d'aller (retour à l'accueil possible)
+	[current] Faire la recherche
+	[current] Faire la modification de liste
+	[current] Faire la modification d'item
+	[current] Effectuer vérification sur les dates, formater date en US
+
+Christophe :  
+	[current] Fusion de la synchronisation du Web Service  et du client lourd
+	[current] Se connecter avec XML du user (info-login.xml)
+	[current] Récupérer les listes de liste (ex : film, musique, catégorie des listes, sous catégorie) pour affichage 

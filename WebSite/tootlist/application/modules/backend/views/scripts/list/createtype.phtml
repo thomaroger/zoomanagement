@@ -1,0 +1,29 @@
+
+
+<form action="/backend/list/createtype" method="post" id="form">
+  <input type="hidden" name="numberModel" value="<?=$this->nbModel+1?>"/>
+  <p>
+    <label id="lblnameType">Nom du type (fr):</label>
+    <input type="text" value="" name="nameType" id="nameType"/>
+  </p>
+  
+  <p>
+    <label id="lblnameTypeEn">Nom du type (en)</label>
+    <input type="text" value="" name="nameTypeEn" id="nameTypeEn"/>
+  </p>
+  
+  <p class="field">
+    <label id="lblChamp">Champ 1</label>
+    <input type="text" name="field[]" value="" id="champ"/>
+    <select name="select[]">
+      <option value="text">texte</option>
+      <option value="varchar(255)">varchar</option>
+      <option value="date">date</option>
+    </select>
+  </p>
+  
+  
+  <div id="before">&nbsp;</div>
+  <input type="button" value="ajouter champs" onclick="TootlistBO.list.newFieldType()"/>
+  <input type="button" value="valider" onClick="TootlistBO.list.submitCreateType()" />
+</form>

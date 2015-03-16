@@ -1,0 +1,54 @@
+<?php 
+  $inst_list = new Model_DbTable_List();
+  $compteur = 0; 
+?>
+
+<div class="formulaire_content">
+    <h1 class="modifiable" id="title_formulaire_content">
+      <p class="title_span" style="float:left;">Tootlist <?=$this->translate("Recherche")?></p>
+    </h1>
+    <div class="modifiable" id="listMovie">
+      <div id="list_list_search" style="margin:0 auto 20px;padding:10px;">
+        <h2 class="modifiable"> <?=$this->translate("Liste des R&eacute;sultats")?></h2>
+        <ul class="sortable">
+        <?php foreach($this->lists_search as $k=>$v): 
+          $current_list = $inst_list->find($k)->current();
+          $type_list = $inst_list->getTypes($current_list);
+        ?>
+        <li>
+          <div class="list" style="margin:0 auto;padding: 10px 0 20px;" >
+            <?php if($compteur > 0 ): ?>
+              <hr style="margin-bottom:10px;"/>
+            <?php endif; ?>
+            <div class="user">
+              <div class="avatar" style="background-color:white;float:left;height:75px;margin-right:20px;padding:2px;width:75px;">
+                <img src="<?php echo $v["photo"]?>" alt="<?php echo $v["login"]?>" title="<?php echo $v["login"]?>" style="width:75px;height:75px;">
+              </div>
+              <div class="user_list" style="float:left;width:250px;height:75px;"> 
+                <p class="modifiable" style="line-height:50px;height:50px;"><a href="/view/<?php echo $v["login"]?>"><?php echo $v["name"]?></a></p>
+                <p style="font-size: 10px;line-height:25pxheight:25px;font-style:italic;">
+                  <?php 
+                    $meta = new Model_DbTable_Metadata();
+                    $updated_at= new Zend_Date($meta->getMeta($inst_list->Model_id,$current_list->idList)->updated_at);
+                    echo $updated_at->get(Zend_Date::DATE_FULL).', '.$updated_at->get(Zend_Date::TIME_SHORT);
+                  ?>
+                </p>
+              </div>
+              <div style="float:left;width:350px;">
+                <p class="modifiable" style="line-height:25px;min-height:25px;"><a href="/list/view/id/<?php echo $current_list->idList ?>"> <?php echo $current_list->title ?> </a></p>
+                <p class="modifiable" style="line-height:12px;min-height:25px;font-size: 10px;"> <?php echo $type_list;?> </p>
+                <p class="modifiable" style="line-height:25px;height:25px;"><?php echo $current_list->description ?></p>  
+              </div>
+            </div>
+          </div>
+          <div class="clear">&nbsp;</div>
+        </li>
+      <?php endforeach; ?>
+      </ul> 
+    <div class="clear">&nbsp;</div>
+  </div>
+</div>
+
+
+
+

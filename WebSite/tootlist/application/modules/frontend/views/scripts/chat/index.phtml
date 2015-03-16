@@ -1,0 +1,38 @@
+<?php  
+  $inst_user = new Model_DbTable_User();
+?>
+
+<div class="formulaire_content">
+    <h1 class="modifiable" id="title_formulaire_content">
+      <p class="title_span" style="float:left;">Tootlist <?=$this->translate("Messagerie instantan&eacute;e")?></p>
+    </h1>
+    <div class="modifiable" id="listChat">
+      <div class="list_chat" id="listChat_Update" style="margin:0 auto 20px; padding:10px 10px 30px 10px">
+
+      </div>  
+        
+        <div>
+          <form class="modifiable" onsubmit="Tootlist.Chat.onSubmit();return false;" style="margin-bottom :10px;">
+            <div class="content_form">
+              <div id="form">
+                <div class="ligne">
+                  <span alt="" class="label"> <?=$this->translate("Envoyer un message &agrave;")?> <span id="form_msg_user"></span> : </span>
+                  <textarea name="form_msg_description" id="form_msg_description"></textarea>
+                  <div class="error_signup red" style="display:none">
+                    <ul class="errors">
+                      <li class="red"><?=$this->translate("Value is required and can't be empty")?></li>
+                    </ul>    	     
+                  </div>
+                </div>
+                <div class="clear">&nbsp;</div>
+                <p>
+                  <input type="text" value="" id="form_msg_destinataire" style="display:none;" />
+                  <input type="submit" class="submit" value="<?php echo $this->translate('Register'); ?>" />
+                  </p>
+                <div class="clear">&nbsp;</div>
+              </div>
+            </div>
+          </form>
+        </div>
+    </div>
+</div>

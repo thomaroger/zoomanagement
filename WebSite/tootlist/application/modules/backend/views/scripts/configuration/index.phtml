@@ -1,0 +1,23 @@
+<div id="table" style="width : 710px; margin:0 auto;">
+  <ul style="text-align:center;padding:5px 5px;font-weight:bold;text-transform:uppercase">
+    <li style="width : 100px;float:left;">ID</li>
+    <li style="width : 50px;float:left;">Langue</li>
+    <li style="width : 300px;float:left;">Quota liste</li>
+    <li style="width : 150px;float:left;">Bonus parrainage</li>
+    <li style="width : 100px;float:left;">Statut</li>
+    <div class="clear">&nbsp;</div>
+  </ul>
+  <?php $compteur = 0 ?>
+  <?php foreach($this->confs as $k => $conf) : ?>
+  <ul style="text-align:center; padding:5px 5px;background-color:<?php echo $compteur%2==0 ?'#9A9A9A':'#FFFFFF';?>;">
+    <li style="width : 100px;float:left;"><a href="/backend/configuration/create?&width=600&height=500&idList=<?php echo $conf["idConfiguration"];?>" class="smoothbox"><?php echo $conf["idConfiguration"]; ?></a></li>
+    <li style="width : 50px;float:left;"><?php echo $conf["language"]; ?></li>
+    <li style="width : 300px;float:left;"><?php echo $conf["quota_list_user"]; ?></li>
+    <li style="width : 150px;float:left;"><?php echo $conf["quota_list_user_parent"]; ?> </li>
+    <li style="width : 100px;float:left;">  <?php echo $conf["status"]==1?'<img style="height: 15px; width: 15px; border: medium none;" src="/image/icone/cross_10.png">':'<img style="height: 15px; width: 15px; border: medium none;" src="/image/icone/accepted_48.png">'; ?>  </li>
+    <div class="clear">&nbsp;</div>
+  </ul>
+  <?php $compteur ++ ; ?>
+  <?php endforeach; ?> 
+  
+</div>

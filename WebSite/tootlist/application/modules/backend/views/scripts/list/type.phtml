@@ -1,0 +1,47 @@
+<div id="table" style="width : 710px; margin:0 auto;">
+  <ul style="text-align:center;padding:5px 5px;font-weight:bold;text-transform:uppercase">
+    <li style="width : 150px;float:left;">Titre fr</li>
+    <li style="width : 150px;float:left;">Titre en</li>
+    <li style="width : 150px;float:left;">nom de la table</li>
+    <li style="width : 150px;float:left;">type</li>
+    <div class="clear">&nbsp;</div>
+  </ul>
+  <?php $compteur = 0 ?>
+  <?php foreach($this->model as $k => $m) :
+  
+  $cate = new Model_DbTable_Categorie();
+  
+  ?>
+  <ul style="text-align:center; padding:5px 5px;background-color:<?php echo $compteur%2==0 ?'#9A9A9A':'#FFFFFF';?>;">
+    <li style="width : 150px;float:left;">
+        <?php echo $m["libelle_fr"]; ?>
+    </li>
+    
+    <li style="width : 150px;float:left;">
+        <?php echo $m["libelle_en"]; ?>
+    </li>
+    
+    <li style="width : 150px;float:left;">
+        <?php 
+           echo $m["table_name"]; 
+          ?>
+    </li>
+    
+    <li style="width : 150px;float:left;">
+        <?php 
+           if($m["islist"]==0)
+             echo "conf.";
+           elseif($m["isbase"]==1 && $m["islist"]==1)
+             echo "base";
+           else
+             echo "type complexe";
+              
+          ?>
+    </li>    
+     
+    <div class="clear">&nbsp;</div>
+  </ul>
+  <?php $compteur ++ ; ?>
+  <?php endforeach; ?> 
+  <a href="/backend/list/createtype">Ajouter un nouveau type de liste</a>
+</div>

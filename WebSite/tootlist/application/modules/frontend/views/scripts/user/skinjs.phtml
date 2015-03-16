@@ -1,0 +1,67 @@
+<?php 
+if($this->skins):
+  foreach(unserialize($this->skins[0]["value"]) as $skin_key=>$skin_value):
+    $tab_key = explode('_',$skin_key);
+    if($tab_key[0] == "background-color"){
+      if($tab_key[1]=="body"){
+        ?>
+          $(document.body).setStyles({'background-color':'<?php echo $skin_value?>'});
+        <?php
+      }else{
+      ?> 
+          $(document.body).getElements('<?php echo $tab_key[1]; ?>').each(function(element,index){
+            if(element.hasClass('modifiable')){
+        		  element.setStyles({'background-color':'<?php echo $skin_value?>'});
+        		}
+          });
+
+      <?php 
+      }
+    }
+    if($tab_key[0] == "color"){
+      if($tab_key[1] == "div"){
+        ?>
+          $(document.body).getElements('<?php echo $tab_key[1]; ?>').each(function(element,index){
+				    element.getChildren('p').each(function(element2,index2){
+				      element2.setStyles({'color':'<?php echo $skin_value?>'});
+				      element2.getChildren('a').each(function(element3,index3){
+				         element3.setStyles({'color':'<?php echo $skin_value?>'});
+				      });
+				    });
+				    
+				    element.getChildren('ul').each(function(element2,index2){
+				      element2.setStyles({'color':'<?php echo $skin_value?>'});
+				      element2.getChildren('li').each(function(element3,index3){
+				       element3.setStyles({'color':'<?php echo $skin_value?>'});
+				       element3.getChildren('a').each(function(element4,index4){
+				         element4.setStyles({'color':'<?php echo $skin_value?>'});
+				       });
+				      });
+				    });    
+				  });
+				  
+        <?php
+      }else if($tab_key[1]=="h2"){
+      ?>
+       $(document.body).getElements('<?php echo $tab_key[1]; ?>').each(function(element,index2){
+         if(element.hasClass('modifiable')){
+  	      element.setStyles({'color':'<?php echo $skin_value?>'});
+  	      element.getChildren('a').each(function(element2,index2){
+				   element2.setStyles({'color':'<?php echo $skin_value?>'});
+				  });
+  	      }
+  	    });
+      <?php
+      }else{
+      ?>
+        $(document.body).getElements('<?php echo $tab_key[1]; ?>').each(function(element,index){
+  		    if(element.hasClass('modifiable')){
+        		  element.setStyles({'color':'<?php echo $skin_value?>'});
+        		}
+  		   });
+      <?php  
+      }
+    } 
+  endforeach; 
+endif;
+?>

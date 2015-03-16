@@ -1,0 +1,31 @@
+Thomas : 
+  [done] Gestion du chat
+  [current] Gestion de la vue d'un profil 
+  
+Yohann : 
+  [current] mettre au propre le CSS
+  [done] modification de la liste
+  [done] permisssion liste (public,privée,protégé)
+  [done] vue détaillé d'une liste bookmark
+  [done] vue détaillé d'une liste de vidéo
+  [done] vue détaillé d'une liste d'image
+  [done] vue détaillé d'une liste de musique
+  [done] vue détaillé d'une liste de base
+  [done] vue détaillé d'une vue d'une liste dynamique
+  [done] Gestion du quota de liste
+  [done] vue détaillé d'une vue d'une liste dynamique
+  [done] duplication de liste
+  
+
+Nicolas : 
+  [done] skin
+  [done] correction de bug
+  [current] recherche
+  [current] connexion avec le WebService
+  [current] récupération des données utilisateur avec WS
+  [current] récupération des listes avec le WS
+
+Christophe :  
+ [current] faire le xml user à partir des données de la base
+ [current] faire le xml des listes à partir des données de la base
+  

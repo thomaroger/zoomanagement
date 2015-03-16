@@ -1,0 +1,32 @@
+<div id="modale"  class="modifiable">
+  <h1 id="modale-h1" class="modifiable"><span><?=$this->translate("Messagerie")?> : <?php echo $this->list->title?></span></h1>
+  <div class="subsection">
+    
+  <div class="subsection formulaire_content">
+  <?php $inst_recall = new Model_DbTable_Recall();?> 
+  <h2 class="modifiable"><span><?=$this->translate("Ajouter un message")?></span></h2>
+    <form class="modifiable" action="/message/response" method="post" onSubmit="var bool = Tootlist.Message.addMessage();if(bool==false) return false;">
+      <div class="content_form">
+        <div class="ligne">
+        <input type="hidden" name="idList" value="<?php echo $this->idList ?>" />
+          <label for=""><?=$this->translate("Votre message")?> :  </label>
+          <textarea name="description_message" id="description_message" class="text_wysiwyg" onfocus="Tootlist.mooEditable.init();"></textarea> 
+          <div class="error_signup red" style="display:none">
+             <ul class="errors">
+               <li><?=$this->translate("Value is required and can't be empty")?></li>
+             </ul>    	     
+          </div>
+        </div>
+        
+        <div class="ligne">
+          <input type="submit" class="modifiable submit" value="Ajouter" />
+        </div>
+      </div>  
+    </form>
+  </div>
+</div>
+
+<script>
+  Tootlist.skin.reload();
+  Tootlist.mooEditable.init();
+</script>

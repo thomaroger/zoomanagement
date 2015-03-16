@@ -1,0 +1,16 @@
+Tootlist:
+ _ Gestion d'un chat entre amis
+ _ Gestion de la publicité
+ _ Gestion des permission avancées
+ _ Gestions du moteur de recherche
+ _ Mot interdit
+ _ Validation ajout d'une liste avec le quota
+ _ Gestion de l'aide
+ _ Gestion du print
+ _ Moderateurs
+ _ Administrateur
+ _ Gestion du Back-Office
+ _ Gestion de l'internalisation
+ _ Gestion des exports
+ _ Gestion des sauvegardes
+ _ Gestion des SMS

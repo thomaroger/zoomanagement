@@ -1,0 +1,151 @@
+ul.errors {
+  margin: 5px;
+  border : solid 1px #FFD294;
+  width : 80%;
+  padding : 5px 10px;
+  margin : 5px auto;
+  text-align :center;
+  background-color : black;
+}
+
+
+p.entete_errors {
+  width : 100%;
+  background-color: #8EB2D6; 
+  color: red;
+  border-bottom : solid 1px white;
+  text-align : center;
+  height : 30px;
+  line-height : 30px;
+}
+
+p.entete_blabla {
+  width : 100%;
+  background-color: #8EB2D6; 
+  border-bottom : solid 1px white;
+  text-align : center;
+  height : auto;
+  line-height : 15px;
+}
+
+p.entete_blabla span {
+  display : block;
+  padding : 5px;
+  color : black;
+}
+
+div.formulaire_content {
+  padding : 20px;
+}
+
+div.formulaire_content form {
+  background-color : white;
+  color :black;
+ -moz-border-radius-bottomleft :15px;
+ -webkit-border-bottom-left-radius :15px;
+ -moz-border-radius-bottomright :15px; 
+ -webkit-border-bottom-right-radius :15px;
+ margin-top :-20px;
+}
+
+div.formulaire_content h1#title_formulaire, div.formulaire_content h1#title_formulaire_content, div.formulaire h1#title_formulaire_content, div.formulaire_content form h1, div.formulaire form h1, #modale h1  {
+  width : 100%;
+  background-color: #8EB2D6; 
+  height : 30px;
+  line-height : 30px;
+  font-size : 15px;
+  color : white;
+  text-transform:uppercase;
+  margin : 0px;
+  display ; block;
+}
+
+div.formulaire form h1, div.formulaire h1#title_formulaire_content {
+  font-size  :12px;
+}
+
+div.formulaire_content form h1 span, div.formulaire form h1 span, div.formulaire_content h1#title_formulaire_content span,  div.formulaire h1#title_formulaire_content span, div.formulaire_content p.title_span, div.formulaire p.title_span, #modale h1 span {
+  margin-left : 30px;
+}
+
+div.formulaire form h1 span,  div.formulaire h1#title_formulaire_content span  {
+  margin-left : 15px;
+}
+
+
+div.formulaire_content form div.content_form {
+  width : 380px;
+  margin : 20px auto;
+  padding : 10px;
+}
+
+div.formulaire form div.content_form {
+  width :180px;
+  margin : 5px auto;
+  padding : 10px;
+}
+
+
+div.formulaire form div.ligne, div.formulaire_content form div.content_form div.ligne {
+  display : block;
+  padding : 5px;
+}
+
+div.formulaire form div.ligne label, div.formulaire_content form div.content_form div.ligne span label  {
+  margin-left : 10px;
+  display :block;
+}
+
+div.formulaire form div.ligne input.text, div.formulaire_content form div.content_form div.ligne input.text, div.formulaire_content form div.content_form div.ligne select, div.formulaire_content form div.content_form div.ligne textarea  {
+  width : 100%;
+}
+
+div.formulaire_content form div.content_form div.ligne textarea  {
+  height : 80px;
+  font-size : 12px;
+  color : black;
+}
+
+
+div.formulaire_content form div.content_form div.ligne input.checkbox {
+  margin-left : 75px;
+}
+
+
+div.formulaire_content form div.content_form #recaptcha_widget_div{
+  width : 320px;
+  margin : 0 auto;
+}
+
+
+div.formulaire p.error_signin,div.formulaire_content div.errors {
+  margin-left : 5px;
+  color :red;
+}
+
+div.formulaire form input.submit, div.formulaire_content form div.content_form p input.submit {
+  float : right;
+  display : block;
+  margin : 10px 20px;
+  background-color : #FFAE33;
+  border : solid 0px black;
+  padding : 5px 10px;
+  -moz-border-radius-bottomleft:4px;
+  -moz-border-radius-bottomright:4px;
+  -moz-border-radius-topleft:4px;
+  -moz-border-radius-topright:4px;
+}
+
+div.formulaire p a,  div.formulaire_content p a {
+  color : black;
+}
+
+
+div.mooeditable-ui-toolbar  {
+  border-bottom : solid 2px #DDDDDD; 
+}
+
+.label { 
+  margin-left:10px;
+}
+

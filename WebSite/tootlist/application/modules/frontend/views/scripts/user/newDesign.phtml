@@ -1,0 +1,37 @@
+<div class="formulaire_content">
+  <form class="modifiable" action="<?php echo $this->escape($this->element->getAction());?>" method="<?php echo $this->escape($this->element->getMethod()); ?>" name="signup" id="form_register">
+    <h1 class="modifiable"><span><?php echo $this->translate('Create your account'); ?></span></h1>
+    <div class="content_form">
+    	  <?php foreach($this->element as $element): ?>
+    		<div class="ligne">
+    		  <?php if($element->getDescription() !=''): ?>
+    		    <span class="tips" alt="<?php echo $this->translate($element->getLabel()); ?>::<?php echo $element->getDescription();?>"><?php echo $this->formLabel($element->getName(),$this->translate($element->getLabel())) ?></span>
+    		  <?php else: ?>
+    		    <?php echo $this->formLabel($element->getName(),$this->translate($element->getLabel())) ?>
+    		  <?php endif; ?>
+    				
+          <?php if($element->getName() == "recaptcha"): ?>
+          <?php echo $element->render();?>
+          <?php else:?>
+          <?php echo $this->{$element->helper}(
+                             $element->getName(),
+                             $element->getValue(),
+                             $element->getAttribs(),
+                             (method_exists($element,'getMultiOptions')) ? $element->getMultiOptions() : ''
+          ) ?>
+          <?php endif;?>
+          <?php if(count($element->getMessages())>0): ?>
+    	     <div class="error_signup red">
+    	       <?php echo $this->formErrors($element->getMessages()) ?>
+    	     </div>
+    	    <?php endif; ?>
+    		  <div class="clear">&nbsp;</div>
+    		</div>
+    	  <?php endforeach; ?>
+      <p><input type="submit" class="submit modifiable" value="<?php echo $this->translate('Register'); ?>" /></p>
+        <div class="clear">&nbsp;</div>
+        	  <p class="champsobligatoire">* :<?=$this->translate("Champs obligatoire")?></p>
+    </div>
+  </form>
+  <div class="clear">&nbsp;</div> 
+  </div>

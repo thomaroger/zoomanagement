@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<!-- Javascript -->
+<script type="text/javascript" src="/javascript/mootools-core.js"></script>
+<script type="text/javascript" src="/javascript/mootools-more.js"></script>
+
+<script type="text/javascript" src="/javascript/notimoo.js"></script>
+<script type="text/javascript" src="/javascript/smoothbox.js"></script>
+<script type="text/javascript" src="/javascript/quickie.js"></script>
+<script type="text/javascript" src="/javascript/mooEditable.js"></script>
+<script type="text/javascript" src="/javascript/passShark.js"></script>
+<script type="text/javascript" src="/javascript/alertBox.js"></script>
+<script type="text/javascript" src="/javascript/mooRainbow.js"></script>
+<script type="text/javascript" src="/javascript/zoomer.js"></script>
+<script type="text/javascript" src="/javascript/pulsate.js"></script>
+
+<script src="http://maps.google.com/maps?file=api&amp;v=2&amp;sensor=true&amp;key=ABQIAAAAzIDg086Ug5FANdvgAoJGrxQut8uHSKccpqDor6AiFGkj8RCxJhR7B_6-6VMj-dZWL2X-cFvZnS81cg" type="text/javascript"></script>
+
+<script type="text/javascript" src="/javascript/script.js"></script>
+
+<?php echo $this->headScript(); ?>
+
+<!-- CSS -->
+<link rel="stylesheet" href="/style/design.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/style/print.css" type="text/css" media="print" />
+<link rel="stylesheet" href="/style/error.css" type="text/css" media="print" />
+<link rel="stylesheet" href="/style/formulaire.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/style/alertBox.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/style/notimoo.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/style/smoothbox.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/style/mooEditable.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="/style/mooRainbow.css" type="text/css" media="screen" />
+
+<?php echo $this->headLink(); ?>
+
+<!-- Titre -->
+<?php echo $this->headTitle(); ?>
+
+<link rel="shortcut icon" href="/image/favicon.ico" />
+
+</head>
+<body>
+  <div id="site">
+	<div id="top" class="modifiable">
+	     <div>
+	     <p class="modifiable"><a href="/">Accueil</a></p>
+	     <p class="addthis_toolbox addthis_default_style">
+         <a href="http://www.addthis.com/bookmark.php?v=250&amp;username=xa-4b92465862f86f6f" class="addthis_button_compact">Share</a>
+         <span class="addthis_separator">|</span>
+         <a class="addthis_button_facebook"></a>
+         <a class="addthis_button_myspace"></a>
+         <a class="addthis_button_google"></a>
+         <a class="addthis_button_twitter"></a>
+       </p>
+       <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#username=xa-4b92465862f86f6f"></script>
+	     </p>
+	     </div>
+      <?php if($this->current_user) : ?>
+        <?php if($this->aide) : ?>
+          <script>
+          Tootlist.modale.open("Premiers pas sur tootlist","/index/aide","width=700&height=500");
+          </script>
+        <?php endif; ?>
+      <div id="menu_connexion">
+        <p class="modifiable"> Bienvenue <?php echo $this->current_user->login; ?>
+        <p class="modifiable"><a href="/friend/search">Amis</a></p>
+        <p class="modifiable"><a href="/user/profile">Profil</a></p>
+        <p class="modifiable"><a href="/list/create">Créer une liste</a></p>
+        <p class="modifiable"><a href="/list/mylist">Mes Listes</a></p>
+        <p class="modifiable"><a href="/user/signout">Deconnexion</a></p>
+        <p class="modifiable"><a href="/index/aide?&width=700&height=500" class="smoothbox" >Aide</a></p>
+        <p class="modifiable"><a href="mailto:tootlist@gmail.com"  >Contact</a></p>
+        <p class="modifiable"><a href="javascript:void(0)" id="langue_link">Langue</a></p>
+      </div>
+		</div>
+    <div id="langage_menu" class="modifiable">
+      <ul>
+        <li><a href="<?php echo $this->link('index', 'language', null, array('lang' => 'en'));?>"><?php echo $this->translate("english"); ?></a></li>
+        <li><a href="<?php echo $this->link('index', 'language', null, array('lang' => 'fr'));?>"><?php echo $this->translate("french"); ?></a></li>
+      </ul> 
+    </div>
+      <?php else : ?>
+      <div id="menu_connexion" class="modifiable">
+        <p><a href="mailto:tootlist@gmail.com" >Contact</a></p>
+        <p><a href="/signup">Inscription</a></p>
+        <div id="connexion">
+          <p><a href="javascript:void(0)" id="connexion_link">Connexion</a></p>
+        </div>
+        <p><a href="javascript:void(0)" id="langue_link">Langue</a></p>
+      </div>
+		</div>
+		<div id="connexion_form" class="modifiable">
+      <?php echo $this->action('signin','user'); ?>
+    </div>
+    <div id="langage_menu" class="modifiable">
+      <ul>
+        <li><a href="<?php echo $this->link('index', 'language', null, array('lang' => 'en'));?>"><?php echo $this->translate("english"); ?></a></li>
+        <li><a href="<?php echo $this->link('index', 'language', null, array('lang' => 'fr'));?>"><?php echo $this->translate("french"); ?></a></li>
+      </ul> 
+    </div>
+    <?php endif; ?>
+    <div class="clear">&nbsp;</div>
+	
+	<div id="container">
+	<div id="main">
+
+    <!-- search central -->
+    <div id="searchModule" class="modifiable">
+      <form id="form_search_content" onSubmit="Tootlist.search.key(this.getChildren('p')[0].getChildren('input')[0].get('value'));return false;" >
+      <p id="p_input">
+        <input type="text" value="Rechercher ..." onfocus="this.value=''" name="search_content" id="search_content" />
+      </p>
+      <input type="submit" value="<?php echo $this->translate('Register'); ?>" style="display:none;" />
+      </form>
+    </div>
+    <!-- left  -->
+    <div id="left">
+      <?php echo $this->action('menu','list'); ?>
+    </div>
+    <!-- end left-->
+    
+    <!-- right -->
+    <div id="center">
+		<?php echo $this->layout()->content;?>
+		</div>
+		
+		<div id="right">
+		  <div class="modifiable">
+        <h2 class="modifiable">Type de Listes</h2>
+        <ul>
+          <li><a href="/movie/index" class="tips" alt="Tootlist Vid&eacute;o :: Vous pouvez voir toutes les vid&eacute;os que vous avez ajout&eacute;es dans Tootlist">Vid&eacute;o</a></li>
+          <li><a href="/agenda/index/year/<?php echo date('Y'); ?>/month/<?php echo date('m');?>/view/month/referer/home" title="Acces a l'agenda" class="tips" alt="Tootlist Agenda :: Vous pouvez voir toutes les &eacute;v&eacute;nements que vous avez ajout&eacute;es dans Tootlist">Agenda</a></li>
+          <li><a href="/music/index" class="tips" alt="Tootlist Musique :: Vous pouvez voir toutes les musiques que vous avez ajout&eacute;es dans Tootlist">Musique</a></li>
+          <li><a href="/picture/index" class="tips" alt="Tootlist Image :: Vous pouvez voir toutes les images que vous avez ajout&eacute;es dans Tootlist">Image</a></li>
+          <li><a href="/weather/index" class="tips" alt="Tootlist M&eacute;t&eacute;o :: Vous pouvez ici g&eacute;rer la m&eacute;t&eacute;o sur Tootlist">M&eacute;t&eacute;o</a></li>
+          <li><a href="/message/index" id="link_messagerie" class="tips" alt="Tootlist Messagerie :: Vous pouvez acc&eacute;der &agrave; votre messagerie pour communiquer avec tous les utilisateurs de Tootlist">Messagerie</a></li>
+          <li><a href="/chat/index" id="chat_layout_click" class="tips" alt="Tootlist Chat :: Vous pouvez acc&eacute;der au chat afin de communiquer en temps r&eacute;el avec vos amis">Messagerie instantan&eacute;e</a></li>
+        </ul>
+      </div>
+		  <div class="publicity modifiable" id="publicity_div" style="position:relative; height : 250px;">
+		    <img id="publicity_img" src="/image/pokemon/25.png" alt="ok" suiv="0"  style="margin-left :-5px;"/> 
+		    <p style="color:black;margin-top:185px;"  class="tips" alt="Tootlist Publicite :: Vous pouvez cr&eacute;er sur Tootlist des listes de pokemons">Publicite : Pokemon</p>   
+		    <div class="clear">&nbsp;</div>
+		  </div>
+    </div>
+  </div>
+  <div class="clear">&nbsp;</div>
+  </div>  
+  <div id="div_notification">&nbsp;</div>
+  <?php echo $this->action('skin','user'); ?>
+</body>
+</html>

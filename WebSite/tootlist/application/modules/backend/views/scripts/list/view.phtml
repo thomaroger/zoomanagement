@@ -1,0 +1,35 @@
+<div id="table" style="width : 710px; margin:0 auto;">
+  <ul style="text-align:center;padding:5px 5px;font-weight:bold;text-transform:uppercase">
+    <li style="width : 100px;float:left;">Statut</li>
+    <li style="width : 50px;float:left;">Id</li>
+    <li style="width : 300px;float:left;">Titre</li>
+    <li style="width : 150px;float:left;">Cat&eacute;gorie</li>
+    <li style="width : 100px;float:left;">Actions</li>
+    <div class="clear">&nbsp;</div>
+  </ul>
+  <?php $compteur = 0 ?>
+  <?php foreach($this->lists as $k => $list) : ?>
+  <ul style="text-align:center; padding:5px 5px;background-color:<?php echo $compteur%2==0 ?'#9A9A9A':'#FFFFFF';?>;">
+    <li style="width : 100px;float:left;"><?php echo $list["status"]==1?'Visible':'Non visible'; ?></li>
+    <li style="width : 50px;float:left;">
+      <a href="/backend/list/detail?&width=600&height=500&idList=<?php echo $list["idList"]?>" class="smoothbox">
+        <?php echo $list["idList"]; ?>
+      </a>
+    </li>
+    <li style="width : 300px;float:left;"><?php echo $list["title"]; ?></li>
+    <li style="width : 150px;float:left;">
+      <?php  
+        $inst_category = new Model_DbTable_Categorie();
+        $current_category = $inst_category->find($list["categorie_idcategories"])->current();
+        echo $current_category->title_fr; 
+      ?>
+    </li>
+    <li style="width : 100px;float:left;">
+      <?php echo $list["status"]==1?'<a onclick="Tootlist.list.deleteMyListBO('.$list["idList"].',\''.addslashes($list["title"]).'\')" class="delete" style="cursor: pointer;"><img style="height: 15px; width: 15px; border: medium none;" src="/image/icone/cross_10.png"></a>':'<a onclick="Tootlist.list.addMyListBO('.$list["idList"].',\''.addslashes($list["title"]).'\')" class="activer" style="cursor: pointer;"><img style="height: 15px; width: 15px; border: medium none;" src="/image/icone/accepted_48.png"></a>'; ?> 
+    </li>
+    <div class="clear">&nbsp;</div>
+  </ul>
+  <?php $compteur ++ ; ?>
+  <?php endforeach; ?> 
+  
+</div>

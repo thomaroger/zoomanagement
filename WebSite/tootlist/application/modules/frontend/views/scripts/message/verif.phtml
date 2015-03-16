@@ -1,0 +1,5 @@
+<?php if($this->nb > 0) : ?>
+  $('link_messagerie').set('html','Messagerie (<?php echo $this->nb ?>)');
+  var pf = new PulseFade('link_messagerie');
+  pf.start();
+<?php endif; ?>

@@ -1,0 +1,29 @@
+Thomas : 
+  [done] Gestion du calendrier
+  [done] Gestion du rappel d'evenements
+  [done] Synchronisation avec Google Calendar
+  [done] Gestion de toutes les musiques d'un utilisateur
+  [done] Gestion de toutes les videos d'un utilisateur
+  [done] Gestion de toutes les images d'un utilisateur avec Zoom
+  [done] Gestion du menu droit
+  [done] Gestion du slide  
+  [done] Gestion de la notification de rappel pour un profil vide
+  [done] Gestion de la notification de rappel l'anniversaire
+  [current] Gestion de la messagerie interne
+
+Yohann : 
+  [current] Modification d'une liste
+  [current] Suppression d'une liste
+
+Nicolas : 
+	[done] Modification de liste et d'item
+	[done] Recherche sur item et sur liste
+	[done] Effectuer vérification sur les dates, formater date en US
+	[done] Verification sur les urls
+	[done] Application de look and feel pour améliorer le design de l'appli lourde
+	[done] Suppression de liste en passsant le statut de 1 à 0
+	[current] Gestion des categories et des sous categories
+	
+	 
+Christophe :  
+ [current] webservice

@@ -1,0 +1,23 @@
+
+<?php
+ if(!$this->current_user)
+ echo $this->form;
+ else
+ {
+   if($this->current_user->privilege == 2)
+   {
+     ?>
+     <h2>backoffice administrateur</h2>
+     <?php
+  }
+  else
+  {
+     ?>
+     <h2>backoffice mod&eacute;rateur</h2>
+     <?php  
+  
+  }
+     
+ } 
+?>
+

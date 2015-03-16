@@ -1,0 +1,165 @@
+<div>
+<?php 
+$inst_item = new Model_DbTable_Item();
+if(!empty($this->cookie)) : 
+   $i = 0; 
+  foreach(unserialize($this->cookie) as $listes) : ?>
+    <ul class="sortables" style="float:left;width:<?php echo $i==1?'250px':'220px'?>; list-style:none; <?php echo $i>=1?'margin-left:50px':''?>">
+    <?php 
+    foreach($listes as $list) : ?>
+      <?php 
+        $listid = explode('-',str_replace("list_","",$list));
+        $inst_list = new Model_DbTable_List();
+        $list = $inst_list->find($listid)->current();
+        $list->nb_view = $list->nb_view+1;
+        $list->save();
+    ?>
+      <li id="list_<?php echo $list->idList;?>">
+      <div class="modifiable" style="height :150px;border:solid 1px black;margin-top : 20px; background-color: #CDE0F3; position:relative;-moz-border-radius: 5px; -webkit-border-radius: 5px">
+        <div class="list_header" style=" height : 15px;border-bottom : solid 1px #818D99;">
+          <ul style="display:inline;color:#818D99;">
+            <li style="float:left;display:inline;"><a href="javascript:void(0)" class="slide_close" style="width:10px;display:block;height:10px; margin:2px;background-image:url(/image/icone/cross_10.png)">&nbsp;</a></li>
+            <li style="float:left;display:inline;"><a href="javascript:void(0)" class="slide_reduire" style="width:10px;display:block;height:10px; margin:2px;background-image:url(/image/icone/arrow_up_10.png)">&nbsp;</a></li>
+            <li style="float:left;display:inline;"><a href="javascript:void(0)" class="slide_agrandir" style="width:10px;display:block;height:10px; margin:2px;background-image:url(/image/icone/arrow_down_green_10.png)">&nbsp;</a></li>
+          </ul>
+        </div>
+        <div class="clear">&nbsp;</div>
+        <div style ="padding: 5px;">  
+          <div class="list_content">
+            <h2 class="modifiable" style="border-bottom:3px solid blue;color:blue;font-size:18px;font-weight:bold;padding-bottom:3px;text-align:center;"><a href="/list/view/id/<?=$list->idList?>" style="color:blue" class='tile_list'><?php echo $list->title ?></a></h2>
+             <?php 
+                $inst_list = new Model_DbTable_List();
+                $items = $inst_list->getItemsNoModel($list);
+                ?>
+              <ul style="text-align:center;" class="<?php echo $inst_list->getTypes($list)."_index";?>">
+               <?php  if( $inst_list->getTypes($list) == "picture") :  ?>
+                 <?php foreach($items as $item) : ?>
+                   <li style="display:none;margin-top : 5px;"><img style="width:75px;height:75px;" src="<?php echo ($item['url']); ?> " alt="<?php echo ($item['title']); ?> "/></li>
+                 <?php endforeach; ?>
+               <?php else : ?>
+                  <?php $count_item = 0; ?>
+                  <?php foreach($items as $item) : ?>
+                    <?php if($count_item < 4 ) :?>
+                    <li>
+                    <?php 
+                      $current_item = $inst_item->find($item['item_idItem'])->current();
+                      $type_item = $inst_item->getType($current_item);
+                      if($type_item== "city"):
+                        echo ($item['city']);
+                      elseif($type_item == "directory"):
+                        echo ($item['lastname']." ".$item['firstname']);
+                      else:
+                        echo ($item['title']); 
+                      endif;
+                      ?> 
+                    </li>
+                    <?php endif ; ?>
+                    <?php $count_item ++ ; ?>
+                  <?php endforeach ?>
+                <?php endif; ?>
+             </ul>
+          </div>
+        </div> 
+         <?php 
+         $meta = new Model_DbTable_Metadata();
+          $updated_at= new Zend_Date($meta->getMeta($inst_list->Model_id,$list->idList)->updated_at);
+        ?>
+        <div class="list_footer" style="height : 15px;border-top : solid 1px #818D99; position:absolute; bottom:0;width:100%;">
+          <p style="text-align:right;font-size : 10px; text-style:italic; color: #818D99;margin-right:5px;"><?php echo $updated_at->get(Zend_Date::DATE_FULL).', '.$updated_at->get(Zend_Date::TIME_SHORT)?></p>
+          <div class="clear">&nbsp;</div>
+        </div>
+      </div>
+    </li>
+    <?php 
+
+    endforeach;
+        $i++; 
+    ?>
+    </ul>
+  <?php endforeach;
+    if($i<=2) :
+      for($i;$i<3;++$i) : ?>
+      <ul class="sortables" style="height:100px;float:left;width:<?php echo $i==1?'250px':'220px'?>; list-style:none; <?php echo $i>=1?'margin-left:50px':''?>">
+      </ul>
+      <?php endfor; 
+   endif;
+  else :
+      $list = 0;
+      for($i=0;$i<=2;$i++) :
+        $compteur = 0;
+      ?>
+              <ul class="sortables" style="float:left;width:<?php echo $i==1?'250px':'220px'?>; list-style:none; <?php echo $i>=1?'margin-left:50px':''?>">
+                <?php foreach($this->homeLists as $homeList) : ?>
+                  <?php
+                  if($compteur < (3*$list)+3 && $compteur >= (3*$list)) : 
+                  $homeList->nb_view = $homeList->nb_view+1;
+                  $homeList->save();
+                  ?>
+                    <li id="list_<?php echo $homeList->idList?>">
+                      <div class="modifiable" style="height :150px;border:solid 1px black;margin-top : 20px; background-color: #CDE0F3; position:relative;-moz-border-radius: 5px; -webkit-border-radius: 5px">
+                <div class="list_header" style=" height : 15px;border-bottom : solid 1px #818D99;">
+                  <ul style="display:inline;color:#818D99;">
+                    <li style="float:left;display:inline;"><a href="javascript:void(0)" class="slide_close" style="width:10px;display:block;height:10px; margin:2px;background-image:url(/image/icone/cross_10.png)">&nbsp;</a></li>
+                    <li style="float:left;display:inline;"><a href="javascript:void(0)" class="slide_reduire" style="width:10px;display:block;height:10px; margin:2px;background-image:url(/image/icone/arrow_up_10.png)">&nbsp;</a></li>
+                    <li style="float:left;display:inline;"><a href="javascript:void(0)" class="slide_agrandir" style="width:10px;display:block;height:10px; margin:2px;background-image:url(/image/icone/arrow_down_green_10.png)">&nbsp;</a></li>
+                  </ul>
+                </div>
+                <div class="clear">&nbsp;</div>
+                <div style ="padding: 5px;">  
+                  <div class="list_content">
+                    <h2 class="modifiable" style="border-bottom:3px solid blue;color:blue;font-size:18px;font-weight:bold;padding-bottom:3px;text-align:center;"><a href="" style="color:blue" class='tile_list'><?php echo $homeList->title?></a></h2>
+                      <?php 
+                        $inst_list = new Model_DbTable_List();
+                        $items = $inst_list->getItemsNoModel($homeList);
+                      ?>
+                    <ul style="text-align:center;margin-top : 5px;" class="<?php echo $inst_list->getTypes($homeList)."_index";?>">
+                     <?php  if( $inst_list->getTypes($homeList) == "picture") :  ?>
+                 <?php foreach($items as $item) : ?>
+                   <li style="display:none;"><img style="width:75px;height:75px;" src="<?php echo ($item['url']); ?> " alt="<?php echo ($item['title']); ?> "/></li>
+                 <?php endforeach; ?>
+               <?php else : ?>
+                      
+                      <?php $count_item = 0; ?>
+                      <?php foreach($items as $item) : ?>
+                        <?php if($count_item < 4 ) :?>
+                        <li>
+                          <?php 
+                          $current_item = $inst_item->find($item['item_idItem'])->current();
+                          $type_item = $inst_item->getType($current_item);
+                          if($type_item == "city"):
+                            echo ($item['city']);
+                          elseif($type_item == "directory"):
+                            echo ($item['lastname']." ".$item['firstname']);
+                          else:
+                            echo ($item['title']); 
+                          endif;
+                          ?> 
+                        </li>
+                        <?php endif ; ?>
+                        <?php $count_item ++ ; ?>
+                      <?php endforeach ?>
+                      <?php endif; ?>
+                    </ul>
+                    <div class="clear">&nbsp;</div>
+                  </div>
+                </div> 
+                <?php 
+                  $meta = new Model_DbTable_Metadata();
+                  $updated_at= new Zend_Date($meta->getMeta($inst_list->Model_id,$homeList->idList)->updated_at);
+                ?>
+                <div class="list_footer" style="height : 15px;border-top : solid 1px #818D99; position:absolute; bottom:0;width:100%;">
+                  <p style="text-align:right;font-size : 10px; text-style:italic; color: #818D99;margin-right:5px;"><?php echo $updated_at->get(Zend_Date::DATE_FULL).', '.$updated_at->get(Zend_Date::TIME_SHORT)?></p>
+                  <div class="clear">&nbsp;</div>
+                </div>
+              </div>
+            </li>
+          <?php 
+          endif;
+            $compteur ++;
+          endforeach; ?>
+      </ul>
+      <?php $list ++; ?> 
+      <?php endfor; ?>
+          
+<?php endif; ?>  
+</div>

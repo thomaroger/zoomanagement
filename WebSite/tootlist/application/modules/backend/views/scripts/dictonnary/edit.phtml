@@ -1,0 +1,14 @@
+<h2>Dictionnaire : <?php echo $this->filename; ?></h2>
+
+<form action="/backend/dictonnary/write" method="post"> 
+
+  <div class="ligne"> 
+    <input type="hidden" name="filename" value="<?php echo $this->filename; ?>" />
+    <label for="content">Contenu : </label> <br />
+    <textarea name="content" id="content" style="width : 575px; height: 400px;"><?php echo htmlentities($this->content); ?></textarea>
+  </div>
+    
+  <div class="ligne">
+    <input type="submit" value="Enregister" /> 
+  </div>
+</form>

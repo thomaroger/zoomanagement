@@ -1,0 +1,15 @@
+Choix de l'ergonomie? pk les menus sont ainsi? 
+C'est a yu de répondre, il a fait la crea
+
+Aligne a droite le menu droite et le score a gauche
+Normalement c'est aligne, comprend pas trop ??!!
+
+Decale "bienvenue root"
+Why not ?
+
+Largeur menu droite 2 lignes
+La crea permet à un utilisateur en 1024 * 768 de voir sans scroller le site web entier. 
+Il a donc fallu faire des concessions
+
+Comment installer le logiciel?
+faut dire qu'il exécutable sera bientot disponible en téléchargement sur le site non ? ok pour mwa

@@ -1,0 +1,35 @@
+<h2 class="modifiable">
+  <?=$this->translate("Liste des discussions envoy&eacute;es")?>
+</h2>
+
+<?php 
+  $inst_list = new Model_DbTable_List();
+  $meta = new Model_DbTable_Metadata(); 
+?>
+
+<div id="list_discussions" style="width:700px;padding : 20px; margin: 0 auto;" class="modifiable"> 
+<?php  foreach($this->discussions as $id =>$discussion) : ?>
+  <div class="discussion" id="list_<?php echo $id?>" style="margin:0 auto;padding: 10px 0 20px;">
+    <?php if($discussion["photo"] !="") : ?>
+      <div class="avatar" style="background-color:white;float:left;height:75px;margin-right:20px;padding:2px;width:75px;">
+        <img src="<?php echo $discussion["photo"]?>" alt="<?php echo $discussion["login"]?> " title="<?php echo $discussion["login"]?> ">
+      </div>
+    <?php else: ?>
+    <div class="avatar" style="float:left;height:75px;margin-right:20px;padding:2px;width:75px;">&nbsp;</div>
+    <?php endif; ?>
+    <div class="user_list" style="float:left;width:250px;height:75px;"> 
+      <p class="modifiable" style="line-height:50px;height:50px;"><a href="view/<?php echo $discussion["login"]?>"><?php echo $discussion["sender_name"]?></a></p>
+      <?php $updated_at= new Zend_Date($meta->getMeta($inst_list->Model_id,$id)->created_at);  ?>
+      <p style="font-size: 10px;line-height:25pxheight:25px;font-style:italic;">
+        <?php echo $updated_at->get(Zend_Date::DATE_FULL).', '.$updated_at->get(Zend_Date::TIME_SHORT)?>
+      </p>
+    </div>
+    <div style="float:left;width:350px;">
+      <p class="modifiable" style="line-height:25px;min-height:25px;"><a href="/message/view/id/<?php echo $id?>"><?php echo $discussion["title"]?></a></p>
+      <p class="modifiable" style="line-height:12px;min-height:25px;font-size: 10px;"><?php echo trim($discussion["destinataires_msg"],",")?> </p>
+      <p class="modifiable" style="line-height:25px;height:25px;"><?php echo strip_tags(substr($discussion["content"],0,50))?>...</p>  
+    </div>
+    <div class="clear">&nbsp;</div>
+  </div>
+<?php endforeach; ?>
+</div>

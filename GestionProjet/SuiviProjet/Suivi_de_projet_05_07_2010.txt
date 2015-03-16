@@ -1,0 +1,35 @@
+Thomas : 
+  [done] Correction des bugs de la soutenance
+  [done] Gestion du moteur de recherche
+  [done] Gestion des mails de l'administrateur dans le back office
+  [done] Back-office : Gestion des listes
+  [done] Back-office : Gestion des utilisateurs
+  [done] Back-office : Gestion des logs
+  [done] Back-office : Gestion de la configuration
+  [current] Back-office : Gestion du backoffice
+  
+Yohann : 
+  [done] gestion d'une liste deezer
+  [done] gestion d'une liste dailymotion
+  [done] sécurisé le formulaire de création d'autre type (backoffice)
+  [done] formulaire connection backoffice
+  [done] skin différent entre modérateur et admin
+  [done] faire les redirections adéquates si user pas connecté
+  [done] liste des catégories
+  [done] création catégorie
+  [done] mise a jour base de donnée accent
+
+
+Nicolas : 
+  [done] recuperation des listes avec le WS
+  [done] ajout des listes directory
+  [done] ajout des items directoty
+  [done] modification des listes directory
+  [done] modification des items directoty
+  [done] suppression des listes directory
+  [done] suppression des items directoty
+  [done] intégration de la liste de todo
+  
+Christophe :  
+ [current] mise à jour de la base par rapport au XML récupérer de l'appli lourde
+   

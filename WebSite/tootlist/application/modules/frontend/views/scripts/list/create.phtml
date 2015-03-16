@@ -1,0 +1,74 @@
+
+
+<div class="formulaire_content" >
+  <form action="/list/additem" method="post" name="create_form" id="create_form" class="modifiable">
+    <h1 class="modifiable"><span><?php echo $this->translate('Create your list'); ?></span></h1>
+    <div class="content_form">
+    		<div class="ligne">
+    		    <span alt="">
+    		      <label> <?=$this->translate('Titre')?> : </label>
+    		      <p><input type="text" name="name" id="name" class="text"/></p>
+    		    </span>
+        		<div class="clear">&nbsp;</div>
+    		</div>
+    		<div class="ligne">
+    		    <span alt="">
+    		      <label>Description : </label>
+    		      <textarea name="description" id="description" class="text_wysiwyg"></textarea>
+    		    </span>
+        		<div class="clear">&nbsp;</div>
+    		</div>
+    		<div class="ligne">
+    		    <span alt="">
+    		      <label>Type : </label>
+    		      <select name="model" id="model">
+                <?php
+                  foreach($this->listModel as $model):
+                    echo '<option value="'.$model["idModel"].'">';
+                    if($this->lang=="en")
+                      echo $model["libelle_en"];
+                    else
+                      echo $model["libelle_fr"];
+                    echo '</option>';
+                  endforeach;
+                ?>
+                <option value="0"> <?=$this->translate('Dynamique')?></option>
+              </select>
+    		    </span>
+        		<div class="clear">&nbsp;</div>
+    		</div>
+    		<div class="ligne">
+    		    <span alt="">
+    		      <label> <?=$this->translate('Categorie')?> : </label>
+    		      <select name="categorie" id="categorie">
+    		        <option value=''></option>
+                <?php
+                  foreach($this->cat as $cat):
+                      if($this->lang="en")
+                      $title =  $cat["title_en"];
+                    else
+                      $title = $cat["title_fr"];
+                    echo '<option value="'.$cat["idcategories"].'">'.$title.'</option>';
+                  endforeach;
+                ?>
+              </select>
+    		    </span>
+        		<div class="clear">&nbsp;</div>
+    		</div>
+    		<div class="ligne" id="divSubCategorie">
+
+    		</div>
+    		<div class="ligne">
+    		    <span alt="">
+    		      <label>Tags : </label>
+    		      <p><input type="text" name="tags" class="text"/></p>
+    		    </span>
+        		<div class="clear">&nbsp;</div>
+    		</div>
+      <p><input type="button" onClick="Tootlist.createList.submit()" class="modifiable submit" value="<?php echo $this->translate('Register'); ?>" class="modifiable"/></p>
+        <div class="clear">&nbsp;</div>
+        	  <p class="champsobligatoire">* :  <?=$this->translate('Champs obligatoire')?></p>
+    </div>
+  </form>
+  <div class="clear">&nbsp;</div> 
+  </div>

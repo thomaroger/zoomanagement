@@ -1,0 +1,98 @@
+<?php  
+  $inst_user = new Model_DbTable_User();
+  $inst_list = new Model_DbTable_List();
+  $inst_chat = new Model_DbTable_Chat();
+  $inst_item = new Model_DbTable_Item();
+  $meta = new Model_DbTable_Metadata();
+?>
+
+  <div id="menu_users_chat" style="-moz-border-radius:5px;-webkit-border-radius :5px;background:none repeat scroll 0 0 <?php echo count($this->onlineFriends)>0 ?  "white": ""?>;float:left;padding:5px;width:270px;">
+  <?php 
+    $compteur = 0;
+    foreach($this->onlineFriends as $id) : ?>
+    <?php 
+    $friend = $inst_user->find($id)->current();
+    $tmp_user = $inst_user->getName($id);
+    ?>
+    <div class="user_chat modifiable" style="background:none repeat scroll 0 0 #CDE0F3;cursor:pointer;" id="menu_<?php echo $compteur?>" onclick="Tootlist.Chat.show(<?php echo $compteur?>);" target="<?php echo $friend->login?>">
+      <div class="separator tootlist_chat_menu">
+        <?php if($tmp_user["photo"] !="") : ?>
+          <div class="avatar" style="background-color:white;float:left;height:32px;margin-right:20px;padding:2px;width:32px;">
+            <img src="<?php echo $tmp_user["photo"]?>" alt="<?php echo $friend->login?> " title="<?php echo $friend->login?>" />
+          </div>
+        <?php else: ?>
+          <div class="avatar" style="float:left;height:32px;margin-right:20px;padding:2px;width:32px;">
+            &nbsp;
+          </div>
+        <?php endif; ?>
+        <p class="modifiable" style="padding-top:0px;width:160px;float:left;">
+          <?php echo $friend->login ?><br />
+          <?php if($tmp_user["name"]!=""): ?>
+          <span style="font-style:italic">(<?php echo strtoupper($tmp_user["name"])." ".ucfirst($tmp_user["firstname"]);?>)</span>
+          <?php endif; ?>
+        </p>
+        <div class="clear">&nbsp;</div>
+      </div>
+    </div>
+    <?php $compteur ++; ?>
+  <?php endforeach; ?>  
+   <div class="clear">&nbsp;</div>
+  </div>
+  <div id="chat_users_chat" style="margin-left:10px;-moz-border-radius:15px;-webkit-border-radius :5px;background:none repeat scroll 0 0 <?php echo count($this->onlineFriends)>0 ?  "white": ""?>;float:left;padding:5px;width:440px;">
+     <?php 
+       $compteur = 0;
+       foreach($this->onlineFriends as $id) :
+        $friend = $inst_user->find($id)->current();
+        ?>
+      <div class="tootlist_chat_tchat modifiable" style="overflow:auto;background:none repeat scroll 0 0 #CDE0F3;" target="<?php echo $id?>" id="tchat_<?php echo $compteur?>">
+        <div class="separator" style="padding:5px">
+          <?php if($this->discussions[$id] >0) : ?>
+            <?php $items = $inst_list->getItems($inst_list->find($this->discussions[$id])->current(),$inst_chat->Model_id, 'idItem ASC'); ?>
+            <?php $user_id_pred = 0; ?>
+            <?php foreach($items as $item) : ?>
+              <?php if($item["status"] != Model_DbTable_Chat::SUPPRIMER) : ?>  
+                <?php if($item["user_id"] == $this->current_user->idUser): ?>
+                  <?php $idSender = $id; ?>
+                <?php else: ?>
+                  <?php $idSender = $this->current_user->idUser; ?>
+                <?php endif;?>
+                <?php if($idSender != $user_id_pred): ?>
+                  <p class="modifiable" <?php echo $item["user_id"]==$this->current_user->idUser ? 'style="float:right;"' : 'style="float:left;"'?> >
+                    <?php echo $inst_user->find($idSender)->current()->login. " : "; ?>
+                  </p>
+                  <div class="clear">&nbsp;</div>
+                <?php endif; ?>
+                
+                <p class="modifiable" id="item_<?php echo $item["item_idItem"]?>" <?php echo $item["user_id"]==$this->current_user->idUser ? 'style="float:right;margin-right:20px;"' : 'style="float:left;margin-left:20px;"'?> >
+                  <?php 
+                    $created_at= new Zend_Date($meta->getMeta($inst_item->Model_id,$item["item_idItem"])->created_at);
+                    if($meta->getMeta($inst_item->Model_id,$item["item_idItem"])->created_at < date('Y-m-d H:i:s', strtotime(Model_DbTable_Chat::TEMPS))) {
+                      $current_chat_item = $inst_chat->find($item["item_idItem"])->current();
+                      $current_chat_item->status = Model_DbTable_Chat::SUPPRIMER;
+                      $current_chat_item->save();
+                    }else {
+                      $current_chat_item = $inst_chat->find($item["item_idItem"])->current();
+                      if($current_chat_item->status == Model_DbTable_Chat::NOUVEAU){
+                        $current_chat_item->status = Model_DbTable_Chat::LU;
+                        $current_chat_item->save();
+                      }
+                    }
+                  ?>
+                  <span style="font-size : 10px;"><?php echo $created_at->get(Zend_Date::TIME_SHORT)?></span>
+                  <?php echo $item["description"] ?> 
+                </p>
+                <div class="clear">&nbsp;</div>
+                <?php $user_id_pred = $idSender; ?>
+              <?php endif;?>
+            <?php endforeach; ?>
+            <?php else: ?>
+              <p class="modifiable"><?=$this->translate("Pas de message")?></p>
+          <?php endif;?>
+          <p class="modifiable" ></p>
+        </div>
+      </div>
+      <?php 
+        $compteur ++;
+      endforeach; ?>
+  </div>
+  <div class="clear">&nbsp;</div>

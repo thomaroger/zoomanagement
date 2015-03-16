@@ -1,0 +1,73 @@
+
+    <?php 
+
+     $inst_user = new Model_DbTable_User();
+     $i =0;
+    foreach($this->myLists as $list):?>
+      <div class="modifiable divContentTrie">
+        <div   class="modifiable divDisplayCat">
+          <p  class="modifiable"> 
+             <a href="/list/view/id/<?=$list['idList']?>" ><?=$list["title"]?></a> 
+              (<?=$list["nbItem"]?>)
+              
+              <?php 
+              
+                if($this->lang == "fr")
+                {
+                 echo $list["cfr"];
+                 if($list["scfr"])
+                  echo " > ".$list["scfr"];
+                }
+                else
+                {
+                 echo $list["cen"];
+                 if($list["scen"])
+                  echo " > ".$list["scen"];
+                }             
+             
+              
+              
+              ?>
+          </p>
+          <?php if($list["description"] !=""):?>
+          <p  class="modifiable" style="font-size:11px"><?=$list["description"]?></p>
+          <?php endif;?>
+        </div>
+        <div  class="modifiable divFormListTrie" >
+          <p  class="modifiable">
+            <form action="/list/updatelist" method="post" id="form<?=$i?>" >
+            <input type="hidden" name="idList" value="<?=$list['idList']?>"/>
+            <?php if(!$inst_user->isHome($list["idList"])) :  ?>
+            
+            <a style="cursor:pointer" class="delete modifiable  tips"  onclick="Tootlist.list.deleteMyList(<?=$list["idList"]?>,'<?=addslashes(utf8_encode($list["title"]))?>')"
+            alt="Suppression :: Vous pouvez supprimer la liste '<?=$list["title"]?>' de vos liste"
+            ><img src="/image/icone/cross_10.png" style="height:15px;width:15px;border:none"/></a> 
+            -
+            <?php endif; ?> 
+            <a style="cursor:pointer"  class=" tips" onClick="$('form<?=$i?>').submit()" alt="Edition :: Vous pouvez modifier le contenu de votre liste">
+            <img src="/image/icone/paper_content_pencil_48.png" style="height:15px; width:15px;"/>
+            </a> 
+           <?php if(!$inst_user->isHome($list["idList"])) :  ?>
+             - 
+            <a style="cursor:pointer" class="home modifiable  tips"  href="javascript:void(0)" onclick="Tootlist.list.addHome(<?=$list["idList"]?>,'<?=addslashes(utf8_encode($list["title"]))?>')"
+            alt="Ajouter &agrave; ma page :: Cette action permet de rajouter la liste sur votre page d'accueil">
+            <img src="/image/icone/add_48.png" style="height:15px;width:15px;border:none"/>
+            </a>
+            <?php endif; ?>
+            -
+            <a href="/list/permission?&width=400&height=300&id=<?php echo $list["idList"] ?>" class="smoothbox tips" style="border:solid 0px black;" alt="Permission :: Les permissions permettant de rendre la liste visible soit pour tout le monde (public) soit pour vos amis (prot&eacute;g&eacute;) soit pas personne sauf vous (priv&eacute;)" >
+                <img src="/image/icone/cadena.png" style="height:15px; width:15px;border:solid 0px black;">
+            </a>
+            -
+            <a style="cursor:pointer" class="tips"  href="javascript:void(0)" onclick="Tootlist.list.duplicate(<?=$list["idList"]?>,'<?=addslashes(utf8_encode($list["title"]))?>')"
+            alt="Duplication de liste :: Cette action permet de dupliquer une liste">
+            <img src="/image/icone/icone-9335-96.png" style="height:15px;width:15px;border:none"/>
+            </a>
+            </form>
+          </p>
+        </div>
+      </div>
+      
+    <?php 
+    $i++;
+    endforeach; ?>

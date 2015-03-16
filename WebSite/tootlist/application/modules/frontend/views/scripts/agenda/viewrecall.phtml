@@ -1,0 +1,18 @@
+<ul>
+<?php 
+  $inst_recall = new Model_DbTable_Recall();
+  foreach($this->recalls as $recall): 
+    if(count($recall) > 0) : ?>
+      <li>
+        <span> 
+          <?php echo $recall["number"]." ".Model_DbTable_Recall::$scale[$recall["timescale"]];?> <?=$this->translate("avant")?> : <?php echo Model_DbTable_Recall::$type[$recall["type"]];?>
+          <a href="javascript:void(0)" onclick="Tootlist.calendrier.delRecall(<?php echo $recall["item_idItem"]; ?>);"><img src="/image/icone/001_02.png" title="supprimer"/></a>
+        </span>
+      </li>
+      <div class="clear">&nbsp;</div>
+<?php 
+    endif;
+  endforeach; 
+?>
+</ul>
+

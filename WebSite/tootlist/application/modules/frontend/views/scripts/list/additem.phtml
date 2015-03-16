@@ -1,0 +1,135 @@
+
+
+     
+     <?php if(isset($this->form)):?>
+<div class="formulaire_content">
+  <form  id="formadditem" action="/list/additem" method="post" name="signup" id="form_addItem" class="modifiable">
+    <h1 class="modifiable"><span><?php echo $this->translate('Ajout d\'objet '); ?></span></h1>
+    <input type="hidden" name="idList" value="<?=$this->idList?>"/>
+    <input type="hidden" name="nbItem" id="nbItem" value="1"/>
+    <input type="hidden" name="type" id="type" value="<?=$this->type?>"/>
+    <input type="hidden" name="idModel" id="idModel" value="<?=$this->idModel?>"/>
+    <div id="content_form" class="content_form">      
+      <div class="item" id="item_1">
+     
+    	  <?php foreach($this->form as $element): ?>
+    	
+    		<div class="ligne">
+    		  <?php if($element->getDescription() !=''): ?>
+    		    <span class="tips label" alt="<?php echo $this->translate($element->getLabel()); ?>::<?php echo $element->getDescription();?>"><?php echo $this->formLabel($element->getName(),$this->translate($element->getLabel())) ?></span>
+    		  <?php else: ?>
+    		    <?php if($element->getLabel() != 'id' ) : ?>
+    		    <span class="label"><?php echo $this->formLabel($element->getName(),$this->translate($element->getLabel())) ?></span>
+    		    <?php endif ; ?>
+    		  <?php endif; 
+    		  
+    		  
+    		  ?>
+    				
+          <?php if(count($element->getMessages())>0): ?>
+    	     <div class="error_signup red">
+    	       <?php echo $this->formErrors($element->getMessages()) ?>
+    	     </div>
+    	    <?php endif; ?>
+    	    <?php echo $this->{$element->helper}(
+                             "record[]",
+                             $element->getValue(),
+                             $element->getAttribs(),
+                             (method_exists($element,'getMultiOptions')) ? $element->getMultiOptions() : ''
+          ) ?>
+    		  <div class="clear">&nbsp;</div>
+    		</div>
+    	  <?php endforeach; ?>
+    </div>
+
+    <div id="before"></div>
+      <p><input type="button" id="addItem" value="ajouter un objet" class="submit modifiable" /></p>
+      <p><input type="submit" class="submit modifiable" value="<?php echo $this->translate('Register'); ?>" onclick="Tootlist.mooEditable.submitFormulaire();"/></p>
+        <div class="clear">&nbsp;</div>
+          <p class="champsobligatoire">* :  <?=$this->translate('Champs obligatoire')?></p>
+    </div>
+    </form>   
+   <div class="clear">&nbsp;</div>
+</div>
+    <?php elseif($this->type == "Pokemon"):?>
+<div class="formulaire_content">
+  <form  id="formaddpokemon" action="/list/addpokemon" method="post" name="signup" class="modifiable">
+    <h1 class="modifiable"><span><?php echo $this->translate('Ajout d\'objet '); ?></span></h1>
+    <input type="hidden" name="idList" id="idList" value="<?=$this->idList?>"/>
+    <input type="hidden" name="nbItem" id="nbItem" value="0"/>
+    <input type="hidden" name="type" id="type" value="<?=$this->type?>"/>
+    <input type="hidden" name="idModel" id="idModel" value="<?=$this->idModel?>"/>
+    <div id="content_firstpok" class="content_form modifiable" style="display:block">
+       <p>
+          <input type="radio" id="choicePokemon1" name="choicePokemon" value="1"/>
+          <img src="/image/pokemon/4.png" />
+       </p>
+       
+        <p>
+          <input type="radio" class="choicePokemon" id="choicePokemon2" name="choicePokemon" value="4" />
+          <img src="/image/pokemon/1.png"/>
+       </p>  
+       <br/>
+       <p >
+          <input type="radio" class="choicePokemon" id="choicePokemon3" name="choicePokemon" value="7"/>
+          <img src="/image/pokemon/7.png"/>
+       </p>  
+       <input type="button" value="<?=$this->translate("valider")?>" onClick="Tootlist.list.choicePokemon()"/>
+    </div>
+    <div id="content_formpok" class="content_form" style="width:430px;display:none">  
+            <input type="hidden" name="firstPok" value="" id="firstPokemon"/> 
+            <input type="hidden" name="thisPok" value="<?=$this->beginPkmn?>" id="thisPok"/>  
+            <div id="nbPokemonCapture" ></div>
+            <div style="height:250px;width:250px;border:1px solid black;float:left">
+              <img src="/image/pokemon/<?=$this->beginPkmn?>.png" id="imgPokemon" style="height:250px"/>
+            </div>
+            <div style="float:left;padding-left:15px;" id="info"></div>
+            <div class="clear">&nbsp;</div>
+            <input type="button" value="<?=$this->translate("capturer")?>" id="btnCapture"/> 
+            <input type="button" value="<?=$this->translate("changer")?>" id="btnChange"/>
+            <input type="button" value="<?=$this->translate("information sur le pok&eacute:mon")?>" id="btnInfo"/>
+            <br/><a href="/" style="color:black"><?=$this->translate("retour &agrave; la page d'accueil")?></a>
+          </form>
+          
+     <div class="clear">&nbsp;</div>
+</div>
+    <?php elseif($this->idModel == 0):?>
+<div class="formulaire_content">
+  <form  id="formadditem" action="/list/additemdynamic" method="post" name="signup" id="form_addItem" class="modifiable">
+    <h1 class="modifiable"><span><?php echo $this->translate('Ajout d\'objet '); ?></span></h1>
+    <input type="hidden" name="idList" value="<?=$this->idList?>"/>
+    <input type="hidden" name="nbItem" id="nbItem" value="1"/>
+    <input type="hidden" name="type" id="type" value="dynamic"/>
+    <input type="hidden" name="idModel" id="idModel" value="0"/>
+    <div id="content_form" class="content_form">     
+     <div class="item" id="item_1">
+            <select id="select_1" name="record[1][]" class="select">
+            <option></option>
+               <?php   foreach($this->listModel as $model):
+                    echo '<option value="'.$model["idModel"].'">';
+                    if($this->lang=="en")
+                      echo $model["libelle_en"];
+                    else
+                      echo $model["libelle_fr"];
+                    echo '</option>';
+                  endforeach;?>
+            </select>
+          <div id="field_1"></div>
+        </div>
+          
+          <div id="before"></div>
+    		  <div class="clear">&nbsp;</div>
+    		</div>
+
+      <p><input type="button" id="addItemDynamic" value="ajouter un objet" class="modifiable" /></p>
+      <p><input type="submit" class="submit modifiable" value="<?php echo $this->translate('Register'); ?>" onclick="Tootlist.mooEditable.submitFormulaire();"/></p>
+        <div class="clear">&nbsp;</div>
+          <p class="champsobligatoire">* :  <?=$this->translate('Champs obligatoire')?></p>
+    </div>
+    </form>   
+   <div class="clear">&nbsp;</div>
+</div>
+          
+    <?php endif;?>
+ 
+  

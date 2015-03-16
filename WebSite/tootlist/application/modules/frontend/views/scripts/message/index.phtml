@@ -1,0 +1,64 @@
+
+<div class="formulaire_content">
+  <h1 class="modifiable" id="title_formulaire">
+    <p class="title_span" style="float:left;">Tootlist <?=$this->translate("Messagerie")?></p>
+  </h1>
+  <h1 class="modifiable titleTabs" id="title_formulaire_content">
+    <span target="tab1" style="text-decoration:underline;"><?=$this->translate("Mes discussions")?></span>
+    <span target="tab2"><?=$this->translate("Nouveau Message")?></span>
+    <span target="tab3"><?=$this->translate("Message envoy&eacute;")?></span> 
+  </h1>
+    <div id="content_messagerie">
+      <div id="tab1">
+        <div class="modifiable" id="listMovie" style="margin:0 auto 20px;padding:10px;">
+          <?php echo $this->action('list','message'); ?>
+        </div>
+      </div>
+      <div id="tab2">
+      <form class="modifiable form_add_message"  action="/message/add" method="post" onSubmit="var bool = Tootlist.Message.verifForm();if(bool==false) return false;">
+        <div class="content_form">
+          <h2 class="modifiable"><?=$this->translate("Ajouter une discussion")?></h2>
+          <br />
+          <div>
+              <div class="ligne"> 
+                <span class="label"> <?=$this->translate("Destinataire")?> :</span>
+                <input type="text" name="destinataire"  id="input_destinataire" class="autocomplete" target="/message/friend" /> 
+                <div class="error_signup red" style="display:none">
+    	             <ul class="errors">
+    	               <li><?=$this->translate("Value is required and can't be empty")?></li>
+    	             </ul>    	     
+    	          </div>
+              </div>
+              <div class="ligne">
+                <span class="label"> <?=$this->translate("Sujet")?>  :</span>
+                <input type="text" class="text" value="" name="subject" id="subject"> 
+                <div class="error_signup red" style="display:none">
+    	             <ul class="errors">
+    	               <li><?=$this->translate("Value is required and can't be empty")?></li>
+    	             </ul>    	     
+    	          </div> 
+              </div>
+              <div class="ligne">
+                <span class="label"> Contenu  :</span>
+                <textarea name="description" id="description" class="text_wysiwyg"></textarea> 
+                <div class="error_signup red" style="display:none">
+    	             <ul class="errors">
+    	               <li><?=$this->translate("Value is required and can't be empty")?></li>
+    	             </ul>    	     
+    	          </div>
+              </div>
+              <p><input type="submit" class="submit modifiable" value="<?php echo $this->translate('Register'); ?>" /></p>
+              <div class="clear">&nbsp;</div>
+          </div>
+        </div>
+    </form>
+
+      </div>
+      <div id="tab3">
+        <div class="modifiable" id="listMovie" style="margin:0 auto 20px;padding:10px;">
+          <?php echo $this->action('send','message'); ?>
+        </div>
+      </div>
+    </div>
+    <div class="clear">&nbsp;</div>
+</div>

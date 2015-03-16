@@ -1,0 +1,13 @@
+<?php $compteur = 0; ?>
+<?php foreach($this->pubs as $pub): ?>
+  <?php if ($compteur ==0) : ?>
+   <img id="publicity_img" suiv="<?php echo $pub["idPublicite"] ?>" src="<?php echo $pub['path'] ?>" alt="<?php echo $pub['title']?>" style="margin-left :-5px;"/> 
+  <p style="margin-top:185px;" class="modifiable"><a href="<?php echo $pub['link'] ?>" style="color:black;">
+  <?=$this->translate("Publicite")?> : <?php echo $pub['title']?></a></p>   
+  <div class="clear">&nbsp;</div>
+  <?php 
+    $compteur ++;
+    endif; ?>
+<?php endforeach; ?>
+
+

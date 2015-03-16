@@ -1,0 +1,299 @@
+<div class="formulaire_content">
+<h1 id="title_formulaire_content" class="titleTabs modifiable" style="text-align:center"><?=$this->infoList->title?></h1>
+ <div class="modifiable" id="listMovie">
+
+  <p style="text-align:right;padding:15px 0px;margin-right:5px;">
+    <a href="/view/<?php echo $this->user_list->login?>"><?=$this->translate("Voir le profil de ");?> <?php echo $this->user_list->login?></a>
+    -
+    <a style="cursor:pointer" class="tips"  href="/list/exportxml/id/<?php echo $this->infoList->idList ?>" alt="Export XML de liste :: Cette action permet d'exporter une liste au format xml">
+      <img src="/image/icone/box_upload_48.png" style="height:15px;width:15px;border:none"/>
+    </a>
+    -
+    <a style="cursor:pointer" class="tips"  href="/list/exportrss/id/<?php echo $this->infoList->idList ?>" alt="Flux RSS de la liste :: Cette action permet d'exporter une liste au format rss">
+      <img src="/image/icone/rss_48.png" style="height:15px;width:15px;border:none"/>
+    </a>
+  </p>
+
+    <?php $inst_list = new Model_DbTable_List();?>
+      <ul style="text-align:center;" class="<?php echo $inst_list->getTypes($this->infoList)."_index";?>">
+
+
+
+<?php  foreach ($this->listItem as $default ) : 
+         $t = $inst_list->getModelItem($default["item_idItem"]);
+         $model = $t[0]["table_name"];
+    
+
+    //item de type picture
+         if($model =="picture"):
+        
+         if($default["item_idItem"]!=""): ?>
+                   <div class="modifiable picture_block" id="picutre_<?php echo $default["item_idItem"]?>" style="margin:0 auto 20px;padding:10px;" >
+                    <h2 class="modifiable"><?php echo $default["title"] ?></h2>
+                    <p style="min-height:20px; padding:10px;"> <?php echo $default["description"] ?></p> 
+                    <div style="margin : 0px auto;">
+                      <a href="/picture/picture?&width=1000&height=600&picture=<?php echo $default["item_idItem"] ?>" class="smoothbox">
+                        <img src="<?php echo $default["url"]?>"  style="text-align:center;max-width:735px;"  id="<?php echo str_replace(" ",'',$default["title"]); ?>" big="<?php echo $default["url"]?>" />
+                      </a>
+                    </div>
+                  </div>
+               <?php endif; ?>    
+             
+          <!-- item de type movie -->     
+       <?php  elseif($model =="movie"):?>
+       
+       
+        <?php if($default["item_idItem"]!=""): ?>
+        <div class="list_movie" style="margin:0 auto 20px;padding:10px;">
+          <h2 class="modifiable">
+            <a href="javascript:void(0)" onclick="Tootlist.Movie.play('quickie_<?php echo $default["item_idItem"] ?>')">
+            <?php echo $default["title"] ?> 
+            </a>
+          </h2>
+          <p style="min-height:20px; padding:10px;"> 
+            <?php echo $default["description"] ?>  
+          </p>  
+           
+       <div class="modifiable quickie" id="quickie_<?php echo $default["item_idItem"] ?>" style="width:640px;margin:0 auto;">
+          <object width="640" height="370" type="video/quicktime" data="<?php echo $default["url"] ?>">
+        	<param name="src" value="<?php echo $default["url"] ?>" />
+        	<param name="showlogo" value="false" />
+        	<param name="autoplay" value="false" />
+          	<object width="640" height="384" type="application/x-shockwave-flash"
+          		data="/flash/video.swf?file=<?php echo $default["url"] ?>">
+          		<param name="movie" value="/flash/video.swf?file=<?php echo $default["url"] ?>" />
+          	</object>
+        	</object>
+         </div>
+        </div>
+        <div class="clear">&nbsp;</div>
+        <?php endif; ?>
+        
+           <!-- item de type bookmark -->       
+        <?php  elseif($model == "bookmark"): ?>       
+         
+         <?php if($default["item_idItem"]!=""): ?>
+        <div class="list_movie" style="margin:0 auto 20px;padding:10px;">
+          <h2 class="modifiable"><?php echo $default["title"] ?></h2>
+         <div>
+          <div style="float:left">
+            <?php if($default["link"]!=""):?>
+             <a href="<?=$default["link"]?>" target="_blank">
+              <img src="http://open.thumbshots.org/image.pxf?url=<?=$default["link"]?>" style="width:150px;height:150px"/>
+              <!--<img src="<?=$default["picture"]?>" style="width:150px;height:150px" alt="<?=$default["title"]?>"/>-->
+             </a>
+             <?php else:?>
+               <img src="<?=$default["picture"]?>" style="width:150px;height:150px"  alt="<?=$default["title"]?>"/>
+             <?php endif;?>
+          </div>
+          <p style="min-height:20px; padding:10px;float:left"> 
+            <?php echo $default["description"] ?>  
+          </p>  
+        </div>   
+        <div class="clear">&nbsp;</div> 
+           <div style="text-align:right">
+              <?php echo $default["tags"]?>
+           </div>
+         </div>
+        <div class="clear">&nbsp;</div>
+        <?php endif; ?>
+        
+        
+          <!-- item de type music -->         
+        <?php elseif($model == "music"):?>
+        <?php if($default["item_idItem"]!=""): ?>
+        <div class="list_movie" style="margin:0 auto 20px;padding:10px;">
+          <h2 class="modifiable">
+            <a href="javascript:void(0)" onclick="Tootlist.music.toogle('player_<?php echo $default["item_idItem"] ?>')"><?php echo $default["title"] ?></a>
+          </h2>
+          <p style="min-height:20px; padding:10px;"> 
+            <?php echo $default["description"] ?>  
+          </p>  
+          <?php $music_url .= $default["url"]."|"; ?>         
+           <div class="player_music" id="player_<?php echo $default["item_idItem"] ?>" style="display:none;">
+            <object type="application/x-shockwave-flash" data="/flash/dewplayer/dewplayer.swf?showtime=1&mp3=<?php echo $default["url"];?>" width="200" height="20" id="dewplayer-mini_<?php echo $default["item_idItem"] ?>">
+              <param name="wmode" value="transparent" />
+              <param name="movie" value="/flash/dewplayer/dewplayer.swf?showtime=1&mp3=<?php echo $default["url"];?>" />
+            </object>
+           </div>
+         </div>
+        <div class="clear">&nbsp;</div>
+        <?php endif; ?>         
+
+        <!-- deezer-->
+        <?php elseif($model =="deezer"): ?> 
+        <div class="list_movie" style="margin:0 auto 20px;padding:10px;">
+          <h2 class="modifiable">
+            <a href="javascript:void(0)" onclick="Tootlist.music.toogle('player_<?php echo $default["item_idItem"] ?>')"><?php echo $default["title"] ?></a>
+          </h2>
+          <p style="min-height:20px; padding:10px;"> 
+            <?php echo $default["description"] ?>  
+          </p>  
+          <?php $music_url .= $default["url"]."|"; ?>    
+  
+        <div class="player_music" id="player_<?php echo $default["item_idItem"] ?>" style="display:none;width:220px;height:55px;;margin: 0 auto;">
+          <object type="application/x-shockwave-flash" width="220" height="55" data="http://www.deezer.com/embedded/small-widget-v2.swf?idSong=<?=$default["url"]?>&colorBackground=0x555552&textColor1=0xFFFFFF&colorVolume=0x39D1FD&autoplay=0">
+          <param name="movie" value="http://www.deezer.com/embedded/small-widget-v2.swf?idSong=<?=$default["url"]?>&colorBackground=0x555552&textColor1=0xFFFFFF&colorVolume=0x39D1FD&autoplay=0" />
+          </object>
+        </div>
+
+         </div>
+        <div class="clear">&nbsp;</div>
+
+    
+     <!-- youtube -->        
+       <?php elseif($model == "youtube"):?>
+       <div class="list_movie" style="margin:0 auto 20px;padding:10px;">
+          <h2 class="modifiable">
+            <a href="javascript:void(0)" onclick="Tootlist.music.toogle('player_<?php echo $default["item_idItem"] ?>')"><?php echo $default["title"] ?></a>
+          </h2>
+          <p style="min-height:20px; padding:10px;"> 
+            <?php echo $default["description"] ?>  
+          </p> 
+           <div class="player_music" id="player_<?php echo $default["item_idItem"] ?>" style="display:none;">
+ 
+             <object width="350" height="300">
+         <param name="movie" value="http://www.youtube.com/v/<?=$default["url"]?>&hl=fr_FR&fs=1&"></param>
+         <param name="allowFullScreen" value="true"></param>
+         <param name="allowscriptaccess" value="always"></param>
+         <embed src="http://www.youtube.com/v/<?=$default["url"]?>&hl=fr_FR&fs=1&" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" width="350" height="300"></embed>
+      </object>  
+       </div>
+      </div>  
+            
+      <!-- dailymotion -->
+      <?php elseif($model == "dailymotion"): ?>
+      <div class="list_movie" style="margin:0 auto 20px;padding:10px;">
+          <h2 class="modifiable">
+            <a href="javascript:void(0)" onclick="Tootlist.music.toogle('player_<?php echo $default["item_idItem"] ?>')"><?php echo $default["title"] ?></a>
+          </h2>
+          <p style="min-height:20px; padding:10px;"> 
+            <?php echo $default["description"] ?>  
+          </p> 
+           <div class="player_music" id="player_<?php echo $default["item_idItem"] ?>" style="display:none;">
+ 
+        <object width="480" height="271">
+          <param name="movie" value="http://www.dailymotion.com/swf/video/<?=$default['url']?>?width=480&autoPlay=0&start=&additionalInfos=0&foreground=%23F7FFFD&highlight=%23FFC300&background=%23171D1B&hideInfos=0&colors=background%3A171D1B%3Bforeground%3AF7FFFD%3Bspecial%3AFFC300%3B"></param>
+          <param name="allowFullScreen" value="true"></param><param name="allowScriptAccess" value="always"></param>
+          <embed type="application/x-shockwave-flash" src="http://www.dailymotion.com/swf/video/<?=$default['url']?>?width=480&autoPlay=0&start=&additionalInfos=0&foreground=%23F7FFFD&highlight=%23FFC300&background=%23171D1B&hideInfos=0&colors=background%3A171D1B%3Bforeground%3AF7FFFD%3Bspecial%3AFFC300%3B" width="480" height="271" allowfullscreen="true" allowscriptaccess="always"></embed>
+        </object>  
+       </div>
+      </div>  
+            
+            
+      <!-- pokemon -->
+     <?php elseif($model == "pkmn_user"): ?>
+     <?php $pok = new Model_DbTable_Pokemon();
+     $monPokemon = $pok->find($default["pokemon_idPokemon"])->current();
+     ?>
+      <div class="list_movie" style="margin:0 auto 20px;padding:10px;">
+          <h2 class="modifiable">
+            <a href="javascript:void(0)" onclick="Tootlist.music.toogle('player_<?php echo $default["item_idItem"] ?>')"><?php echo utf8_encode($monPokemon->name_fr) ?></a>
+          </h2>
+          
+           <div class="player_music" id="player_<?php echo $default["item_idItem"] ?>" style="display:none;">
+ 
+       <img src="/image/pokemon/<?=$monPokemon->id?>.png"/>
+       <div><?php
+       echo "<p>".$this->translate('attaque')." : ".$monPokemon->stat_at."</p>";
+
+echo "<p>".$this->translate('d&eacute;fense').": ".$monPokemon->stat_de."</p>";
+
+echo "<p>".$this->translate('attaque sp&eacute;ciale')." : ".$monPokemon->stat_sa."</p>";
+
+echo "<p>".$this->translate('d&eacute;fense sp&eacute;ciale')." : ".$monPokemon->stat_sd."</p>";
+
+echo "<p>".$this->translate('vitesse')."vitesse : ".$monPokemon->stat_sp."</p>";
+
+echo "<p>".$this->translate('vie')." : ".$monPokemon->stat_hp."</p>";?>
+       </div> 
+       </div>
+      </div>  
+      
+
+      <!-- autre item--> 
+        <?php  else: ?>
+
+        <?php if($default["item_idItem"]!=""): ?>
+        <div class="list_movie" style="margin:0 auto 20px;padding:10px;">
+          <h2 class="modifiable"><?php echo $default["title"] ?></h2>
+          <?php if($default["description"]!=""):?>
+          <p style="min-height:20px; padding:10px;"> 
+            <?php echo $default["description"] ?>  
+          </p>    
+          <?php endif;?>  
+           <div style="text-align:left">
+           <?php 
+           foreach($default as $key=>$field):
+           
+            if($key !="description" && $key !="title" && $key!="item_idItem" && $key!="position")
+            {
+             if(substr($key,0,4)=="date")
+             {
+              echo "<p>".$key." : ".date("d/m/Y",strtotime($field))."</p>"; 
+             }
+             elseif(substr($field,0,4)=="http")
+             {
+               echo "<a href='".$field."'>".$field."</a>";
+             
+             }
+             else
+             {
+               echo "<p>".$key." : ".$field."</p>";
+             }
+            }
+            
+            
+           
+          endforeach;
+          
+          ?>
+              
+           </div>
+         </div>
+        <div class="clear">&nbsp;</div>
+        
+     
+     
+        <?php 
+        endif;
+      endif;
+      endforeach; 
+      ?>
+     
+     
+    <div class="clear">&nbsp;</div>
+
+    
+    
+  <?php if($this->modelList=="music"): ?>
+      <div id="player" style="width:240px;margin: 0 auto;">
+        <object type="application/x-shockwave-flash" data="/flash/dewplayer/dewplayer-multi.swf?showtime=1&mp3=<?php echo trim($music_url,'|');?>" width="240" height="20" id="dewplayer-multi">
+        <param name="wmode" value="transparent" />
+        <param name="movie" value="/flash/dewplayer/dewplayer-multi.swf?showtime=1&mp3=<?php echo trim($music_url,'|');?>" />
+        </object>
+      </div>
+    <div class="clear">&nbsp;</div>  
+
+    <?php elseif($this->modelList=="picture"): ?>
+          <div class="clear">&nbsp;</div>
+          <p style="float:left;margin-left:10px;">
+            <a href="javascript:void(0)" onclick="Tootlist.picture.play()" id="picture_play" ><?=$this->translate("Lire")?></a>
+            <a href="javascript:void(0)" onclick="Tootlist.picture.pause()" id="picture_pause" style="display:none;" >Pause</a>
+          </p>
+          <p style="float:right;margin-right:10px;">
+            <a href="javascript:void(0)" onclick="Tootlist.picture.slide_previous();" ><?=$this->translate("Pr&eacute;c&eacute;dent")?></a>
+            <a href="javascript:void(0)" onclick="Tootlist.picture.slide_next();" ><?=$this->translate("Suivant")?></a>
+          </p>
+          <div class="clear">&nbsp;</div>
+          <div style="height:15px;">&nbsp;</div>  
+        <script>
+          Tootlist.picture.init();
+        </script>      
+     <?php endif;?>
+  </div>       
+       
+    </ul>
+
+  </div>
+</div>

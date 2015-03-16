@@ -1,0 +1,19 @@
+<div id="table" style="width : 710px; margin:0 auto;">
+  <ul style="text-align:center;padding:5px 5px;font-weight:bold;text-transform:uppercase">
+    <li style="width : 100px;float:left;">Id</li>
+    <li style="width : 100px;float:left;">Title</li>
+    <li style="width : 500px;float:left;">Description</li>
+    <div class="clear">&nbsp;</div>
+  </ul>
+  <?php $compteur = 0 ?>
+  <?php foreach($this->logs as $k => $log) : ?>
+  <ul style="text-align:center; padding:5px 5px;background-color:<?php echo $compteur%2==0 ?'#9A9A9A':'#FFFFFF';?>;">
+    <li style="width : 100px;float:left;"><?php echo $log["idLog"]; ?></li>
+    <li style="width : 100px;float:left;"><?php echo $log["title"]; ?></li>
+    <li style="width : 500px;float:left;"><?php echo $log["description"]; ?></li>
+    <div class="clear">&nbsp;</div>
+  </ul>
+  <?php $compteur ++ ; ?>
+  <?php endforeach; ?> 
+  
+</div>

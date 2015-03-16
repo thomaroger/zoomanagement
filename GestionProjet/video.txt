@@ -1,0 +1,5 @@
+
+video bonus :
+ - creation liste classique
+ - creation liste dynamique
+ - vue d'une liste dynamique

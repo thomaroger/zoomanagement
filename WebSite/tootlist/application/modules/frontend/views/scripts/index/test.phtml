@@ -1,0 +1,141 @@
+<div id="lang">
+  <p><?php echo "Langue Utilisateur = ".$this->lang;?></p>
+  <p><?php echo "Langue Navigateur  = " .$this->locale;?></p>
+  <p><?php echo "test session       = ".$this->session;?></p>
+</div>
+
+<div id="">
+  <p>
+    <a href="/user/new" class="tips" alt="Utilisateur :: Cliquez ici pour vous inscrire">Inscription</a>
+  </p>
+</div>
+
+
+<div id="Welcome">
+  <p> Utilisation d'un helper : (Helper mis dans /application/views/helpers) </p>
+  <?php 
+  	$this->TestHelper(); 
+  ?>
+  <p>
+    <a href="http://framework.zend.com/" class="tips" alt="Zend::Zend">Zend Framework Website</a> |
+    <a href="http://framework.zend.com/manual/en/">Zend Framework Manual</a>
+  </p>
+</div>
+
+<div id-"mooRainBow">
+  <label id="demoRainBow">
+    Choisir sa couleur :  
+    <input id="demoRainBowInput" type="text" size="13" name="demoRainBowInput" class="pick" target="Welcome"/>
+  </label>
+</div>
+
+<div class="clear">&nbsp;</div>
+
+<div id="listSortable">
+  <div class="module">
+    <div class="titre">
+		  <p>Titre</p>
+		  <p>-</p>
+		  <p>x</p>
+	  </div>
+    <ul class="sortable"> 
+      <li><div><p>Toto #1</p></div></li>
+      <li><div><p>Toto #2</p></div></li>
+      <li><div><p>Toto #3</p></div></li>
+      <li><div><p>Toto #4</p></div></li>
+      <li><div><p>Toto #5</p></div></li>
+    </ul>
+  </div>
+  
+  
+  <ul class="sortables" style="border : solid 1px black;float:left;padding :10px; margin:50px;  list-style:none;">
+    <li><div style="width : 100px; height :100px; background-color : #a0c0f0; border : solid 1px black;"><p>Toto2</p></div></li>
+    <li><div style="width : 100px; height :100px; background-color : #a1a1e1; border : solid 1px black;"><p>Toto2</p></div></li>
+    <li><div style="width : 100px; height :100px; background-color : #a2f2b2; border : solid 1px black;"><p>Toto2</p></div></li>
+    <li><div style="width : 100px; height :100px; background-color : #a3c3a3; border : solid 1px black;"><p>Toto2</p></div></li>
+    <li><div style="width : 100px; height :100px; background-color : #a4d4c4; border : solid 1px black;"><p>Toto2</p></div></li>
+  </ul>
+  
+  <ul class="sortables" style="border : solid 1px black;float:left;padding :10px; margin:50px; list-style:none;">
+    <li><div style="width : 100px; height :100px; background-color : #a5b5a5; border : solid 1px black;"><p>Toto3</p></div></li>
+    <li><div style="width : 100px; height :100px; background-color : #b5a5b5; border : solid 1px black;"><p>Toto3</p></div></li>
+    <li><div style="width : 100px; height :100px; background-color : #c5d5c5; border : solid 1px black;"><p>Toto3</p></div></li>
+    <li><div style="width : 100px; height :100px; background-color : #d5f5d5; border : solid 1px black;"><p>Toto3</p></div></li>
+    <li><div style="width : 100px; height :100px; background-color : #e5a5e5; border : solid 1px black;"><p>Toto3</p></div></li>
+  </ul>
+</div>
+
+<div class="clear">&nbsp;</div>
+
+<div id="form">
+  <p>
+    <label for="password">Password : </label>
+    <input type="password" id="password" class="passwordShark" />
+  </p>
+</div>
+
+<div class="clear">&nbsp;</div>
+
+<div id="modale">
+  <p>
+    <a href="/index/map?&width=600&height=500&adresse=Voisenon" class="smoothbox" >Google Map</a>
+  </p>
+</div>
+
+<div class="clear">&nbsp;</div>
+
+<div id="pokemon">
+  <p>
+    <img src="/image/pokemon/25.png" alt="pikachu" />    
+  </p>
+</div>
+
+<div class="clear">&nbsp;</div>
+
+<div id="form">
+  <label for="cal1"> Date de naissance : </label>
+  <input id="cal1" name="date" type="text" maxlength="10" class="calendar"/>
+</div>
+
+<div class="clear">&nbsp;</div>
+
+<div id="video">
+  <ul id="links">
+    <li><a href="javascript:void(0)" onclick="Tootlist.Movie.play('http://movies.apple.com/movies/sony_pictures/quantum_of_solace/quantumofsolace-tlr2_h.480.mov',480,220,'quickie',true, false)">Quantum of Solace</a></li> 
+    <li><a href="javascript:void(0)" onclick="Tootlist.Movie.play('http://movies.apple.com/movies/fox/ice_age_iii/iceage3-tlrd_h.480.mov',480,260,'quickie',false,true)">Ice Age 3</a></li> 
+    <li><a href="javascript:void(0)" onclick="Tootlist.Movie.play('http://movies.apple.com/movies/lionsgate/transporter3/transporter3-filmclip_h.480.mov',480,220,'quickie',true, true)">Transporter 3</a></li> 
+  </ul> 
+  <div id="quickie"></div>
+</div>
+
+
+<div class="clear">&nbsp;</div>
+
+<div id="wysiwyg" style="width:800px;">
+  <label for="text_wysiwyg">Exemple de WYSIWYG</label>
+  <textarea class="text_wysiwyg" name="content" style="width:800px;height:200px;padding:10px;border:solid 2px #DDDDDD">
+		&lt;p&gt;&lt;strong&gt;Thomas &lt;/strong&gt; est un &lt;strong&gt;Dieu &lt;/strong&gt;&lt;/p&gt;
+  </textarea>
+  <!--<p>
+    <button onmousedown="Tootlist.mooEditable.getContent();">Recup Content</button>
+		<button onmousedown="Tootlist.mooEditable.getContentSelected();">Recup HTML Selectionne</button> 
+		<button onmousedown="Tootlist.mooEditable.getTextSelected();">Recup TEXT Selectionne</button> 
+  </p>-->
+</div>
+
+<div class="clear">&nbsp;</div>
+<div id="GoogleCalendar">
+<p>Google Calendar</p>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script type="text/javascript" src="/javascript/GoogleCalendar.js"></script>
+  <a href="javascript:void(0)" onclick="GoogleT.Calendar.logIn()" id="login">Se connecter</a>
+  <a href="javascript:void(0)" onclick="GoogleT.Calendar.logOut()" id="logout">Se déconnecter</a>
+  
+  <div id="operation_calendar">
+    <a href="javascript:void(0)" onclick="GoogleT.Calendar.recupCalendars()" id="recup_calendar">Recuperation de son calendrier</a>
+  </div>
+</div>
+
+<?php
+
+?>

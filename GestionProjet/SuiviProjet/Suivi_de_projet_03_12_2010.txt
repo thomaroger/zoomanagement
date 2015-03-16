@@ -1,0 +1,21 @@
+Thomas : 
+  [done] Mise a jour des différents structure pour l'ajout de coin arrondi (Moteur de rendu : Webkit, Gecko)
+  [done] Personnalisation de la home Page (Place des listes dans le content)
+  [done] Personnalisation des styles des pages pour un utilisateur authentifiŽ via le profil
+  [done] Mise en place de la differenciation des listes (Ex : Diaporama homePage)
+  [done] Gestion du parrainage
+  [done] Gestion des notifications
+  [done] Ajout de addThis pour le partage communautaire
+  [current] Gestion des amis
+  
+Yohann : 
+  [current] liste de pokémon
+  [done] création liste dynamique
+  [done] trie "mes listes"
+  [current] gestion de mes listes (suppression/modification/ajout à ma page)
+Nicolas : 
+  [DONE] création liste en xml a partir de l'application
+  [DONE] création d'item en xml a partir de l'application
+
+Christophe :  
+  [current] webservice

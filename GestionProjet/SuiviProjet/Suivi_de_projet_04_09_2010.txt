@@ -1,0 +1,16 @@
+Thomas : 
+  [done] Correction de divers bugs (ordre des items dans une liste)
+  [done] Gestion de la messagerie interne
+  [current] Gestion du chat
+
+Yohann : 
+  [done] supprimer les items d'une liste
+  [current] ajouter des items dans une liste (modification de liste)
+  [current] nettoyer et commenter le code
+
+Nicolas : 
+	[DONE] Ajout de skin au client lourd pour un meilleur rendu visuel
+	[Current] Correction de divers bugs
+	 
+Christophe :  
+  [current] Correction de bugs du webservice

@@ -1,0 +1,38 @@
+<?php if(count($this->cities) > 0) : ?>
+  <?php foreach($this->cities as $k=>$city) : ?>
+    <h2 class="modifiable" style="margin : 10px 0;">
+      <a href="/index/map?&width=600&height=500&adresse=<?php echo $city["name"].", ".$this->countries[$city["country"]]; ?>" class="smoothbox"><?php echo $city["name"].", ".$this->countries[$city["country"]]; ?></a>
+    </h2>
+    <ul class="sortable">
+      <?php if(count($city['weather']) > 0 ) : ?>
+        <li>
+          <div class="weather" style="width:300px; margin:20px auto;">
+            <p class="modifiable date" style="margin-left : 30px;"><?=$this->translate("Maintenant")?> :</p>
+            <div style="float:left;width:248px;height:52px;text-align:center;">
+              <p class="modifiable text" style="height:32px; line-height:32px;font-size : 20px;"><?php echo $city['weather']['condition']['text']?> </p>
+              <p class="modifiable temp" style="height:20px; line-height:20px;font-size : 15px;"><?php echo $city['weather']['condition']['temp']?> &deg;</p>
+            </div>
+            <p class="modifiable gif" style="float:left;width:52px;height:52px;"><img src="<?php echo "http://l.yimg.com/a/i/us/we/52/".$city['weather']['condition']['code'].".gif"?>" /> </p>
+            <div class="clear">&nbsp;</div>
+          </div>  
+        </li>     
+        <?php foreach($city['weather']["forecast"] as $day=>$value) : ?>
+          <?php //if($day != date('D')): ?>
+            <li>
+              <div class="weather" style="width:300px; margin:20px auto;">
+               <p class="modifiable date" style="margin-left : 30px;">
+                  <?php echo str_replace(array('Jan','Fev', 'Mar', 'Apr','May','Jui','Jul','Aug','Sep','Oct','Nov','Dec'),array('Janvier','F&eacute;vrier', 'Mars', 'Avril','Mai','Juin','Juillet','Aout','Septembre','Octobre','Novembre','D&eacute;cembre'),$value['date'])?> :
+                </p>
+                <div style="float:left;width:248px;height:52px;text-align:center;">
+                <p class="modifiable text" style="height:32px; line-height:32px;font-size : 20px;"><?php echo $value['text']?></p>
+                <p class="modifiable temp" style="height:20px; line-height:20px;font-size : 15px;"><?php echo $value['low']?> &deg; / <?php echo $value['high']?> &deg;</p>
+              </div>
+              <p class="modifiable gif" style="float:left;width:52px;height:52px;"><img src="<?php echo "http://l.yimg.com/a/i/us/we/52/".$value['code'].".gif"?>" />  </p>
+              <div class="clear">&nbsp;</div>
+             </div>
+           </li>
+        <?php endforeach;?>
+      <?php endif; ?>
+    </ul>
+  <?php endforeach; ?>
+<?php endif; ?>

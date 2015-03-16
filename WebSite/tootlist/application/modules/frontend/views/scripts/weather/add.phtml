@@ -1,0 +1,33 @@
+ <form class="modifiable form_add_message"  onSubmit="Tootlist.weather.verifForm();return false;">
+        <div class="content_form">
+          <h2 class="modifiable"><?=$this->translate("Ajouter une ville")?></h2>
+          <br />
+          <div
+              <div class="ligne">
+                <span class="label"> <?=$this->translate("Country");?>  :</span>
+                <select name="coutry" id="country">
+                  <?php foreach($this->countries as $country_k => $country_v): ?>
+                    <option value="<?php echo $country_k?>"> <?php echo $country_v?></option>
+                  <?php endforeach; ?>
+                </select>
+                <div class="error_signup red" style="display:none">
+    	             <ul class="errors">
+    	               <li><?=$this->translate("Value is required and can't be empty")?></li>
+    	             </ul>    	     
+    	          </div> 
+              </div>
+              <div class="ligne">
+                <span class="label"> <?=$this->translate("City")?>  :</span>
+                <input type="text" name="city" id="city" class="text" />
+                <div class="error_signup red" style="display:none">
+    	             <ul class="errors">
+    	               <li><?=$this->translate("Value is required and can't be empty")?></li>
+    	             </ul>    	     
+    	          </div>
+              </div>
+              <p><input type="submit" class="submit modifiable" value="<?php echo $this->translate('Register'); ?>" /></p>
+              <div class="clear">&nbsp;</div>
+          </div>
+          <p class="champsobligatoire" style="color: rgb(70, 37, 0);">* : <?=$this->translate("Champs obligatoire")?></p>
+        </div>
+    </form>

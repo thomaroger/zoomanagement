@@ -1,0 +1,40 @@
+<?php $count = 0 ; ?>
+<div class="formulaire_content">
+    <h1 class="modifiable" id="title_formulaire_content">
+      <p class="title_span" style="float:left;">Tootlist <?=$this->translate("Musique")?></p>
+    </h1>
+    <div class="modifiable" id="listMovie">
+      <?php  foreach ($this->musics as $music ) : ?>
+        <?php if($music["item_idItem"]!=""): ?>
+        <?php $count ++ ; ?>
+        <div class="list_movie" style="margin:0 auto 20px;padding:10px;">
+          <h2 class="modifiable">
+            <a href="javascript:void(0)" onclick="Tootlist.music.toogle('player_<?php echo $music["item_idItem"] ?>')"><?php echo $music["title"] ?></a>
+          </h2>
+          <p style="min-height:20px; padding:10px;"> 
+            <?php echo $music["description"] ?>  
+          </p>  
+          <?php $music_url .= $music["url"]."|"; ?>         
+           <div class="player_music" id="player_<?php echo $music["item_idItem"] ?>" style="display:none;">
+            <object type="application/x-shockwave-flash" data="/flash/dewplayer/dewplayer.swf?showtime=1&mp3=<?php echo $music["url"];?>" width="200" height="20" id="dewplayer-mini_<?php echo $music["item_idItem"] ?>">
+              <param name="wmode" value="transparent" />
+              <param name="movie" value="/flash/dewplayer/dewplayer.swf?showtime=1&mp3=<?php echo $music["url"];?>" />
+            </object>
+           </div>
+         </div>
+        <div class="clear">&nbsp;</div>
+        <?php endif; ?>
+      <?php endforeach; ?>
+      <?php if($count > 0) : ?>
+        <div id="player" style="width:240px;margin: 0 auto;">
+          <object type="application/x-shockwave-flash" data="/flash/dewplayer/dewplayer-multi.swf?showtime=1&mp3=<?php echo trim($music_url,'|');?>" width="240" height="20" id="dewplayer-multi">
+          <param name="wmode" value="transparent" />
+          <param name="movie" value="/flash/dewplayer/dewplayer-multi.swf?showtime=1&mp3=<?php echo trim($music_url,'|');?>" />
+          </object>
+        </div>
+      <?php else: ?>
+        <div id="player" style="width:240px;margin: 0 auto;"> &nbsp; </div>
+      <?php endif; ?>
+    <div class="clear">&nbsp;</div>
+  </div>
+</div>

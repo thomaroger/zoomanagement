@@ -1,0 +1,67 @@
+<div style="width: 500px;margin:0 auto;">
+  <h2>Utilisateur : <?php echo $this->user->login; echo "  (".$this->user->idUser.")"; ?></h2>
+  
+  <p>
+    <span style="margin-left :30px;"> Email : </span><br />
+    <?php echo $this->user->email; ?>
+  </p>
+  <p>
+    <span style="margin-left :30px;"> Premiere connexion  : </span><br />
+    <?php echo $this->user->first==1?"Oui":"Non"; ?>
+  </p>
+  <p>
+    <span style="margin-left :30px;"> IP : </span><br />
+    <?php echo $this->user->ip; ?>
+  </p>
+  <p>
+    <span style="margin-left :30px;"> Language : </span><br />
+    <?php echo $this->user->language; ?>
+  </p>
+  <p>
+    <span style="margin-left :30px;"> Login : </span><br />
+    <?php echo $this->user->login; ?>
+  </p>
+  <p>
+    <span style="margin-left :30px;"> En ligne : </span><br />
+    <?php echo $this->user->online==1?"Oui":"Non"; ?>
+  </p>
+  <p>
+    <span style="margin-left :30px;"> Liste restante : </span><br />
+    <?php echo $this->user->quota_list; ?>
+  </p>
+  <p>
+    <span style="margin-left :30px;"> Status : </span><br />
+    <?php echo $this->user->status==1?"Activ&eacute;":"Non Activ&eacute;"; ?>
+  </p>
+  <p>
+    <span style="margin-left :30px;"> Privil&egrave;ge : </span><br />
+    <?php if($this->user->privilege==2) echo "Administrateur"; ?>
+    <?php if($this->user->privilege==1) echo "Mod&eacute;rateur"; ?>
+    <?php if($this->user->privilege==0) echo "Membre"; ?>
+  </p>
+  
+  
+  <h2>Profil de <?php echo $this->user->login; echo "  (".$this->user->idUser.")"; ?></h2>
+   <?php $compteur = 0; ?>
+    <?php if(count($this->profile) > 1) : ?>
+   <?php  foreach($this->profile as $profil): ?>
+    <ul class="item" style="background-color:<?php echo $compteur%2==0 ?'#9A9A9A':'#FFFFFF';?>;">
+      <li><?php echo $profil["property"], " : <br /> ", $profil["value"]; ?></li>
+    </ul>
+    <?php $compteur ++ ; ?>
+  <?php endforeach; ?>
+  <?php endif; ?>
+  
+   <h2>Listes de <?php echo $this->user->login; echo "  (".$this->user->idUser.")"; ?></h2>
+  <?php $compteur = 0; ?>
+   <?php  foreach($this->lists as $list): ?>
+    <ul class="item" style="background-color:<?php echo $compteur%2==0 ?'#9A9A9A':'#FFFFFF';?>;">
+      <li><?php echo $list->idList." : <br />".$list->title; ?></li>
+    </ul>
+    <?php $compteur ++ ; ?>
+  <?php endforeach; ?>
+    
+ </div>
+
+
+

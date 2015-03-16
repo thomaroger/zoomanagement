@@ -1,0 +1,31 @@
+<div id="table" style="width : 710px; margin:0 auto;">
+  <ul style="text-align:center;padding:5px 5px;font-weight:bold;text-transform:uppercase">
+    <li style="width : 100px;float:left;">Statut</li>
+    <li style="width : 50px;float:left;">Login</li>
+    <li style="width : 300px;float:left;">Email</li>
+    <li style="width : 150px;float:left;">Quota</li>
+    <li style="width : 100px;float:left;">IP</li>
+    <div class="clear">&nbsp;</div>
+  </ul>
+  <?php $compteur = 0 ?>
+  <?php foreach($this->users as $k => $user) : ?>
+  <ul style="text-align:center; padding:5px 5px;background-color:<?php echo $compteur%2==0 ?'#9A9A9A':'#FFFFFF';?>;">
+    <li style="width : 100px;float:left;">
+     <?php echo $user["status"]==1?'<a onclick="Tootlist.user.deleteMyListBO('.$user["idUser"].',\''.addslashes($user["login"]).'\')" class="delete" style="cursor: pointer;"><img style="height: 15px; width: 15px; border: medium none;" src="/image/icone/cross_10.png"></a>':'<a onclick="Tootlist.user.addMyListBO('.$user["idUser"].',\''.addslashes($user["login"]).'\')" class="activer" style="cursor: pointer;"><img style="height: 15px; width: 15px; border: medium none;" src="/image/icone/accepted_48.png"></a>'; ?> 
+    </li>
+    <li style="width : 50px;float:left;">
+      <a href="/view/<?php echo $user["login"]; ?>" target="_blank">
+        <?php echo $user["login"]; ?>
+      </a>
+    </li>
+    <li style="width : 300px;float:left;">
+      <a href="/backend/user/detail?&width=600&height=500&idList=<?php echo $user["idUser"]?>" class="smoothbox"><?php echo $user["email"]; ?></a>
+    </li>
+    <li style="width : 150px;float:left;"><?php echo $user["quota_list"]; ?> </li>
+    <li style="width : 100px;float:left;"><?php echo $user["ip"]; ?> </li>
+    <div class="clear">&nbsp;</div>
+  </ul>
+  <?php $compteur ++ ; ?>
+  <?php endforeach; ?> 
+  
+</div>
